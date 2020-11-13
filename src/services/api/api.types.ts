@@ -1,3 +1,5 @@
+export type AuthToken = string;
+
 export type Company = {
   _id: string;
   name: string;

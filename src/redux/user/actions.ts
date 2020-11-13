@@ -5,6 +5,10 @@ interface UserActionTypes {
   LOGIN_USER: 'LOGIN_USER';
   LOGIN_USER_SUCCESS: 'LOGIN_USER_SUCCESS';
   LOGIN_USER_FAILURE: 'LOGIN_USER_FAILURE';
+
+  GET_AUTH_TOKEN: 'GET_AUTH_TOKEN';
+  GET_AUTH_TOKEN_SUCCESS: 'GET_AUTH_TOKEN_SUCCESS';
+  GET_AUTH_TOKEN_FAILURE: 'GET_AUTH_TOKEN_FAILURE';
 }
 
 export interface LoginUserAction {
@@ -22,19 +26,49 @@ export interface LoginUserFailureAction {
   error: string;
 }
 
-interface UserActionCreators {
-  loginUser(email: string, password: string): LoginUserAction;
-  loginUserSucces(): LoginUserSuccessAction; //data
-  loginUserFailure(error: string): LoginUserFailureAction;
+export interface GetAuthTokenAction {
+  type: UserActionTypes['GET_AUTH_TOKEN'];
+  email: string;
+  password: string;
 }
 
-export type UserAction = LoginUserAction | LoginUserSuccessAction | LoginUserFailureAction;
+export interface GetAuthTokenSuccessAction {
+  type: UserActionTypes['GET_AUTH_TOKEN_SUCCESS'];
+  token: string;
+}
+
+export interface GetAuthTokenFailureAction {
+  type: UserActionTypes['GET_AUTH_TOKEN_FAILURE'];
+  error: string;
+}
+
+interface UserActionCreators {
+  loginUser(email: string, password: string): LoginUserAction;
+  loginUserSucces(): LoginUserSuccessAction;
+  loginUserFailure(error: string): LoginUserFailureAction;
+
+  getAuthToken(email: string, password: string): GetAuthTokenAction;
+  getAuthTokenSuccess(token: string): GetAuthTokenSuccessAction;
+  getAuthTokenFailure(error: string): GetAuthTokenFailureAction;
+}
+
+export type UserAction =
+  | LoginUserAction
+  | LoginUserSuccessAction
+  | LoginUserFailureAction
+  | GetAuthTokenAction
+  | GetAuthTokenSuccessAction
+  | GetAuthTokenFailureAction;
 
 const { Types, Creators } = createActions<UserActionTypes, UserActionCreators>(
   {
     loginUser: ['email', 'password'],
     loginUserSucces: ['data'],
     loginUserFailure: ['error'],
+
+    getAuthToken: ['email', 'password'],
+    getAuthTokenSuccess: ['token'],
+    getAuthTokenFailure: ['error'],
   },
   {
     prefix: 'USER/',
