@@ -1,5 +1,5 @@
 import { ApiResponse } from 'apisauce';
-import { call, put, race, take, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { AuthToken } from '../services/api/api.types';
 import api from '../services/api';
 import {
@@ -26,20 +26,12 @@ function* getAuthToken(action: GetAuthTokenAction) {
 
 function* loginUser(action: LoginUserAction) {
   const { email, password } = action;
-  yield put(userActionCreators.getAuthToken(email, password));
-
-  const userTokenRace = yield race({
-    success: take(userActionTypes.GET_AUTH_TOKEN_SUCCESS),
-    error: take(userActionTypes.GET_AUTH_TOKEN_FAILURE),
-  });
-
-  if (userTokenRace.error) {
-    return yield put(userActionCreators.loginUserFailure(userTokenRace.error));
+  try {
+    const userInfo = yield call(api.loginUser, { email, password });
+    console.log('userInfo: ', userInfo);
+  } catch (error) {
+    console.log('loginError: ', error);
   }
-
-  yield put(userActionCreators.loginUserSucces());
-
-  // navigator.ref?.navigate('home');
 }
 
 export function* userSaga() {

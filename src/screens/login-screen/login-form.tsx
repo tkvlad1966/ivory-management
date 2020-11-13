@@ -4,6 +4,10 @@ import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
 // import styled from 'styled-components';
 // import COLORS from '../../utils/colors';
 import styles from './login-form.presets';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { RootState } from '../../redux';
+import { userActionCreators } from '../../redux/user';
 
 // Shape of form values
 interface FormValues {
@@ -39,6 +43,7 @@ const InnerForm = (props: FormikProps<FormValues>) => {
 // The type of props MyForm receives
 interface MyFormProps {
   initialEmail?: string;
+  loginUser: (email: string, password: string) => void;
   // inputStyle?: ...;
   // buttonStyle: ...;
 }
@@ -64,17 +69,27 @@ const MyForm = withFormik<MyFormProps, FormValues>({
     return errors;
   },
 
-  handleSubmit: (values) => {
+  handleSubmit: (values, { props }) => {
     // do submitting things
-    console.log(values);
+    const { email, password } = values;
+    props.loginUser(email, password);
   },
 })(InnerForm);
 
 // Use <MyForm /> wherevs
-const LoginForm = () => (
+const LoginForm = ({ loginUser }: CombinedProps) => (
   <div>
-    <MyForm />
+    <MyForm loginUser={loginUser} />
   </div>
 );
 
-export default LoginForm;
+type CombinedProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+const mapStateToProps = (_state: RootState) => ({});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  loginUser: (email: string, password: string) =>
+    dispatch(userActionCreators.loginUser(email, password)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

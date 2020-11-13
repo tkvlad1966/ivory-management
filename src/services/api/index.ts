@@ -36,6 +36,14 @@ class Api {
     return this.client.post<AuthToken, string>('/auth/login-jwt', data);
   };
 
+  loginUser = (data: AuthRequestBody) => {
+    try {
+      const responseData = this.client.post('employees/login', data);
+      return responseData;
+    } catch (error) {
+      return error;
+    }
+  };
   // getEventDetails
 
   // getItemDetails
