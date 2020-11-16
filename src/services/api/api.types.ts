@@ -15,7 +15,7 @@ export interface Admin {
   avatar: File;
   role: Role;
   createdAt: Date;
-  updateAt: Date;
+  updatedAt: Date;
   __v: number;
 }
 
@@ -24,13 +24,13 @@ export interface Employee {
   name: null | string;
   email: string;
   company: Company;
-  firstDay: Date;
-  avatar: File;
+  firstDay: string;
+  avatar: string;
   role: Role;
   accumulatedVacation: number;
   usedVacation: number;
-  createdAt: Date;
-  updateAt: Date;
+  createdAt: string;
+  updatedAt: string;
   __v: number;
 }
 

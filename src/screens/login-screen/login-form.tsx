@@ -85,7 +85,11 @@ const LoginForm = ({ loginUser }: CombinedProps) => (
 
 type CombinedProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const mapStateToProps = (_state: RootState) => ({});
+const mapStateToProps = (state: RootState) => ({
+  employeeAccount: state.user.employeeAccount,
+  isLoading: state.user.isLoading,
+  token: state.user.token,
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   loginUser: (email: string, password: string) =>
