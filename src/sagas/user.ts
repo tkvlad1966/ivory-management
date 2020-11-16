@@ -29,7 +29,7 @@ function* loginUser(action: LoginUserAction) {
   try {
     const userInfo = yield call(api.loginUser, { email, password });
     console.log('userInfo: ', userInfo);
-    // yield put(userActionCreators.loginUserSuccess(userInfo.data.employee));
+    yield put(userActionCreators.loginUserSuccess(userInfo.data.employee));
   } catch (error) {
     console.log('loginError: ', error);
   }

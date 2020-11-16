@@ -89,7 +89,7 @@ export type UserAction =
 const { Types, Creators } = createActions<UserActionTypes, UserActionCreators>(
   {
     loginUser: [],
-    loginUserSucces: ['employeeAccount'],
+    loginUserSuccess: ['employeeAccount'],
     loginUserFailure: ['error'],
 
     getUserAccount: null,
