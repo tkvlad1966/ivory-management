@@ -2,16 +2,23 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 // import styled from 'styled-components';
 import Login from './screens/login-screen/login';
-import Register from './screens/login-screen/register';
+import NavBar from './screens/employee-screen/NavBar';
+import { RootState } from './redux';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
-function App() {
+function App(props) {
+  const { initialized } = props;
+
   return (
     <BrowserRouter>
-      <Login />
-      {/* <Route path="/login" render={() => <Login />} /> */}
-      <Route path="/register" render={() => <Register />} />
+      {!initialized && <Login />}
+
+      {initialized && <Route render={() => <NavBar />} />}
     </BrowserRouter>
   );
 }
 
-export default App;
+const mapStateToProps = (state: RootState) => ({ initialized: state.user.employeeAccount });
+
+export default compose(connect(mapStateToProps, null))(App);
