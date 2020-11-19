@@ -12,15 +12,19 @@ import {
 // TODO error handling
 
 function* getAuthToken(action: GetAuthTokenAction) {
-  const { email, password } = action;
-  const body = { email, password };
+  console.log('action:', action);
 
-  const response: ApiResponse<AuthToken, string> = yield call(api.getAuthToken, body);
-  if (response.ok && response.data) {
-    api.setAuthHeader(response.data);
-    yield put(userActionCreators.getAuthTokenSuccess(response.data));
-  } else if (!response.ok) {
-    yield put(userActionCreators.getAuthTokenFailure(response.data || 'getAuthToken error'));
+  const refreshTokenObj = { refreshToken: action.refreshToken };
+  try {
+    const response: ApiResponse<AuthToken> = yield call(api.getAuthToken, refreshTokenObj);
+    if (response.ok && response.data) {
+      api.setAuthHeader(response.data.token);
+      yield put(
+        userActionCreators.getAuthTokenSuccess(response.data.token, response.data.refreshToken),
+      );
+    }
+  } catch (error) {
+    yield put(userActionCreators.getAuthTokenFailure(error));
   }
 }
 
@@ -28,10 +32,17 @@ function* loginUser(action: LoginUserAction) {
   const { email, password } = action;
   try {
     const userInfo = yield call(api.loginUser, { email, password });
-    console.log('userInfo: ', userInfo);
     yield put(userActionCreators.loginUserSuccess(userInfo.data.employee));
+    yield put(
+      userActionCreators.getAuthTokenSuccess(userInfo.data.token, userInfo.data.refreshToken),
+    );
+
+    if (userInfo.ok && userInfo.data) {
+      api.setAuthHeader(userInfo.data.token);
+    }
   } catch (error) {
     console.log('loginError: ', error);
+    yield put(userActionCreators.loginUserFailure(error));
   }
 }
 
