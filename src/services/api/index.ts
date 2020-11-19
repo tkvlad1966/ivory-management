@@ -1,7 +1,7 @@
 // import humps from 'humps';
 import apisauce, { ApisauceInstance } from 'apisauce';
 // import config from '../config/env';
-import { AuthToken } from './api.types';
+import { AuthToken, RefreshToken } from './api.types';
 
 type AuthRequestBody = {
   email: string;
@@ -15,7 +15,7 @@ class Api {
     this.client = apisauce.create({
       baseURL,
       timeout: 10000,
-      headers: { 'Cache-Control': 'no-cache' },
+      // headers: { 'Cache-Control': 'no-cache' },
     });
 
     // this.client.addResponseTransform((response) => {
@@ -29,16 +29,20 @@ class Api {
   }
 
   setAuthHeader = (token: string) => {
-    return this.client.setHeader('Authorization', `jwt ${token}`);
+    console.log('token:', token);
+    return this.client.setHeader('Authorization', `Bearer ${token}`);
   };
 
-  getAuthToken = (data: AuthRequestBody) => {
-    return this.client.post<AuthToken, string>('/auth/login-jwt', data);
+  getAuthToken = (refreshToken: RefreshToken) => {
+    console.log('refreshApi', refreshToken);
+    return this.client.post<AuthToken, string>('/employees/refresh', refreshToken);
   };
 
   loginUser = (data: AuthRequestBody) => {
     try {
+      console.log('data', data);
       const responseData = this.client.post('employees/login', data);
+
       return responseData;
     } catch (error) {
       return error;

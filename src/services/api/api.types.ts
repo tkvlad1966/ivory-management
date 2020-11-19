@@ -1,4 +1,7 @@
-export type AuthToken = string;
+export type AuthToken = {
+  token: string;
+  refreshToken: string;
+};
 
 export type Company = {
   _id: string;
@@ -19,7 +22,7 @@ export interface Admin {
   __v: number;
 }
 
-export interface Employee {
+export interface EmployeeType {
   _id: string;
   name: null | string;
   email: string;
@@ -48,7 +51,7 @@ export interface ServerError {
 }
 
 export type Token = string;
-export type RefreshToken = string;
+export type RefreshToken = { refreshToken: string };
 export type Password = string;
 
 export type RegisterRequestBody = {

@@ -1,12 +1,11 @@
 import { createReducer } from 'reduxsauce';
-import { Employee } from '../../services/api/api.types';
+import { EmployeeType } from '../../services/api/api.types';
 // import { Account } from '../../services/api/api.types';
 import {
   UserAction,
   userActionTypes,
-  // LoginUserAction,
   LoginUserSuccessAction,
-  // LoginUserFailureAction,
+  LoginUserFailureAction,
   //GetUserAccountAction,
   // GetUserAccountSuccessAction,
   // GetUserAccountFailureAction,
@@ -16,9 +15,10 @@ import {
 
 export interface UserState {
   isLoading: boolean;
-  employeeAccount: Employee | null;
+  employeeAccount: EmployeeType | null;
   error: string | null;
   token: string | null;
+  refreshToken: string | null;
 }
 
 const INITIAL_STATE: UserState = {
@@ -26,14 +26,10 @@ const INITIAL_STATE: UserState = {
   error: null,
   employeeAccount: null,
   token: null,
+  refreshToken: null,
 };
 
 type Handler<A> = (state: UserState, action: A) => UserState;
-
-// const loginUser: Handler<LoginUserAction> = (state) => ({
-//   ...state,
-//   isLoading: true,
-// });
 
 const loginUserSuccess: Handler<LoginUserSuccessAction> = (state, { employeeAccount }) => ({
   ...state,
@@ -41,11 +37,11 @@ const loginUserSuccess: Handler<LoginUserSuccessAction> = (state, { employeeAcco
   employeeAccount: employeeAccount,
 });
 
-// const loginUserFailure: Handler<LoginUserFailureAction> = (state, { error }) => ({
-//   ...state,
-//   isLoading: false,
-//   error,
-// });
+const loginUserFailure: Handler<LoginUserFailureAction> = (state, { error }) => ({
+  ...state,
+  isLoading: false,
+  error,
+});
 
 // const getUserAccount: Handler<GetUserAccountAction> = (state) => ({
 // ...state,
@@ -67,9 +63,10 @@ const loginUserSuccess: Handler<LoginUserSuccessAction> = (state, { employeeAcco
 //   error,
 // });
 
-const getAuthSuccess: Handler<GetAuthTokenSuccessAction> = (state, { token }) => ({
+const getAuthSuccess: Handler<GetAuthTokenSuccessAction> = (state, { token, refreshToken }) => ({
   ...state,
   token,
+  refreshToken,
 });
 
 const getAuthFailure: Handler<GetAuthTokenFailureAction> = (state, { error }) => ({
@@ -79,9 +76,8 @@ const getAuthFailure: Handler<GetAuthTokenFailureAction> = (state, { error }) =>
 });
 
 export const userReducer = createReducer<UserState, UserAction>(INITIAL_STATE, {
-  // [userActionTypes.LOGIN_USER]: loginUser,
   [userActionTypes.LOGIN_USER_SUCCESS]: loginUserSuccess,
-  // [userActionTypes.LOGIN_USER_FAILURE]: loginUserFailure,
+  [userActionTypes.LOGIN_USER_FAILURE]: loginUserFailure,
 
   //[userActionTypes.GET_EMPLOYEE_ACCOUNT]: getUserAccount,
   // [userActionTypes.GET_EMPLOYEE_ACCOUNT_SUCCESS]: getUserAccountSuccess,
