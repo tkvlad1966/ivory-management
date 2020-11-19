@@ -10,8 +10,6 @@ import LoginForm from './login-form';
 // import { useTranslation } from 'react-i18next';
 
 const Container = styled.div`
-  font-family: HelveticaNowDisplay;
-  font-style: normal;
   font-size: 15px;
   display: flex;
   flex-direction: column;

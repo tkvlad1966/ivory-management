@@ -1,5 +1,5 @@
 import { createActions } from 'reduxsauce';
-import { Employee } from '../../services/api/api.types';
+import { EmployeeType } from '../../services/api/api.types';
 
 interface UserActionTypes {
   LOGIN_USER: 'LOGIN_USER';
@@ -23,7 +23,7 @@ export interface LoginUserAction {
 
 export interface LoginUserSuccessAction {
   type: UserActionTypes['LOGIN_USER_SUCCESS'];
-  employeeAccount: Employee;
+  employeeAccount: EmployeeType;
 }
 
 export interface LoginUserFailureAction {
@@ -37,7 +37,7 @@ export interface GetUserAccountAction {
 
 export interface GetUserAccountSuccessAction {
   type: UserActionTypes['GET_EMPLOYEE_ACCOUNT_SUCCESS'];
-  employeeAccount: Employee;
+  employeeAccount: EmployeeType;
 }
 
 export interface GetUserAccountFailureAction {
@@ -47,13 +47,13 @@ export interface GetUserAccountFailureAction {
 
 export interface GetAuthTokenAction {
   type: UserActionTypes['GET_AUTH_TOKEN'];
-  email: string;
-  password: string;
+  refreshToken: string;
 }
 
 export interface GetAuthTokenSuccessAction {
   type: UserActionTypes['GET_AUTH_TOKEN_SUCCESS'];
   token: string;
+  refreshToken: string;
 }
 
 export interface GetAuthTokenFailureAction {
@@ -63,15 +63,15 @@ export interface GetAuthTokenFailureAction {
 
 interface UserActionCreators {
   loginUser(email: string, password: string): LoginUserAction;
-  loginUserSuccess(employeeAccount: Employee): LoginUserSuccessAction;
+  loginUserSuccess(employeeAccount: EmployeeType): LoginUserSuccessAction;
   loginUserFailure(error: string): LoginUserFailureAction;
 
   getUserAccount(): GetUserAccountAction;
-  getUserAccountSuccess(employeeAccount: Employee): GetUserAccountSuccessAction;
+  getUserAccountSuccess(employeeAccount: EmployeeType): GetUserAccountSuccessAction;
   getUserAccountFailure(error: string): GetUserAccountFailureAction;
 
-  getAuthToken(email: string, password: string): GetAuthTokenAction;
-  getAuthTokenSuccess(token: string): GetAuthTokenSuccessAction;
+  getAuthToken(refreshToken: string): GetAuthTokenAction;
+  getAuthTokenSuccess(token: string, refreshToken: string): GetAuthTokenSuccessAction;
   getAuthTokenFailure(error: string): GetAuthTokenFailureAction;
 }
 
@@ -88,7 +88,7 @@ export type UserAction =
 
 const { Types, Creators } = createActions<UserActionTypes, UserActionCreators>(
   {
-    loginUser: [],
+    loginUser: ['email', 'password'],
     loginUserSuccess: ['employeeAccount'],
     loginUserFailure: ['error'],
 
@@ -96,8 +96,8 @@ const { Types, Creators } = createActions<UserActionTypes, UserActionCreators>(
     getUserAccountSuccess: ['employeeAccount'],
     getUserAccountFailure: ['error'],
 
-    getAuthToken: ['email', 'password'],
-    getAuthTokenSuccess: ['token'],
+    getAuthToken: ['refreshToken'],
+    getAuthTokenSuccess: ['token', 'refreshToken'],
     getAuthTokenFailure: ['error'],
   },
   {

@@ -1,6 +1,7 @@
 // If you add a new color, look for its name on this site http://chir.ag/projects/name-that-color
 
 const COLORS = {
+  Silver: '#C4C4C4',
   Mercury: '#E5E5E5',
   Punch: '#DA4530',
   WHITE: '#FFFFFF',
