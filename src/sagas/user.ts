@@ -1,6 +1,6 @@
 import { ApiResponse } from 'apisauce';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { AuthToken, EmployeeType } from '../services/api/api.types';
+import { AuthToken } from '../services/api/api.types';
 import api from '../services/api';
 import {
   GetAuthTokenAction,
@@ -35,15 +35,15 @@ function* getAuthToken(action: GetAuthTokenAction) {
 
 function* loginUser(action: LoginUserAction) {
   const { email, password } = action;
+
   try {
     const response = yield call(api.loginUser, { email, password });
-    console.log('response.data.employee:', response.data.employee);
+
     yield put(userActionCreators.loginUserSuccess(response.data.employee));
     yield put(
       userActionCreators.getAuthTokenSuccess(response.data.token, response.data.refreshToken),
     );
     if (response.ok && response.data) {
-      console.log('response:', response);
       api.setAuthHeader(response.data.token);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('refreshToken', response.data.refreshToken);
@@ -59,9 +59,12 @@ function* loginUser(action: LoginUserAction) {
 }
 
 function* getEmployeeAccount() {
-  const response: ApiResponse<EmployeeType, string> = yield call(api.getAccount);
+  const token = localStorage.getItem('token');
+  api.setAuthHeader(token);
+  const response: ApiResponse<any, string> = yield call(api.getAccount); // TODO: typing
+
   if (response.ok && response.data) {
-    yield put(userActionCreators.getEmployeeAccountSuccess(response.data));
+    yield put(userActionCreators.getEmployeeAccountSuccess(response.data.employee));
   } else if (!response.ok) {
     yield put(userActionCreators.getEmployeeAccountFailure('getUserAccount error'));
   }

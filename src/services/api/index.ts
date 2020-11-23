@@ -24,7 +24,6 @@ class Api {
   };
 
   getAuthToken = (refreshToken: RefreshToken) => {
-    console.log('apiRefreshToken:', refreshToken);
     return this.client.post<AuthToken, string>('employees/refresh', refreshToken);
   };
 
