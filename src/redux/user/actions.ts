@@ -31,16 +31,16 @@ export interface LoginUserFailureAction {
   error: string;
 }
 
-export interface GetUserAccountAction {
+export interface GetEmployeeAccountAction {
   type: UserActionTypes['GET_EMPLOYEE_ACCOUNT'];
 }
 
-export interface GetUserAccountSuccessAction {
+export interface GetEmployeeAccountSuccessAction {
   type: UserActionTypes['GET_EMPLOYEE_ACCOUNT_SUCCESS'];
   employeeAccount: EmployeeType;
 }
 
-export interface GetUserAccountFailureAction {
+export interface GetEmployeeAccountFailureAction {
   type: UserActionTypes['GET_EMPLOYEE_ACCOUNT_FAILURE'];
   error: string;
 }
@@ -66,9 +66,9 @@ interface UserActionCreators {
   loginUserSuccess(employeeAccount: EmployeeType): LoginUserSuccessAction;
   loginUserFailure(error: string): LoginUserFailureAction;
 
-  getUserAccount(): GetUserAccountAction;
-  getUserAccountSuccess(employeeAccount: EmployeeType): GetUserAccountSuccessAction;
-  getUserAccountFailure(error: string): GetUserAccountFailureAction;
+  getEmployeeAccount(): GetEmployeeAccountAction;
+  getEmployeeAccountSuccess(employeeAccount: EmployeeType): GetEmployeeAccountSuccessAction;
+  getEmployeeAccountFailure(error: string): GetEmployeeAccountFailureAction;
 
   getAuthToken(refreshToken: string): GetAuthTokenAction;
   getAuthTokenSuccess(token: string, refreshToken: string): GetAuthTokenSuccessAction;
@@ -79,9 +79,9 @@ export type UserAction =
   | LoginUserAction
   | LoginUserSuccessAction
   | LoginUserFailureAction
-  | GetUserAccountAction
-  | GetUserAccountSuccessAction
-  | GetUserAccountFailureAction
+  | GetEmployeeAccountAction
+  | GetEmployeeAccountSuccessAction
+  | GetEmployeeAccountFailureAction
   | GetAuthTokenAction
   | GetAuthTokenSuccessAction
   | GetAuthTokenFailureAction;
@@ -92,9 +92,9 @@ const { Types, Creators } = createActions<UserActionTypes, UserActionCreators>(
     loginUserSuccess: ['employeeAccount'],
     loginUserFailure: ['error'],
 
-    getUserAccount: null,
-    getUserAccountSuccess: ['employeeAccount'],
-    getUserAccountFailure: ['error'],
+    getEmployeeAccount: null,
+    getEmployeeAccountSuccess: ['employeeAccount'],
+    getEmployeeAccountFailure: ['error'],
 
     getAuthToken: ['refreshToken'],
     getAuthTokenSuccess: ['token', 'refreshToken'],
