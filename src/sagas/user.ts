@@ -1,6 +1,6 @@
 import { ApiResponse } from 'apisauce';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { AuthToken } from '../services/api/api.types';
+import { AuthToken, EmployeeType } from '../services/api/api.types';
 import api from '../services/api';
 import {
   GetAuthTokenAction,
@@ -58,10 +58,12 @@ function* loginUser(action: LoginUserAction) {
   }
 }
 
+type EmployeeTypeObj = { employee: EmployeeType };
+
 function* getEmployeeAccount() {
   const token = localStorage.getItem('token');
   api.setAuthHeader(token);
-  const response: ApiResponse<any, string> = yield call(api.getAccount); // TODO: typing
+  const response: ApiResponse<EmployeeTypeObj, string> = yield call(api.getAccount); // TODO: typing
 
   if (response.ok && response.data) {
     yield put(userActionCreators.getEmployeeAccountSuccess(response.data.employee));
