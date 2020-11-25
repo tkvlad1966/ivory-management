@@ -6,14 +6,15 @@ import { userActionCreators } from '../../redux/user';
 
 const Home: FC<CombinedProps> = (props) => {
   useEffect(() => {
+    props.getAuthToken(refreshTokenLS);
     props.getEmployeeAccount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const refreshTokenLS = localStorage.refreshToken;
   const tokenLS = localStorage.token;
   const { employeeAccount } = props;
-  const handleClickToken = () => props.getEmployeeAccount();
-  const handleClickAccount = () => props.getAuthToken(refreshTokenLS);
+  const handleClickAccount = () => props.getEmployeeAccount();
+  const handleClickToken = () => props.getAuthToken(refreshTokenLS);
   const handleClickExit = () => {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('token');
