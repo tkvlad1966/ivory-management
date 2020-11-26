@@ -10,8 +10,8 @@ const Container = styled.div`
 `;
 
 const NavBarStyle = styled.div`
-  width: 10em;
-  height: 70em;
+  width: 9rem;
+  height: 70rem;
   border-right: 1px solid black;
 `;
 

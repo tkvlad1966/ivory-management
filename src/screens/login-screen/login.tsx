@@ -20,6 +20,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
+  font-style: normal;
   font-weight: 100;
   font-size: 30px;
   line-height: 44px;
