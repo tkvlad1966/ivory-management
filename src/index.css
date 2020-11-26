@@ -13,5 +13,6 @@ code {
 
 @font-face {
   font-family: 'HelveticaNowDisplay';
-  src: local('HelveticaNowDisplay'), url(./fonts/HelveticaNowDisplay.ttf) format('truetype');
+  src: local('HelveticaNowDisplay'),
+    url(./fonts/HelveticaNowDisplay/HelveticaNowDisplay-Regular.ttf) format('truetype');
 }
