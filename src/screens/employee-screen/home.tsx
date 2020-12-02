@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import History from '../../components/History/history';
 import Portfolio from '../../components/Portfolio/portfolio';
 import Profile from '../../components/Profile/profile';
+import DText, { TEXT_CLASSES } from '../../components/Text/text';
 import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
 import { userActionCreators } from '../../redux/user';
@@ -28,11 +29,6 @@ const ContainerColumn = styled.div`
 `;
 
 const ContainerTitle = styled.div`
-  font-family: HelveticaNowDisplayMedium;
-  font-size: 30px;
-  line-height: 44px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
   margin-top: 2.5rem;
   margin-bottom: 0.5rem;
   padding-left: 0.5rem;
@@ -59,15 +55,23 @@ const Home: FC<CombinedProps> = (props) => {
     <>
       <Container>
         <ContainerColumn>
-          <ContainerTitle>vacation</ContainerTitle>
+          <ContainerTitle>
+            <DText className={TEXT_CLASSES.TITLE}>vacation</DText>
+          </ContainerTitle>
           <Vacation />
-          <ContainerTitle>history</ContainerTitle>
+          <ContainerTitle>
+            <DText className={TEXT_CLASSES.TITLE}>history</DText>
+          </ContainerTitle>
           <History />
         </ContainerColumn>
         <ContainerColumn>
-          <ContainerTitle>profile</ContainerTitle>
+          <ContainerTitle>
+            <DText className={TEXT_CLASSES.TITLE}>profile</DText>
+          </ContainerTitle>
           <Profile />
-          <ContainerTitle>portfolio</ContainerTitle>
+          <ContainerTitle>
+            <DText className={TEXT_CLASSES.TITLE}>portfolio</DText>
+          </ContainerTitle>
           <Portfolio />
         </ContainerColumn>
       </Container>
