@@ -1,19 +1,21 @@
 import styled from 'styled-components';
 
 interface BoxStyle {
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
   margin?: string;
+  b_r?: string;
+  padding?: string;
 }
 
 const Box = styled.section<BoxStyle>`
   width: ${(props) => props.width};
   background: ${(props) => props.color};
   height: ${(props) => props.height};
+  padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};
-  left: 278px;
-  top: 104px;
-  border-radius: 1rem;
+  border-radius: ${(props) => props.b_r};
+  flex: 1;
 `;
 
 export default Box;

@@ -6,17 +6,16 @@ import NavBar from './NavBar';
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  text-align: center;
 `;
 
 const NavBarStyle = styled.div`
-  width: 9rem;
+  width: 8rem;
   height: 70rem;
   border-right: 1px solid black;
 `;
 
 const HomeStyle = styled.div`
-  width: 40em;
+  width: 100%;
 `;
 
 const Employee = () => {

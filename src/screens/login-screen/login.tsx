@@ -6,10 +6,12 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import COLORS from '../../utils/colors';
 import LoginForm from './login-form';
+import Text, { Light } from '../../components/Text/text';
 
 // import { useTranslation } from 'react-i18next';
 
 const Container = styled.div`
+  font-family: HelveticaNowDisplayThin;
   font-size: 15px;
   display: flex;
   flex-direction: column;
@@ -20,8 +22,6 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-style: normal;
-  font-weight: 100;
   font-size: 30px;
   line-height: 44px;
   letter-spacing: 0.3em;
@@ -45,15 +45,18 @@ const Login: FC<LoginProps> = () => {
   // const { t } = useTranslation();
   return (
     <Container>
-      <Logotype name={ivoryLogo.standart} />
+      <Logotype name={ivoryLogo.standart} height="40px" />
       <Title>welcome to ivory</Title>
       <RegisterLink>
-        New here?
-        <NavLinkStyle>
-          <Link to="/register" style={{ color: COLORS.Punch }}>
-            Create an account
-          </Link>
-        </NavLinkStyle>
+        <Text font_family={Light}>
+          {' '}
+          New here?
+          <NavLinkStyle>
+            <Link to="/register" style={{ color: COLORS.Punch }}>
+              Create an account
+            </Link>
+          </NavLinkStyle>
+        </Text>
       </RegisterLink>
       <LoginForm />
     </Container>
