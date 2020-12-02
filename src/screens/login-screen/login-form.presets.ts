@@ -9,13 +9,13 @@ interface LoginFormStyles {
 
 const styles: LoginFormStyles = {
   FieldStyle: styled.input`
-    background-color: ${COLORS.Mercury};
+    background-color: #faf9f9;
     width: 98%;
     border: none;
     border-bottom: 1px solid #c4c4c4;
     margin: 1em 1em 0em 0;
     padding: 0.5em;
-    font-family: HelveticaNowDisplay;
+    font-family: HelveticaNowDisplayLight;
     font-size: 15px;
     letter-spacing: 0.3em;
     text-transform: lowercase;
@@ -35,7 +35,6 @@ const styles: LoginFormStyles = {
     background: #c4c4c4;
     border: none;
     border-radius: 100px;
-    font-weight: normal;
     font-size: 30px;
     line-height: 44px;
     letter-spacing: 0.3em;

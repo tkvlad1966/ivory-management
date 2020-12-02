@@ -12,6 +12,8 @@ const COLORS = {
   CORNFLOWER_BLUE: '#8469EE',
   BLUE_CHALK: '#F9DFFF',
   DAISY_BUSH: '#4827A7',
+  COD_GRAY: '#1D1D1D',
+  GRAY: '#7E7E7E',
 };
 
 export default COLORS;

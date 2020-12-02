@@ -21,6 +21,9 @@ const App: FC = () => {
 const Container = styled.div`
   font-family: HelveticaNowDisplay;
   font-style: normal;
+  font-size: 15px;
+  line-height: 22px;
+  color: black;
 `;
 
 // const mapStateToProps = (state: RootState) => ({ initialized: state.user.initialized });

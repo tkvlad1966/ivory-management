@@ -1,0 +1,26 @@
+.react_calendar {
+  width: 100%;
+  background-color: #c4c4c4;
+  border-radius: 20px;
+  padding-left: 10px;
+  max-width: 100%;
+  font-family: HelveticaNowDisplayLight;
+  line-height: 1.125em;
+  border: none;
+}
+
+.react_calendar__month_view__weekdays {
+  font-family: HelveticaNowDisplayMedium;
+  text-align: center;
+  letter-spacing: 0.2em;
+  /* text-transform: lowercase; */
+  font-size: 15px;
+}
+
+/* .react_calendar__tile {
+  font-size: 20px;
+  letter-spacing: 0.2em;
+  font-family: HelveticaNowDisplayMedium;
+  color: red;
+  padding: calc(0.75em / 0.75) calc(0.5em / 0.75);
+} */

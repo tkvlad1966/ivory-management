@@ -2,8 +2,10 @@ import React, { FC, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import styled from 'styled-components';
+import History from '../../components/History/history';
+import Portfolio from '../../components/Portfolio/portfolio';
+import Profile from '../../components/Profile/profile';
 import Vacation from '../../components/Vacation/vacation';
-// import View from '../../components/calendar/calendar';
 import { RootState } from '../../redux';
 import { userActionCreators } from '../../redux/user';
 
@@ -11,23 +13,28 @@ const Container = styled.div`
   font-size: 15px;
   display: flex;
   flex-direction: row;
-  text-align: left;
   /* font-weight: 500; */
   /* width: 100%; */
   color: black;
 `;
 
 const ContainerColumn = styled.div`
-  margin-left: 10rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  margin-left: 8%;
+  width: 35%;
+  text-align: left;
 `;
 
-const Title = styled.div`
+const ContainerTitle = styled.div`
+  font-family: HelveticaNowDisplayMedium;
   font-size: 30px;
   line-height: 44px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  margin-top: 4rem;
-  margin-bottom: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
   padding-left: 0.5rem;
 `;
 
@@ -52,13 +59,16 @@ const Home: FC<CombinedProps> = (props) => {
     <>
       <Container>
         <ContainerColumn>
-          <Title>vacation</Title>
-          <Vacation></Vacation>
-          <Title>history</Title>
+          <ContainerTitle>vacation</ContainerTitle>
+          <Vacation />
+          <ContainerTitle>history</ContainerTitle>
+          <History />
         </ContainerColumn>
         <ContainerColumn>
-          <Title>profile</Title>
-          <Title>portfolio</Title>
+          <ContainerTitle>profile</ContainerTitle>
+          <Profile />
+          <ContainerTitle>portfolio</ContainerTitle>
+          <Portfolio />
         </ContainerColumn>
       </Container>
       {/* <h1>Home {employeeAccount?.name} </h1>
