@@ -2,30 +2,23 @@ import React, { FC } from 'react';
 import Logotype from '../../components/logotype/logotype';
 import { ivoryLogo } from '../../utils/images/index';
 import styled from 'styled-components';
-// import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import COLORS from '../../utils/colors';
 import LoginForm from './login-form';
-import Text, { Light } from '../../components/Text/text';
+import { font } from '../../fonts/HelveticaNowDisplay';
+import DText, { TEXT_CLASSES } from '../../components/Text/text';
 
 // import { useTranslation } from 'react-i18next';
 
 const Container = styled.div`
-  font-family: HelveticaNowDisplayThin;
-  font-size: 15px;
   display: flex;
   flex-direction: column;
   text-align: left;
-  font-weight: 300;
   width: 50%;
   margin: 15em 25% 0 25%;
 `;
 
 const Title = styled.div`
-  font-size: 30px;
-  line-height: 44px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
   margin-top: 0.7em;
 `;
 
@@ -46,17 +39,20 @@ const Login: FC<LoginProps> = () => {
   return (
     <Container>
       <Logotype name={ivoryLogo.standart} height="40px" />
-      <Title>welcome to ivory</Title>
+      <Title>
+        <DText className={TEXT_CLASSES.TITLE} font_family={font.thin}>
+          welcome to ivory
+        </DText>
+      </Title>
       <RegisterLink>
-        <Text font_family={Light}>
-          {' '}
+        <DText font_family={font.light}>
           New here?
           <NavLinkStyle>
             <Link to="/register" style={{ color: COLORS.Punch }}>
               Create an account
             </Link>
           </NavLinkStyle>
-        </Text>
+        </DText>
       </RegisterLink>
       <LoginForm />
     </Container>

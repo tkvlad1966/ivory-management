@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { font } from '../../fonts/HelveticaNowDisplay';
 import COLORS from '../../utils/colors';
 import Box from '../Box/Box';
-import DText, { Bold } from '../Text/text';
+import DText from '../Text/text';
 
 const Container = styled.div`
   display: flex;
@@ -34,8 +35,7 @@ const Profile = () => {
         </div>
       </Container>
       <DText
-        font_family={Bold}
-        size="15px"
+        font_family={font.bold}
         line_height="35px"
         letter_spacing="0.2em"
         text_transform="uppercase"
@@ -43,8 +43,7 @@ const Profile = () => {
         rate
       </DText>
       <DText
-        font_family={Bold}
-        size="15px"
+        font_family={font.bold}
         line_height="35px"
         letter_spacing="0.2em"
         text_transform="uppercase"
@@ -52,8 +51,7 @@ const Profile = () => {
         hours per week
       </DText>
       <DText
-        font_family={Bold}
-        size="15px"
+        font_family={font.bold}
         line_height="35px"
         letter_spacing="0.2em"
         text_transform="uppercase"

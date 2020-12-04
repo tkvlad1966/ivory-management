@@ -32,13 +32,10 @@ const styles: LoginFormStyles = {
   Button: styled.button`
     width: 100%;
     height: 66px;
+    margin-top: 1em;
     background: #c4c4c4;
     border: none;
     border-radius: 100px;
-    font-size: 30px;
-    line-height: 44px;
-    letter-spacing: 0.3em;
-    color: #000000;
   `,
 };
 

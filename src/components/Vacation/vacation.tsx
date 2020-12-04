@@ -2,15 +2,15 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import COLORS from '../../utils/colors';
 import Box from '../Box/Box';
-import DText, { Bold } from '../Text/text';
+import DText from '../Text/text';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styles from './styles.module.css';
+import { font } from '../../fonts/HelveticaNowDisplay';
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  /* justify-content: center; */
   margin: 10px;
 `;
 
@@ -22,7 +22,6 @@ const CalendarStylesArray = [
 
 const Vacation: FC = () => {
   const [value, onChange] = useState(new Date());
-  // const formatShortWeekday = (locale, date) => formatDate (date, 'dd')
 
   return (
     <Box height="27rem" color={COLORS.Boulder} b_r="20px">
@@ -40,8 +39,8 @@ const Vacation: FC = () => {
       <Container>
         <Box height="5em" color={COLORS.Silver} b_r="10px" margin="10px" padding="10px">
           <DText
-            font_family={Bold}
-            size="13px"
+            font_family={font.bold}
+            size={13}
             line_height="30px"
             letter_spacing="0.2em"
             text_transform="uppercase"
@@ -52,8 +51,8 @@ const Vacation: FC = () => {
         </Box>
         <Box height="5em" color={COLORS.Silver} b_r="10px" margin="10px" padding="10px">
           <DText
-            font_family={Bold}
-            size="13px"
+            font_family={font.bold}
+            size={13}
             line_height="30px"
             letter_spacing="0.2em"
             text_transform="uppercase"

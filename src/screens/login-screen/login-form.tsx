@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootState } from '../../redux';
 import { userActionCreators } from '../../redux/user';
+import DText from '../../components/Text/text';
+import { font } from '../../fonts/HelveticaNowDisplay';
 
 // Shape of form values
 interface FormValues {
@@ -25,16 +27,16 @@ const InnerForm = (props: FormikProps<FormValues>) => {
         <Field type="email" name="email" as={styles.FieldStyle} placeholder="email" />
         {touched.email && errors.email && <div>{errors.email}</div>}
       </div>
-      <div>
-        <Field type="password" name="password" as={styles.FieldStyle} placeholder="password" />
-        {touched.password && errors.password && <div>{errors.password}</div>}
-      </div>
-      <div>
+      <Field type="password" name="password" as={styles.FieldStyle} placeholder="password" />
+      {touched.password && errors.password && <div>{errors.password}</div>}
+      <DText font_family={font.light}>
         <Field type="checkbox" name="toogle" as={styles.FieldCheckStyled} />
         Remember this device
-      </div>
+      </DText>
       <styles.Button type="submit" disabled={isSubmitting}>
-        Sign in
+        <DText size={30} letter_spacing="0.3em">
+          Sign in
+        </DText>
       </styles.Button>
     </Form>
   );

@@ -13,7 +13,7 @@
   font-family: HelveticaNowDisplayMedium;
   text-align: center;
   letter-spacing: 0.2em;
-  /* text-transform: lowercase; */
+  text-transform: lowercase;
   font-size: 15px;
 }
 
