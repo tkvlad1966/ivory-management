@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { font } from '../../fonts/HelveticaNowDisplay';
 import COLORS from '../../utils/colors';
 
 interface LoginFormStyles {
@@ -15,7 +16,7 @@ const styles: LoginFormStyles = {
     border-bottom: 1px solid #c4c4c4;
     margin: 1em 1em 0em 0;
     padding: 0.5em;
-    font-family: HelveticaNowDisplayLight;
+    font-family: ${font.light};
     font-size: 15px;
     letter-spacing: 0.3em;
     text-transform: lowercase;
