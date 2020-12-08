@@ -1,8 +1,6 @@
 import React from 'react';
 // import * as Yup from 'yup';
 import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
-// import styled from 'styled-components';
-// import COLORS from '../../utils/colors';
 import styles from './login-form.presets';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -46,8 +44,6 @@ const InnerForm = (props: FormikProps<FormValues>) => {
 interface MyFormProps {
   initialEmail?: string;
   loginUser: (email: string, password: string) => void;
-  // inputStyle?: ...;
-  // buttonStyle: ...;
 }
 
 // Wrap our form with the withFormik HoC

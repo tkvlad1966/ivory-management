@@ -56,21 +56,29 @@ const Home: FC<CombinedProps> = (props) => {
       <Container>
         <ContainerColumn>
           <ContainerTitle>
-            <DText className={TEXT_CLASSES.TITLE}>vacation</DText>
+            <DText className={TEXT_CLASSES.TITLE} size={30}>
+              vacation
+            </DText>
           </ContainerTitle>
           <Vacation />
           <ContainerTitle>
-            <DText className={TEXT_CLASSES.TITLE}>history</DText>
+            <DText className={TEXT_CLASSES.TITLE} size={30}>
+              history
+            </DText>
           </ContainerTitle>
           <History />
         </ContainerColumn>
         <ContainerColumn>
           <ContainerTitle>
-            <DText className={TEXT_CLASSES.TITLE}>profile</DText>
+            <DText className={TEXT_CLASSES.TITLE} size={30}>
+              profile
+            </DText>
           </ContainerTitle>
           <Profile />
           <ContainerTitle>
-            <DText className={TEXT_CLASSES.TITLE}>portfolio</DText>
+            <DText className={TEXT_CLASSES.TITLE} size={30}>
+              portfolio
+            </DText>
           </ContainerTitle>
           <Portfolio />
         </ContainerColumn>

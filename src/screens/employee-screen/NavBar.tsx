@@ -12,7 +12,7 @@ const Container = styled.div`
 const NavBar = () => {
   return (
     <Container>
-      <Logotype name={ivoryLogo.black} height="80px" />
+      <Logotype name={ivoryLogo.black} height="80px" width="80px" />
     </Container>
   );
 };

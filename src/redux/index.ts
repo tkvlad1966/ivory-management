@@ -2,12 +2,13 @@ import { applyMiddleware, combineReducers, compose, createStore, StoreEnhancer }
 import createSagaMiddleware from 'redux-saga';
 // import reactotron from '../services/reactotron';
 import rootSaga from '../sagas';
+import { profileReducer } from './profile/reducer';
 import { userReducer } from './user';
 // import { dashboardReducer } from './dashboard';
 
 export const rootReducer = combineReducers({
   user: userReducer,
-  // dashboard: dashboardReducer,
+  profile: profileReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

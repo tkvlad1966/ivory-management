@@ -1,29 +1,25 @@
 import React, { FC } from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import { ivoryLogo } from '../../utils/images';
 
 export type logoName = typeof ivoryLogo.standart | typeof ivoryLogo.black;
 
-// interface ImgStyle {
-//   width?: string;
-//   height?: string;
-// }
-
-// const Img = styled.image<ImgStyle>`
-//   width: ${(props) => props.width};
-//   height: ${(props) => props.height};
-// `;
+const ImgStyle = styled.div`
+  background-color: black;
+  border-radius: 47%;
+`;
 
 interface LogotypeProps {
   name: logoName;
   height?: string;
+  width?: string;
 }
 
-const Logotype: FC<LogotypeProps> = ({ name, height }) => {
+const Logotype: FC<LogotypeProps> = ({ name, height, width }) => {
   return (
-    <div>
-      <img src={name} alt="logotype" style={{ height: height }} />
-    </div>
+    <ImgStyle>
+      <img src={name} alt="logotype" style={{ height: height, width: width }} />
+    </ImgStyle>
   );
 };
 

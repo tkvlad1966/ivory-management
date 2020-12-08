@@ -17,23 +17,36 @@ const Container = styled.div`
 const CalendarStylesArray = [
   styles.react_calendar,
   styles.react_calendar__month_view__weekdays,
+  // styles.react_calendar__month_view__days__day__weekend,
+  // styles.react_calendar__month_view__days__day__neighboringMonth,
   // styles.react_calendar__tile,
 ];
 
 const Vacation: FC = () => {
-  const [value, onChange] = useState(new Date());
+  const [selectedValue, setSelectedValue] = useState(new Date());
+  const [start, setStart] = useState(new Date());
+  const [end, setEnd] = useState(new Date());
+
+  const returnValue = (value) => {
+    setStart(value[0]);
+    setSelectedValue(value);
+    setEnd(value[1]);
+  };
+  const formatShortWeekday = (_locale: any, date: { getDay: () => React.ReactText }) =>
+    ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][date.getDay()];
 
   return (
     <Box height="27rem" color={COLORS.Boulder} b_r="20px">
       <Box height="68%" color={COLORS.Silver} b_r="20px">
         <Calendar
           className={CalendarStylesArray}
-          formatShortWeekday={(_locale, date) =>
-            ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][date.getDay()]
-          }
+          next2Label={null}
+          prev2Label={null}
+          formatShortWeekday={formatShortWeekday}
           locale="en-EN"
-          onChange={onChange}
-          value={value}
+          selectRange={true}
+          onChange={returnValue}
+          value={selectedValue}
         />
       </Box>
       <Container>
@@ -46,7 +59,7 @@ const Vacation: FC = () => {
             text_transform="uppercase"
           >
             from
-            <p>15/10/20</p>
+            <p>{start.toLocaleDateString()}</p>
           </DText>
         </Box>
         <Box height="5em" color={COLORS.Silver} b_r="10px" margin="10px" padding="10px">
@@ -58,14 +71,14 @@ const Vacation: FC = () => {
             text_transform="uppercase"
           >
             to
-            <p>15/10/20</p>
+            <p>{end.toLocaleDateString()}</p>
           </DText>
         </Box>
         <div style={{ flex: '1' }}>
           <div style={{ float: 'right' }}>
             <Box
-              width="4.5rem"
-              height="4.5rem"
+              width="4.5em"
+              height="4.5em"
               color={COLORS.COD_GRAY}
               b_r="10px"
               margin="1.5rem"
