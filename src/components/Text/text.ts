@@ -3,6 +3,8 @@ import { font } from '../../fonts/HelveticaNowDisplay';
 
 export const TEXT_CLASSES = {
   TITLE: 'title',
+  SUB_TITLE: 'subTitle',
+  STYLE_PRYMARY: 'stylePrymary',
 };
 
 export type fontFamilyType =
@@ -18,6 +20,7 @@ interface DTextStyle {
   line_height?: string;
   text_transform?: string;
   color?: string;
+  padding?: string;
 }
 
 const DText = styled.div<DTextStyle>`
@@ -27,20 +30,27 @@ const DText = styled.div<DTextStyle>`
   line-height: ${(props) => props.line_height || '22px'};
   text-transform: ${(props) => props.text_transform};
   color: ${(props) => props.color};
+  padding: ${(props) => props.padding};
+
   &.title {
     font-family: ${(props) => props.font_family || font.bold};
-    font-size: 30px;
-    line-height: 44px;
+    /* font-size: ${(props) => props.size + 'px' || '30px'}; */
+    line-height: ${(props) => props.line_height || '44px'};
     letter-spacing: 0.3em;
     text-transform: uppercase;
   }
 
   &.subTitle {
     font-family: ${font.bold};
-    font-size: 20px;
-    line-height: 29px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
+  }
+
+  &.stylePrymary {
+    font-family: ${font.light};
+    padding: 0.5em 0em;
+    color: rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.2em;
   }
 `;
 
