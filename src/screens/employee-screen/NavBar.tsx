@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Logotype from '../../components/logotype/logotype';
+import Logotype, { LOGO_CLASSES } from '../../components/logotype/logotype';
+// import stylesLogo from '../../components/logotype/logotype.presets';
 import { ivoryLogo } from '../../utils/images';
 
 const Container = styled.div`
@@ -12,7 +13,7 @@ const Container = styled.div`
 const NavBar = () => {
   return (
     <Container>
-      <Logotype name={ivoryLogo.black} height="80px" width="80px" />
+      <Logotype name={ivoryLogo.black} preset={LOGO_CLASSES.BLACK} height="80px" />
     </Container>
   );
 };
