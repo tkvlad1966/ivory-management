@@ -15,11 +15,11 @@ const Container = styled.div`
   flex-direction: column;
   text-align: left;
   width: 50%;
-  margin: 15em 25% 0 25%;
+  margin: 10% 25% 0 25%;
 `;
 
 const Title = styled.div`
-  margin-top: 0.7em;
+  margin-top: 30px;
 `;
 
 const RegisterLink = styled.div`
@@ -28,7 +28,7 @@ const RegisterLink = styled.div`
 `;
 
 const NavLinkStyle = styled.span`
-  margin-left: 0.2em;
+  margin-left: 10px;
   color: ${COLORS.Punch};
 `;
 
@@ -40,7 +40,7 @@ const Login: FC<LoginProps> = () => {
     <Container>
       <Logotype name={ivoryLogo.standart} height="40px" />
       <Title>
-        <DText className={TEXT_CLASSES.TITLE} font_family={font.thin}>
+        <DText className={TEXT_CLASSES.TITLE} font_family={font.thin} size={30}>
           welcome to ivory
         </DText>
       </Title>

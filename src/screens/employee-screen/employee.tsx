@@ -9,8 +9,8 @@ const Container = styled.div`
 `;
 
 const NavBarStyle = styled.div`
-  width: 8rem;
-  height: 70rem;
+  width: 140px;
+  height: 1080px;
   border-right: 1px solid black;
 `;
 

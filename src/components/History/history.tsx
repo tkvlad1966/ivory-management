@@ -6,7 +6,7 @@ import DText from '../Text/text';
 
 const History = () => {
   return (
-    <Box height="400px" color={COLORS.Silver} b_r="20px" padding="20px">
+    <Box height="170px" color={COLORS.Silver} b_r="20px" padding="20px">
       <DText
         font_family={font.light}
         letter_spacing="0.3em"

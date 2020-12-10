@@ -12,11 +12,11 @@ const ContainerRow = styled.div`
   flex-direction: row;
 `;
 
-const ContainerColumns = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin: 2rem 0em;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  margin: 9% 0%;
 `;
 
 const ContainerStatus = styled.div`
@@ -30,11 +30,8 @@ const ContainerTitle = styled.div`
   text-align: right;
 `;
 
-const ContainerUserName = styled.div`
-  flex: 1;
-`;
-
 const Ava = styled.div`
+  // todo: fix size problem
   width: 80px;
   height: 75px;
   background-color: ${COLORS.GRAY};
@@ -53,23 +50,17 @@ const Profile: FC<ProfileProps> = (props) => {
   const { name, status, rate, hoursePerWeek, skills } = props;
 
   return (
-    <Box width="74%" height="400px" color={COLORS.Silver} b_r="20px" padding="20px">
+    <Box width="75%" height="320px" color={COLORS.Silver} b_r="20px" padding="20px">
       <ContainerRow>
         <Ava />
         <ContainerStatus>
           <DText font_family={font.bold} size={20}>
             {name}
           </DText>
-          <DText
-            className={TEXT_CLASSES.TITLE}
-            // size={15}
-            color="rgba(0, 0, 0, 0.5)"
-            line_height="22px"
-          >
+          <DText className={TEXT_CLASSES.TITLE} color="rgba(0, 0, 0, 0.5)" line_height="22px">
             {status}
           </DText>
         </ContainerStatus>
-        <ContainerUserName></ContainerUserName>
         <ContainerTitle>
           <DText
             className={TEXT_CLASSES.TITLE}
@@ -82,24 +73,14 @@ const Profile: FC<ProfileProps> = (props) => {
         </ContainerTitle>
       </ContainerRow>
       <ContainerRow>
-        <ContainerColumns>
-          <DText className={TEXT_CLASSES.SUB_TITLE} padding={'0.5em 0em'}>
-            rate
-          </DText>
-
-          <DText className={TEXT_CLASSES.SUB_TITLE} padding={'0.5em 0em'}>
-            hours per week
-          </DText>
-
-          <DText className={TEXT_CLASSES.SUB_TITLE} padding={'0.5em 0em'}>
-            skills
-          </DText>
-        </ContainerColumns>
-        <ContainerColumns>
+        <Container>
+          <DText className={TEXT_CLASSES.SUB_TITLE}>rate</DText>
           <DText className={TEXT_CLASSES.STYLE_PRYMARY}>{rate + '$/h'}</DText>
+          <DText className={TEXT_CLASSES.SUB_TITLE}>hours per week</DText>
           <DText className={TEXT_CLASSES.STYLE_PRYMARY}>{hoursePerWeek + 'h/week'}</DText>
+          <DText className={TEXT_CLASSES.SUB_TITLE}>skills</DText>
           <DText className={TEXT_CLASSES.STYLE_PRYMARY}>{skills}</DText>
-        </ContainerColumns>
+        </Container>
       </ContainerRow>
     </Box>
   );

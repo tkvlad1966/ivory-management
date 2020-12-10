@@ -36,8 +36,8 @@ const Vacation: FC = () => {
     ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][date.getDay()];
 
   return (
-    <Box height="27rem" color={COLORS.Boulder} b_r="20px">
-      <Box height="68%" color={COLORS.Silver} b_r="20px">
+    <Box height="500px" color={COLORS.Boulder} b_r="20px">
+      <Box height="72%" color={COLORS.Silver} b_r="20px">
         <Calendar
           className={CalendarStylesArray}
           next2Label={null}
@@ -50,7 +50,14 @@ const Vacation: FC = () => {
         />
       </Box>
       <Container>
-        <Box height="5em" color={COLORS.Silver} b_r="10px" margin="10px" padding="10px">
+        <Box
+          width="150px"
+          height="80px"
+          color={COLORS.Silver}
+          b_r="10px"
+          margin="10px"
+          padding="10px"
+        >
           <DText
             font_family={font.bold}
             size={13}
@@ -62,7 +69,14 @@ const Vacation: FC = () => {
             <p>{start.toLocaleDateString()}</p>
           </DText>
         </Box>
-        <Box height="5em" color={COLORS.Silver} b_r="10px" margin="10px" padding="10px">
+        <Box
+          width="150px"
+          height="80px"
+          color={COLORS.Silver}
+          b_r="10px"
+          margin="10px"
+          padding="10px"
+        >
           <DText
             font_family={font.bold}
             size={13}
@@ -76,13 +90,7 @@ const Vacation: FC = () => {
         </Box>
         <div style={{ flex: '1' }}>
           <div style={{ float: 'right' }}>
-            <Box
-              width="4.5em"
-              height="4.5em"
-              color={COLORS.COD_GRAY}
-              b_r="10px"
-              margin="1.5rem"
-            ></Box>
+            <Box width="75px" height="75px" color={COLORS.COD_GRAY} b_r="10px" margin="20px"></Box>
           </div>
         </div>
       </Container>

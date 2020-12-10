@@ -14,15 +14,13 @@ const Container = styled.div`
   font-size: 15px;
   display: flex;
   flex-direction: row;
-  /* font-weight: 500; */
-  /* width: 100%; */
   color: black;
 `;
 
 const ContainerColumn = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   margin-left: 8%;
   width: 35%;
   text-align: left;
