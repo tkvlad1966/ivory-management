@@ -15,7 +15,7 @@ const Box = styled.section<BoxStyle>`
   padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};
   border-radius: ${(props) => props.b_r};
-  flex: 1;
+  /* flex: 1; */
 `;
 
 export default Box;

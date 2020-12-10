@@ -34,7 +34,7 @@ const DText = styled.div<DTextStyle>`
 
   &.title {
     font-family: ${(props) => props.font_family || font.bold};
-    /* font-size: ${(props) => props.size + 'px' || '30px'}; */
+    font-size: ${(props) => props.size + 'px' || '30px'};
     line-height: ${(props) => props.line_height || '44px'};
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -42,13 +42,15 @@ const DText = styled.div<DTextStyle>`
 
   &.subTitle {
     font-family: ${font.bold};
+    padding: 4% 0% 4% 0%;
     letter-spacing: 0.2em;
     text-transform: uppercase;
   }
 
   &.stylePrymary {
     font-family: ${font.light};
-    padding: 0.5em 0em;
+    margin-left: 10%;
+    padding: 4% 0em;
     color: rgba(0, 0, 0, 0.5);
     letter-spacing: 0.2em;
   }
