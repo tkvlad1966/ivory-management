@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { font } from '../../fonts/HelveticaNowDisplay';
+import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import { RootState } from '../../redux';
-import COLORS from '../../utils/colors';
+import COLORS from '../../utils/constants';
 import Box from '../Box/Box';
 import DText, { TEXT_CLASSES } from '../Text/text';
 
@@ -50,7 +50,7 @@ const Profile: FC<ProfileProps> = (props) => {
   const { name, status, rate, hoursePerWeek, skills } = props;
 
   return (
-    <Box width="75%" height="320px" color={COLORS.Silver} b_r="20px" padding="20px">
+    <Box width="75%" height="290px" color={COLORS.Silver} b_r="20px" padding="20px">
       <ContainerRow>
         <Ava />
         <ContainerStatus>

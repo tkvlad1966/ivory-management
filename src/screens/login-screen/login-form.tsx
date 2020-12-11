@@ -7,7 +7,7 @@ import { Dispatch } from 'redux';
 import { RootState } from '../../redux';
 import { userActionCreators } from '../../redux/user';
 import DText from '../../components/Text/text';
-import { font } from '../../fonts/HelveticaNowDisplay';
+import { font } from '../../assets/fonts/HelveticaNowDisplay';
 
 // Shape of form values
 interface FormValues {

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { font } from '../../fonts/HelveticaNowDisplay';
+import { font } from '../../assets/fonts/HelveticaNowDisplay';
 
 export const TEXT_CLASSES = {
   TITLE: 'title',
