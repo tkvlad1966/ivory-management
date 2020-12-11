@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import COLORS from '../../utils/colors';
+import COLORS from '../../utils/constants';
 import Box from '../Box/Box';
 
 interface ContainerStyle {
@@ -32,12 +32,12 @@ const Title = styled.div`
   font-family: HelveticaNowDisplayLight;
   color: rgba(0, 0, 0, 0.5);
   letter-spacing: 0.3em;
-  margin: 2% 0% 7% 3%;
+  margin: 2% 0% 3% 3%;
 `;
 
 const Portfolio: FC = () => {
   return (
-    <Box width="78%" height="320px" color={COLORS.Silver} b_r="20px" padding="15px">
+    <Box width="78%" height="300px" color={COLORS.Silver} b_r="20px" padding="15px">
       <Title>MY WORKS</Title>
       <ContainerColumn>
         <Works />

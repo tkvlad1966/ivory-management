@@ -10,6 +10,14 @@ import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
 import { userActionCreators } from '../../redux/user';
 
+const SvgIcon = styled.span`
+  display: block;
+  font-size: 30px;
+  color: black;
+  margin: 20px;
+  float: right;
+`;
+
 const Container = styled.div`
   font-size: 15px;
   display: flex;
@@ -27,7 +35,7 @@ const ContainerColumn = styled.div`
 `;
 
 const ContainerTitle = styled.div`
-  margin-top: 2.5rem;
+  margin-top: 6%;
   margin-bottom: 0.5rem;
   padding-left: 0.5rem;
 `;
@@ -51,6 +59,9 @@ const Home: FC<CombinedProps> = (props) => {
 
   return (
     <>
+      <div style={{ float: 'right' }}>
+        <SvgIcon className={'icon-settings'} />
+      </div>
       <Container>
         <ContainerColumn>
           <ContainerTitle>
@@ -84,7 +95,7 @@ const Home: FC<CombinedProps> = (props) => {
       {/* <h1>Home {employeeAccount?.name} </h1>
       <button onClick={handleClickAccount}> {employeeAccount?.name} </button>
       <button onClick={handleClickToken}> {tokenLS} </button> */}
-      <button onClick={handleClickExit}> Exit </button>
+      <SvgIcon onChange={handleClickExit} className={'icon-logout'} />
     </>
   );
 };

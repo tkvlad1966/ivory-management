@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import COLORS from '../../utils/colors';
+import COLORS from '../../utils/constants';
 import Box from '../Box/Box';
 import DText from '../Text/text';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styles from './styles.module.css';
-import { font } from '../../fonts/HelveticaNowDisplay';
+import { font } from '../../assets/fonts/HelveticaNowDisplay';
 
 const Container = styled.div`
   display: flex;
@@ -22,6 +22,12 @@ const CalendarStylesArray = [
   // styles.react_calendar__tile,
 ];
 
+const SvgIcon = styled.span`
+  display: block;
+  font-size: 30px;
+  color: white;
+`;
+
 const Vacation: FC = () => {
   const [selectedValue, setSelectedValue] = useState(new Date());
   const [start, setStart] = useState(new Date());
@@ -36,7 +42,7 @@ const Vacation: FC = () => {
     ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][date.getDay()];
 
   return (
-    <Box height="500px" color={COLORS.Boulder} b_r="20px">
+    <Box height="450px" color={COLORS.Boulder} b_r="20px">
       <Box height="72%" color={COLORS.Silver} b_r="20px">
         <Calendar
           className={CalendarStylesArray}
@@ -52,7 +58,7 @@ const Vacation: FC = () => {
       <Container>
         <Box
           width="150px"
-          height="80px"
+          height="70px"
           color={COLORS.Silver}
           b_r="10px"
           margin="10px"
@@ -71,7 +77,7 @@ const Vacation: FC = () => {
         </Box>
         <Box
           width="150px"
-          height="80px"
+          height="70px"
           color={COLORS.Silver}
           b_r="10px"
           margin="10px"
@@ -90,7 +96,18 @@ const Vacation: FC = () => {
         </Box>
         <div style={{ flex: '1' }}>
           <div style={{ float: 'right' }}>
-            <Box width="75px" height="75px" color={COLORS.COD_GRAY} b_r="10px" margin="20px"></Box>
+            <Box
+              display="grid"
+              width="70px"
+              height="70px"
+              color={COLORS.COD_GRAY}
+              b_r="10px"
+              margin="20px"
+              justify="center"
+              align="center"
+            >
+              <SvgIcon className={'icon-plus'} />
+            </Box>
           </div>
         </div>
       </Container>

@@ -6,6 +6,9 @@ interface BoxStyle {
   margin?: string;
   b_r?: string;
   padding?: string;
+  justify?: string;
+  align?: string;
+  display?: string;
 }
 
 const Box = styled.section<BoxStyle>`
@@ -15,7 +18,9 @@ const Box = styled.section<BoxStyle>`
   padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};
   border-radius: ${(props) => props.b_r};
-  /* flex: 1; */
+  justify-content: ${(props) => props.justify};
+  align-items: ${(props) => props.align};
+  display: ${(props) => props.display};
 `;
 
 export default Box;

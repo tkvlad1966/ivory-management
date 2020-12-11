@@ -22,9 +22,9 @@ const Logo = styled.img<LogoProps>`
   src: ${(props) => props.src};
   height: ${(props) => props.height || '40px'};
   &.black {
-    width: 80px;
+    width: 60px;
     background-color: black;
-    border-radius: 47%;
+    border-radius: 49%;
     padding: 10px;
   }
 `;
