@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import { RootState } from '../../redux';
-import COLORS from '../../utils/constants';
+import { COLORS } from '../../utils/constants';
 import Box from '../Box/Box';
 import DText, { TEXT_CLASSES } from '../Text/text';
 

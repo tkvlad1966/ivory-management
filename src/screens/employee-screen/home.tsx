@@ -95,7 +95,7 @@ const Home: FC<CombinedProps> = (props) => {
       {/* <h1>Home {employeeAccount?.name} </h1>
       <button onClick={handleClickAccount}> {employeeAccount?.name} </button>
       <button onClick={handleClickToken}> {tokenLS} </button> */}
-      <SvgIcon onChange={handleClickExit} className={'icon-logout'} />
+      <SvgIcon onClick={handleClickExit} className={'icon-logout'} />
     </>
   );
 };

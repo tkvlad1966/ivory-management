@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Box from '../../components/Box/Box';
 import Logotype, { LOGO_CLASSES } from '../../components/logotype/logotype';
 import { IconType } from '../../type';
-import COLORS from '../../utils/constants';
+import { COLORS, ICON } from '../../utils/constants';
 import { ivoryLogo } from '../../utils/images';
 
 const SvgIcon = styled.span`
@@ -25,7 +25,7 @@ const ContainerBar = styled.div`
 `;
 
 const NavBar = () => {
-  const IconsBar: Array<IconType> = ['icon-home', 'icon-time', 'icon-user', 'icon-briefcase'];
+  const IconsBar: Array<IconType> = [ICON.HOME, ICON.TIME, ICON.USER, ICON.BRIEFCASE];
   return (
     <Container>
       <Logotype name={ivoryLogo.black} preset={LOGO_CLASSES.BLACK} height="60px" />

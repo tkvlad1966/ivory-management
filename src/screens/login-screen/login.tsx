@@ -3,7 +3,7 @@ import Logotype from '../../components/logotype/logotype';
 import { ivoryLogo } from '../../utils/images/index';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import COLORS from '../../utils/constants';
+import { COLORS } from '../../utils/constants';
 import LoginForm from './login-form';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import DText, { TEXT_CLASSES } from '../../components/Text/text';

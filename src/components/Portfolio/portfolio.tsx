@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import COLORS from '../../utils/constants';
+import { COLORS, ICON } from '../../utils/constants';
 import Box from '../Box/Box';
 
 interface ContainerStyle {
@@ -9,6 +9,14 @@ interface ContainerStyle {
   row_start?: number;
   row_end?: number;
 }
+
+const SvgIcon = styled.span`
+  display: block;
+  font-size: 15px;
+  color: black;
+  margin: 5px;
+  float: right;
+`;
 
 const Wrapper = styled.div`
   display: grid;
@@ -38,6 +46,7 @@ const Title = styled.div`
 const Portfolio: FC = () => {
   return (
     <Box width="78%" height="300px" color={COLORS.Silver} b_r="20px" padding="15px">
+      <SvgIcon className={ICON.NEXT} />
       <Title>MY WORKS</Title>
       <ContainerColumn>
         <Works />

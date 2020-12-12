@@ -11,3 +11,18 @@ export type IconType =
   | 'icon-time'
   | 'icon-home'
   | 'icon-plus';
+
+export type IconsType = {
+  MENU: IconType;
+  NOTIFICATION: IconType;
+  LOGOUT: IconType;
+  SETTINGS: IconType;
+  CANCEL: IconType;
+  NEXT: IconType;
+  PREV: IconType;
+  BRIEFCASE: IconType;
+  USER: IconType;
+  TIME: IconType;
+  HOME: IconType;
+  PLUS: IconType;
+};
