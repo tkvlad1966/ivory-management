@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import COLORS from '../../utils/constants';
+import { COLORS, ICON } from '../../utils/constants';
 import Box from '../Box/Box';
 import DText from '../Text/text';
 import Calendar from 'react-calendar';
@@ -27,7 +27,13 @@ const SvgIcon = styled.span`
   font-size: 30px;
   color: white;
 `;
-
+const SvgIconCancel = styled.span`
+  display: block;
+  font-size: 15px;
+  color: black;
+  margin: 5px;
+  float: right;
+`;
 const Vacation: FC = () => {
   const [selectedValue, setSelectedValue] = useState(new Date());
   const [start, setStart] = useState(new Date());
@@ -42,7 +48,7 @@ const Vacation: FC = () => {
     ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][date.getDay()];
 
   return (
-    <Box height="450px" color={COLORS.Boulder} b_r="20px">
+    <Box height="470px" color={COLORS.Boulder} b_r="20px">
       <Box height="72%" color={COLORS.Silver} b_r="20px">
         <Calendar
           className={CalendarStylesArray}
@@ -71,6 +77,7 @@ const Vacation: FC = () => {
             letter_spacing="0.2em"
             text_transform="uppercase"
           >
+            <SvgIconCancel className={ICON.CANCEL} />
             from
             <p>{start.toLocaleDateString()}</p>
           </DText>
@@ -90,6 +97,7 @@ const Vacation: FC = () => {
             letter_spacing="0.2em"
             text_transform="uppercase"
           >
+            <SvgIconCancel className={ICON.CANCEL} />
             to
             <p>{end.toLocaleDateString()}</p>
           </DText>
@@ -106,7 +114,7 @@ const Vacation: FC = () => {
               justify="center"
               align="center"
             >
-              <SvgIcon className={'icon-plus'} />
+              <SvgIcon className={ICON.PLUS} />
             </Box>
           </div>
         </div>
