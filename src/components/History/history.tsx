@@ -1,6 +1,6 @@
 import React from 'react';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
-import COLORS from '../../utils/constants';
+import { COLORS } from '../../utils/constants';
 import Box from '../Box/Box';
 import DText from '../Text/text';
 

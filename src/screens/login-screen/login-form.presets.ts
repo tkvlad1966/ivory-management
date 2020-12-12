@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
-import COLORS from '../../utils/constants';
+import { COLORS } from '../../utils/constants';
 
 interface LoginFormStyles {
   FieldStyle: any;
