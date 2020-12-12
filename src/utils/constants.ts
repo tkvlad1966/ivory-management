@@ -1,6 +1,8 @@
 // If you add a new color, look for its name on this site http://chir.ag/projects/name-that-color
 
-const COLORS = {
+import { IconsType } from '../type';
+
+export const COLORS = {
   Boulder: '#747474',
   Silver: '#C4C4C4',
   Mercury: '#E5E5E5',
@@ -16,4 +18,17 @@ const COLORS = {
   GRAY: '#7E7E7E',
 };
 
-export default COLORS;
+export const ICON: IconsType = {
+  MENU: 'icon-menu',
+  NOTIFICATION: 'icon-notification',
+  LOGOUT: 'icon-logout',
+  SETTINGS: 'icon-settings',
+  CANCEL: 'icon-cancel',
+  NEXT: 'icon-next',
+  PREV: 'icon-prev',
+  BRIEFCASE: 'icon-briefcase',
+  USER: 'icon-user',
+  TIME: 'icon-time',
+  HOME: 'icon-home',
+  PLUS: 'icon-plus',
+};
