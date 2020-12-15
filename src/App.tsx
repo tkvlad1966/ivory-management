@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Login from './screens/login-screen/login';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import Employee from './screens/employee-screen/employee';
+import './utils/translation/i18n';
 
 const App: FC = () => {
   const refreshTokenLS: string = localStorage.refreshToken;
