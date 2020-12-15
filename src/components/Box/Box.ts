@@ -9,6 +9,7 @@ interface BoxStyle {
   justify?: string;
   align?: string;
   display?: string;
+  text_align?: string;
 }
 
 const Box = styled.section<BoxStyle>`
@@ -21,6 +22,7 @@ const Box = styled.section<BoxStyle>`
   justify-content: ${(props) => props.justify};
   align-items: ${(props) => props.align};
   display: ${(props) => props.display};
+  text-align: ${(props) => props.text_align};
 `;
 
 export default Box;

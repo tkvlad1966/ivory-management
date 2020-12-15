@@ -75,11 +75,11 @@ const Profile: FC<ProfileProps> = (props) => {
       <ContainerRow>
         <Container>
           <DText className={TEXT_CLASSES.SUB_TITLE}>rate</DText>
-          <DText className={TEXT_CLASSES.STYLE_PRYMARY}>{rate + '$/h'}</DText>
+          <DText className={TEXT_CLASSES.PRIMARY}>{rate + '$/h'}</DText>
           <DText className={TEXT_CLASSES.SUB_TITLE}>hours per week</DText>
-          <DText className={TEXT_CLASSES.STYLE_PRYMARY}>{hoursePerWeek + 'h/week'}</DText>
+          <DText className={TEXT_CLASSES.PRIMARY}>{hoursePerWeek + 'h/week'}</DText>
           <DText className={TEXT_CLASSES.SUB_TITLE}>skills</DText>
-          <DText className={TEXT_CLASSES.STYLE_PRYMARY}>{skills}</DText>
+          <DText className={TEXT_CLASSES.PRIMARY}>{skills}</DText>
         </Container>
       </ContainerRow>
     </Box>
