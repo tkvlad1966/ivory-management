@@ -16,6 +16,7 @@ export const COLORS = {
   DAISY_BUSH: '#4827A7',
   COD_GRAY: '#1D1D1D',
   GRAY: '#7E7E7E',
+  DOVE_GRAY: '#616161',
 };
 
 export const ICON: IconsType = {

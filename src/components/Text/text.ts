@@ -4,7 +4,7 @@ import { font } from '../../assets/fonts/HelveticaNowDisplay';
 export const TEXT_CLASSES = {
   TITLE: 'title',
   SUB_TITLE: 'subTitle',
-  STYLE_PRYMARY: 'stylePrymary',
+  PRIMARY: 'stylePrimary',
 };
 
 export type fontFamilyType =
@@ -21,6 +21,7 @@ interface DTextStyle {
   text_transform?: string;
   color?: string;
   padding?: string;
+  margin?: string;
 }
 
 const DText = styled.div<DTextStyle>`
@@ -31,6 +32,7 @@ const DText = styled.div<DTextStyle>`
   text-transform: ${(props) => props.text_transform};
   color: ${(props) => props.color};
   padding: ${(props) => props.padding};
+  margin: ${(props) => props.margin};
 
   &.title {
     font-family: ${(props) => props.font_family || font.bold};
@@ -47,13 +49,15 @@ const DText = styled.div<DTextStyle>`
     text-transform: uppercase;
   }
 
-  &.stylePrymary {
-    font-family: ${font.light};
+  &.stylePrimary {
+    font-family: ${(props) => props.font_family || font.light};
     margin-left: 10%;
     padding: 4% 0em;
-    color: rgba(0, 0, 0, 0.5);
+    color: ${(props) => props.color || 'rgba(0, 0, 0, 0.5)'};
     letter-spacing: 0.2em;
   }
+
+  /* &.s */
 `;
 
 export default DText;
