@@ -4,11 +4,15 @@ import { AuthToken, EmployeeType } from '../services/api/api.types';
 import api from '../services/api';
 import {
   GetAuthTokenAction,
-  GetEmployeeAccountAction,
   LoginUserAction,
   userActionCreators,
   userActionTypes,
 } from '../redux/user/actions';
+import {
+  GetEmployeeAccountAction,
+  profileActionCreators,
+  profileActionTypes,
+} from '../redux/profile';
 
 // TODO error handling
 
@@ -66,9 +70,9 @@ function* getEmployeeAccount() {
   const response: ApiResponse<EmployeeTypeObj, string> = yield call(api.getAccount); // TODO: typing
 
   if (response.ok && response.data) {
-    yield put(userActionCreators.getEmployeeAccountSuccess(response.data.employee));
+    yield put(profileActionCreators.getEmployeeAccountSuccess(response.data.employee));
   } else if (!response.ok) {
-    yield put(userActionCreators.getEmployeeAccountFailure('getUserAccount error'));
+    yield put(profileActionCreators.getEmployeeAccountFailure('getUserAccount error'));
   }
 }
 
@@ -76,7 +80,7 @@ export function* userSaga() {
   yield takeLatest<LoginUserAction>(userActionTypes.LOGIN_USER, loginUser);
   yield takeLatest<GetAuthTokenAction>(userActionTypes.GET_AUTH_TOKEN, getAuthToken);
   yield takeLatest<GetEmployeeAccountAction>(
-    userActionTypes.GET_EMPLOYEE_ACCOUNT,
+    profileActionTypes.GET_EMPLOYEE_ACCOUNT,
     getEmployeeAccount,
   );
 }

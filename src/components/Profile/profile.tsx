@@ -1,15 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import { RootState } from '../../redux';
+import { profileActionCreators } from '../../redux/profile';
 import { COLORS } from '../../utils/constants';
 import Box from '../Box/Box';
 import DText, { TEXT_CLASSES } from '../Text/text';
 
 const ContainerRow = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
 `;
 
 const Container = styled.div`
@@ -32,6 +34,7 @@ const ContainerTitle = styled.div`
 
 const Ava = styled.div`
   // todo: fix size problem
+  flex: 1;
   width: 80px;
   height: 75px;
   background-color: ${COLORS.GRAY};
@@ -42,15 +45,21 @@ type ProfileProps = {
   name: string;
   status: null | string;
   rate: number | null;
-  hoursePerWeek: number | null;
-  skills: string;
+  hoursPerWeek: number | null;
+  skills: [];
+  getEmployeeAccount: () => void;
 };
 
 const Profile: FC<ProfileProps> = (props) => {
-  const { name, status, rate, hoursePerWeek, skills } = props;
+  const { name, status, rate, hoursPerWeek, skills } = props;
+  const { getEmployeeAccount } = props;
+  useEffect(() => {
+    getEmployeeAccount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <Box width="75%" height="290px" color={COLORS.Silver} b_r="20px" padding="20px">
+    <Box width="80%" height="290px" color={COLORS.Silver} b_r="20px" padding="20px">
       <ContainerRow>
         <Ava />
         <ContainerStatus>
@@ -72,31 +81,30 @@ const Profile: FC<ProfileProps> = (props) => {
           </DText>
         </ContainerTitle>
       </ContainerRow>
-      <ContainerRow>
-        <Container>
-          <DText className={TEXT_CLASSES.SUB_TITLE}>rate</DText>
-          <DText className={TEXT_CLASSES.PRIMARY}>{rate + '$/h'}</DText>
-          <DText className={TEXT_CLASSES.SUB_TITLE}>hours per week</DText>
-          <DText className={TEXT_CLASSES.PRIMARY}>{hoursePerWeek + 'h/week'}</DText>
-          <DText className={TEXT_CLASSES.SUB_TITLE}>skills</DText>
-          <DText className={TEXT_CLASSES.PRIMARY}>{skills}</DText>
-        </Container>
-      </ContainerRow>
+      {/* <ContainerRow> */}
+      <Container>
+        <DText className={TEXT_CLASSES.SUB_TITLE}>rate</DText>
+        <DText className={TEXT_CLASSES.PRIMARY}>{rate + '$/h'}</DText>
+        <DText className={TEXT_CLASSES.SUB_TITLE}>hours per week</DText>
+        <DText className={TEXT_CLASSES.PRIMARY}>{hoursPerWeek + 'h/week'}</DText>
+        <DText className={TEXT_CLASSES.SUB_TITLE}>skills</DText>
+        <DText className={TEXT_CLASSES.PRIMARY}>{skills}</DText>
+      </Container>
+      {/* </ContainerRow> */}
     </Box>
   );
 };
 
 const mapStateToProps = (state: RootState) => ({
-  name: state.user?.employeeAccount?.name ?? null,
-  status: state.profile.status,
-  rate: state.profile.rate,
-  hoursePerWeek: state.profile.hoursePerWeek,
-  skills: state.profile.skills,
+  name: state.profile?.employeeAccount?.name ?? null,
+  status: state.profile?.employeeAccount?.status ?? null,
+  rate: state.profile?.employeeAccount?.rate ?? null,
+  hoursPerWeek: state.profile?.employeeAccount?.hoursPerWeek ?? null,
+  skills: state.profile?.employeeAccount?.skills || 'none',
 });
 
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   loginUser: (email: string, password: string) =>
-//     dispatch(userActionCreators.loginUser(email, password)),
-// });
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  getEmployeeAccount: () => dispatch(profileActionCreators.getEmployeeAccount()),
+});
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

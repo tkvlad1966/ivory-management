@@ -23,18 +23,22 @@ export interface Admin {
 }
 
 export interface EmployeeType {
+  skills: [];
   _id: string;
   name: null | string;
   email: string;
   company: Company;
   firstDay: string;
-  avatar: string;
+  avatar: any;
   role: Role;
   accumulatedVacation: number;
   usedVacation: number;
   createdAt: string;
   updatedAt: string;
   __v: number;
+  hoursPerWeek: number;
+  rate: number;
+  status: string;
 }
 
 export interface companies {

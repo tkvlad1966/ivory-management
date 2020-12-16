@@ -45,7 +45,7 @@ const Title = styled.div`
 
 const Portfolio: FC = () => {
   return (
-    <Box width="78%" height="300px" color={COLORS.Silver} b_r="20px" padding="15px">
+    <Box width="82%" height="300px" color={COLORS.Silver} b_r="20px" padding="15px">
       <SvgIcon className={ICON.NEXT} />
       <Title>MY WORKS</Title>
       <ContainerColumn>
