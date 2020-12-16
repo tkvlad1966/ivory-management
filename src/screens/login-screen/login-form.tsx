@@ -2,10 +2,6 @@ import React from 'react';
 // import * as Yup from 'yup';
 import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
 import styles from './login-form.presets';
-// import { connect } from 'react-redux';
-// import { Dispatch } from 'redux';
-// import { RootState } from '../../redux';
-// import { userActionCreators } from '../../redux/user';
 import DText from '../../components/Text/text';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Button from '../../components/Button/button';
@@ -75,10 +71,10 @@ const MyForm = withFormik<MyFormProps, FormValues>({
     return errors;
   },
 
-  handleSubmit: (values, { props }) => {
+  handleSubmit: (values, { props: { onSignIn } }) => {
     // do submitting things
     const { email, password } = values;
-    props.onSignIn(email, password);
+    onSignIn(email, password);
   },
 })(InnerForm);
 
@@ -90,16 +86,5 @@ const LoginForm = ({ onSignIn }: CombinedProps) => (
 );
 
 type CombinedProps = { onSignIn: (email: string, password: string) => void };
-
-// const mapStateToProps = (state: RootState) => ({
-//   employeeAccount: state.user.employeeAccount,
-//   isLoading: state.user.isLoading,
-//   token: state.user.token,
-// });
-
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   loginUser: (email: string, password: string) =>
-//     dispatch(userActionCreators.loginUser(email, password)),
-// });
 
 export default LoginForm;
