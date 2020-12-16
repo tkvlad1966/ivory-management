@@ -8,6 +8,7 @@ import Profile from '../../components/Profile/profile';
 import DText, { TEXT_CLASSES } from '../../components/Text/text';
 import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
+import { profileActionCreators } from '../../redux/profile';
 import { userActionCreators } from '../../redux/user';
 
 const SvgIcon = styled.span`
@@ -30,7 +31,7 @@ const ContainerColumn = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin-left: 8%;
-  width: 35%;
+  width: 37%;
   text-align: left;
 `;
 
@@ -41,9 +42,10 @@ const ContainerTitle = styled.div`
 `;
 
 const Home: FC<CombinedProps> = (props) => {
+  const { getAuthToken, getEmployeeAccount } = props;
   useEffect(() => {
-    props.getAuthToken(refreshTokenLS);
-    props.getEmployeeAccount();
+    getAuthToken(refreshTokenLS);
+    getEmployeeAccount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const refreshTokenLS = localStorage.refreshToken;
@@ -110,7 +112,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getAuthToken: (refreshToken: string) => dispatch(userActionCreators.getAuthToken(refreshToken)),
-  getEmployeeAccount: () => dispatch(userActionCreators.getEmployeeAccount()),
+  getEmployeeAccount: () => dispatch(profileActionCreators.getEmployeeAccount()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

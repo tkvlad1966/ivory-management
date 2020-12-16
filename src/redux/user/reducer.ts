@@ -5,9 +5,6 @@ import {
   userActionTypes,
   LoginUserSuccessAction,
   LoginUserFailureAction,
-  GetEmployeeAccountAction,
-  GetEmployeeAccountSuccessAction,
-  GetEmployeeAccountFailureAction,
   GetAuthTokenSuccessAction,
   GetAuthTokenFailureAction,
 } from './actions';
@@ -46,26 +43,6 @@ const loginUserFailure: Handler<LoginUserFailureAction> = (state, { error }) => 
   initialized: false,
 });
 
-const getEmployeeAccount: Handler<GetEmployeeAccountAction> = (state) => ({
-  ...state,
-  isLoading: true,
-});
-
-const getEmployeeAccountSuccess: Handler<GetEmployeeAccountSuccessAction> = (
-  state,
-  { employeeAccount },
-) => ({
-  ...state,
-  isLoading: false,
-  employeeAccount,
-});
-
-const getEmployeeAccountFailure: Handler<GetEmployeeAccountFailureAction> = (state, { error }) => ({
-  ...state,
-  isLoading: false,
-  error,
-});
-
 const getAuthTokenSuccess: Handler<GetAuthTokenSuccessAction> = (
   state,
   { token, refreshToken },
@@ -87,9 +64,6 @@ export const userReducer = createReducer<UserState, UserAction>(INITIAL_STATE, {
   [userActionTypes.LOGIN_USER_SUCCESS]: loginUserSuccess,
   [userActionTypes.LOGIN_USER_FAILURE]: loginUserFailure,
 
-  [userActionTypes.GET_EMPLOYEE_ACCOUNT]: getEmployeeAccount,
-  [userActionTypes.GET_EMPLOYEE_ACCOUNT_SUCCESS]: getEmployeeAccountSuccess,
-  [userActionTypes.GET_EMPLOYEE_ACCOUNT_FAILURE]: getEmployeeAccountFailure,
   [userActionTypes.GET_AUTH_TOKEN_SUCCESS]: getAuthTokenSuccess,
   [userActionTypes.GET_AUTH_TOKEN_FAILURE]: getAuthTokenFailure,
 });
