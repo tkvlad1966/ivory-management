@@ -20,6 +20,7 @@ const Container = styled.div`
 const CalendarStylesArray = [
   styles.react_calendar,
   styles.react_calendar__month_view__weekdays,
+  styles.react_calendar__tile__active,
   // styles.react_calendar__month_view__days__day__weekend,
   // styles.react_calendar__month_view__days__day__neighboringMonth,
   // styles.react_calendar__tile,

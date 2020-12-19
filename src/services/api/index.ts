@@ -24,12 +24,12 @@ class Api {
   };
 
   getAuthToken = (refreshToken: RefreshToken) => {
-    return this.client.post<AuthToken, string>('employees/refresh', refreshToken);
+    return this.client.post<AuthToken, string>('auth/refresh', refreshToken);
   };
 
   loginUser = (data: AuthRequestBody) => {
     try {
-      const responseData = this.client.post('employees/login', data);
+      const responseData = this.client.post('auth/login', data);
       return responseData;
     } catch (error) {
       return error;

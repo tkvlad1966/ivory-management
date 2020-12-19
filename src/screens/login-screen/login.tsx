@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootState } from '../../redux';
 import { useTranslation } from 'react-i18next';
+// import i18next from 'i18next';
 
 const Container = styled.div`
   display: flex;
@@ -42,7 +43,8 @@ const Login: FC<CombinedProps> = (props) => {
   const onSignIn = useCallback(
     (email, password) => {
       loginUser(email, password);
-      console.log('on sign in', email, password);
+      // console.log('on sign in', email, password);
+      // i18next.changeLanguage('ua');
     },
     [loginUser],
   );

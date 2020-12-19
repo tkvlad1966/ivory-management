@@ -10,18 +10,6 @@ export type Company = {
 
 export type Role = 'superAdmin' | 'admin' | 'employee';
 
-export interface Admin {
-  _id: string;
-  name: null | string;
-  email: string;
-  company: Company;
-  avatar: File;
-  role: Role;
-  createdAt: Date;
-  updatedAt: Date;
-  __v: number;
-}
-
 export interface EmployeeType {
   skills: [];
   _id: string;
