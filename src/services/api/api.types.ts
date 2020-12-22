@@ -3,14 +3,25 @@ export type AuthToken = {
   refreshToken: string;
 };
 
+export type AuthRequestBody = {
+  email: string;
+  password: string;
+};
+
 export type Company = {
   _id: string;
   name: string;
 };
 
+export type VacationRequest = {
+  beginDate: string;
+  endDate: string;
+  nationalHolidays: Array<string> | [];
+};
+
 export type Role = 'superAdmin' | 'admin' | 'employee';
 
-export interface EmployeeType {
+export interface UserType {
   skills: [];
   _id: string;
   name: null | string;
@@ -29,7 +40,29 @@ export interface EmployeeType {
   status: string;
 }
 
-export interface companies {
+export type UserTypeObj = { employee: UserType };
+
+export type EmployeeType = {
+  _id: string;
+  name: string;
+  role: string;
+};
+
+export interface VacationType {
+  nationalHolidays: Array<string>;
+  status: string;
+  _id: string;
+  currentAccumulatedVacation: number;
+  currentUsedVacation: number;
+  numWorkDays: number;
+  beginVacationDate: string;
+  endVacationDate: string;
+  employee: EmployeeType;
+}
+
+export type VacationRequestsType = Array<VacationType>;
+
+export interface CompaniesType {
   _id: string;
   name: string;
   annualLeave: number;
