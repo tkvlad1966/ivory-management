@@ -1,5 +1,5 @@
 import { createActions } from 'reduxsauce';
-import { EmployeeType } from '../../services/api/api.types';
+import { UserType } from '../../services/api/api.types';
 
 interface UserActionTypes {
   LOGIN_USER: 'LOGIN_USER';
@@ -19,7 +19,7 @@ export interface LoginUserAction {
 
 export interface LoginUserSuccessAction {
   type: UserActionTypes['LOGIN_USER_SUCCESS'];
-  employeeAccount: EmployeeType;
+  employeeAccount: UserType;
 }
 
 export interface LoginUserFailureAction {
@@ -45,7 +45,7 @@ export interface GetAuthTokenFailureAction {
 
 interface UserActionCreators {
   loginUser(email: string, password: string): LoginUserAction;
-  loginUserSuccess(employeeAccount: EmployeeType): LoginUserSuccessAction;
+  loginUserSuccess(employeeAccount: UserType): LoginUserSuccessAction;
   loginUserFailure(error: string): LoginUserFailureAction;
 
   getAuthToken(refreshToken: string): GetAuthTokenAction;

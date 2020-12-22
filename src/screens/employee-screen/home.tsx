@@ -8,8 +8,8 @@ import Profile from '../../components/Profile/profile';
 import DText, { TEXT_CLASSES } from '../../components/Text/text';
 import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
-import { profileActionCreators } from '../../redux/profile';
 import { userActionCreators } from '../../redux/user';
+import { vacationActionCreators } from '../../redux/vacation';
 
 const SvgIcon = styled.span`
   display: block;
@@ -42,22 +42,26 @@ const ContainerTitle = styled.div`
 `;
 
 const Home: FC<CombinedProps> = (props) => {
-  const { getAuthToken, getEmployeeAccount } = props;
+  const { getAuthToken, getVacationRequestsMe, vacationRequests } = props;
   useEffect(() => {
+    getVacationRequestsMe();
     getAuthToken(refreshTokenLS);
-    getEmployeeAccount();
+    // getEmployeeAccount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const refreshTokenLS = localStorage.refreshToken;
-  // const tokenLS = localStorage.token;
-  // const { employeeAccount } = props;
-  // const handleClickAccount = () => props.getEmployeeAccount();
-  // const handleClickToken = () => props.getAuthToken(refreshTokenLS);
+
   const handleClickExit = () => {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('token');
     return window.location.replace('/login');
   };
+
+  const vacationRequestsDate = vacationRequests.map((item) => ({
+    ...item,
+    beginVacationDate: new Date(Date.parse(item.beginVacationDate)),
+    endVacationDate: new Date(Date.parse(item.endVacationDate)),
+  }));
 
   return (
     <>
@@ -77,7 +81,7 @@ const Home: FC<CombinedProps> = (props) => {
               history
             </DText>
           </ContainerTitle>
-          <History />
+          <History vacationRequestsDate={vacationRequestsDate} />
         </ContainerColumn>
         <ContainerColumn>
           <ContainerTitle>
@@ -94,9 +98,6 @@ const Home: FC<CombinedProps> = (props) => {
           <Portfolio />
         </ContainerColumn>
       </Container>
-      {/* <h1>Home {employeeAccount?.name} </h1>
-      <button onClick={handleClickAccount}> {employeeAccount?.name} </button>
-      <button onClick={handleClickToken}> {tokenLS} </button> */}
       <SvgIcon onClick={handleClickExit} className={'icon-logout'} />
     </>
   );
@@ -105,14 +106,15 @@ const Home: FC<CombinedProps> = (props) => {
 type CombinedProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const mapStateToProps = (state: RootState) => ({
-  employeeAccount: state.user.employeeAccount,
+  vacationRequests: state.vacation.vacationRequests,
   token: state.user.token,
   refreshToken: state.user.refreshToken,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getAuthToken: (refreshToken: string) => dispatch(userActionCreators.getAuthToken(refreshToken)),
-  getEmployeeAccount: () => dispatch(profileActionCreators.getEmployeeAccount()),
+  getVacationRequestsMe: () => dispatch(vacationActionCreators.getVacationRequestsMe()),
+  // getEmployeeAccount: () => dispatch(profileActionCreators.getEmployeeAccount()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

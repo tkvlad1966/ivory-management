@@ -1,6 +1,6 @@
 import { ApiResponse } from 'apisauce';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { AuthToken, EmployeeType } from '../services/api/api.types';
+import { AuthToken, UserTypeObj } from '../services/api/api.types';
 import api from '../services/api';
 import {
   GetAuthTokenAction,
@@ -48,7 +48,7 @@ function* loginUser(action: LoginUserAction) {
       userActionCreators.getAuthTokenSuccess(response.data.token, response.data.refreshToken),
     );
     if (response.ok && response.data) {
-      api.setAuthHeader(response.data.token);
+      // api.setAuthHeader(response.data.token);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('refreshToken', response.data.refreshToken);
       window.location.replace('/employee');
@@ -62,12 +62,10 @@ function* loginUser(action: LoginUserAction) {
   }
 }
 
-type EmployeeTypeObj = { employee: EmployeeType };
-
 function* getEmployeeAccount() {
   const token = localStorage.getItem('token');
   api.setAuthHeader(token);
-  const response: ApiResponse<EmployeeTypeObj, string> = yield call(api.getAccount); // TODO: typing
+  const response: ApiResponse<UserTypeObj, string> = yield call(api.getAccount); // TODO: typing
 
   if (response.ok && response.data) {
     yield put(profileActionCreators.getEmployeeAccountSuccess(response.data.employee));

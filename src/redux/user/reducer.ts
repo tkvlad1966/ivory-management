@@ -1,5 +1,5 @@
 import { createReducer } from 'reduxsauce';
-import { EmployeeType } from '../../services/api/api.types';
+import { UserType } from '../../services/api/api.types';
 import {
   UserAction,
   userActionTypes,
@@ -11,7 +11,7 @@ import {
 
 export interface UserState {
   isLoading: boolean;
-  employeeAccount: EmployeeType | null;
+  employeeAccount: UserType | null;
   error: string | null;
   token: string | null;
   refreshToken: string | null;

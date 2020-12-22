@@ -4,11 +4,13 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from '../sagas';
 import { profileReducer } from './profile/reducer';
 import { userReducer } from './user';
+import { vacationReducer } from './vacation';
 // import { dashboardReducer } from './dashboard';
 
 export const rootReducer = combineReducers({
   user: userReducer,
   profile: profileReducer,
+  vacation: vacationReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

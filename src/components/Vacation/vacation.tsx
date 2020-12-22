@@ -1,15 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { COLORS, ICON } from '../../utils/constants';
 import Box from '../Box/Box';
-import DText from '../Text/text';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styles from './styles.module.css';
-import { font } from '../../assets/fonts/HelveticaNowDisplay';
-// import Modal from 'react-modal';
-// import Button from '../Button/button';
+import { connect } from 'react-redux';
 import VacationRequestModal from '../../screens/employee-screen/VacationRequestModal';
+import { RootState } from '../../redux';
+import { Dispatch } from 'redux';
+import { vacationActionCreators } from '../../redux/vacation';
+import BoxFromTo from './BoxFromTo';
+import { VacationRequest } from '../../services/api/api.types';
 
 const Container = styled.div`
   display: flex;
@@ -31,34 +33,8 @@ const SvgIcon = styled.span`
   font-size: 30px;
   color: white;
 `;
-const SvgIconCancel = styled.span`
-  display: block;
-  font-size: 15px;
-  color: black;
-  margin: 5px;
-  float: right;
-`;
 
-// const Span = styled.span`
-//   margin: 40px 25px;
-// `;
-
-// const customStyles = {
-//   content: {
-//     top: '50%',
-//     left: '50%',
-//     right: 'auto',
-//     bottom: 'auto',
-//     marginRight: '-50%',
-//     transform: 'translate(-50%, -50%)',
-//     border: 'none',
-//     background: 'none',
-//   },
-// };
-
-// // Modal.setAppElement('#yourAppElement');
-
-const Vacation: FC = () => {
+const Vacation: FC<CombinedProps> = (props) => {
   const [selectedValue, setSelectedValue] = useState(new Date());
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
@@ -85,6 +61,18 @@ const Vacation: FC = () => {
   const formatShortWeekday = (_locale: any, date: { getDay: () => React.ReactText }) =>
     ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][date.getDay()];
 
+  const { vacationRequest } = props;
+
+  const onRequest = useCallback(
+    (request: VacationRequest) => {
+      vacationRequest(request);
+      // console.log('request', request);
+    },
+    [vacationRequest],
+  );
+
+  console.log('vacation', props.vacation);
+
   return (
     <>
       <Box height="470px" color={COLORS.Boulder} b_r="20px">
@@ -101,46 +89,8 @@ const Vacation: FC = () => {
           />
         </Box>
         <Container>
-          <Box
-            width="150px"
-            height="70px"
-            color={COLORS.Silver}
-            b_r="10px"
-            margin="10px"
-            padding="10px"
-          >
-            <DText
-              font_family={font.bold}
-              size={13}
-              line_height="30px"
-              letter_spacing="0.2em"
-              text_transform="uppercase"
-            >
-              <SvgIconCancel className={ICON.CANCEL} />
-              from
-              <p>{start.toLocaleDateString()}</p>
-            </DText>
-          </Box>
-          <Box
-            width="150px"
-            height="70px"
-            color={COLORS.Silver}
-            b_r="10px"
-            margin="10px"
-            padding="10px"
-          >
-            <DText
-              font_family={font.bold}
-              size={13}
-              line_height="30px"
-              letter_spacing="0.2em"
-              text_transform="uppercase"
-            >
-              <SvgIconCancel className={ICON.CANCEL} />
-              to
-              <p>{end.toLocaleDateString()}</p>
-            </DText>
-          </Box>
+          <BoxFromTo label="from" date={start} />
+          <BoxFromTo label="to" date={end} />
           <div style={{ flex: '1' }}>
             <div style={{ float: 'right' }}>
               <Box
@@ -162,6 +112,7 @@ const Vacation: FC = () => {
       <VacationRequestModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
+        onRequest={onRequest}
         start={start}
         end={end}
       />
@@ -169,4 +120,16 @@ const Vacation: FC = () => {
   );
 };
 
-export default Vacation;
+type CombinedProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+const mapStateToProps = (state: RootState) => ({
+  vacation: state.vacation.vacation,
+  isLoading: state.vacation.isLoading,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  vacationRequest: (request: VacationRequest) =>
+    dispatch(vacationActionCreators.postVacationRequest(request)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Vacation);
