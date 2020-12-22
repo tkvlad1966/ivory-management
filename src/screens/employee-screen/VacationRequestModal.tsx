@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Modal from 'react-modal';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Box from '../../components/Box/Box';
@@ -6,6 +6,7 @@ import DText, { TEXT_CLASSES } from '../../components/Text/text';
 import { COLORS } from '../../utils/constants';
 import styled from 'styled-components';
 import Button from '../../components/Button/button';
+import { VacationRequest } from '../../services/api/api.types';
 // import styles from './styles.module.css';
 
 const Span = styled.span`
@@ -25,13 +26,35 @@ const customStyles = {
   },
 };
 
-const VacationRequestModal = ({ modalIsOpen, closeModal, start, end }) => {
+interface VacationRequestModalPropsType {
+  modalIsOpen: boolean;
+  start: Date;
+  end: Date;
+  closeModal: () => void;
+  onRequest: (request: VacationRequest) => void;
+}
+
+const VacationRequestModal: FC<VacationRequestModalPropsType> = (props) => {
+  const { modalIsOpen, closeModal, onRequest, start, end } = props;
+
+  const request: VacationRequest = {
+    beginDate: start.toDateString(),
+    endDate: end.toDateString(),
+    nationalHolidays: ['2020-12-25'],
+  };
+
+  const onClick = () => {
+    onRequest(request);
+    closeModal();
+    // console.log('request', request);
+  };
+
   return (
     <Modal
       isOpen={modalIsOpen}
       ariaHideApp={false}
       // onAfterOpen={afterOpenModal}
-      onRequestClose={closeModal}
+      // onRequestClose={closeModal}
       style={customStyles}
       // contentLabel="Example Modal"
     >
@@ -66,7 +89,12 @@ const VacationRequestModal = ({ modalIsOpen, closeModal, start, end }) => {
             Change
           </DText>
         </Button>
-        <Button className={'secondary'} margin_left="5%" background={COLORS.DOVE_GRAY}>
+        <Button
+          onClick={onClick}
+          className={'secondary'}
+          margin_left="5%"
+          background={COLORS.DOVE_GRAY}
+        >
           <DText className={TEXT_CLASSES.PRIMARY} font_family={font.bold} size={20} color="white">
             Request
           </DText>
