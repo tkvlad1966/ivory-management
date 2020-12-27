@@ -43,7 +43,6 @@ const Login: FC<CombinedProps> = (props) => {
   const onSignIn = useCallback(
     (email, password) => {
       loginUser(email, password);
-      // console.log('on sign in', email, password);
       // i18next.changeLanguage('ua');
     },
     [loginUser],

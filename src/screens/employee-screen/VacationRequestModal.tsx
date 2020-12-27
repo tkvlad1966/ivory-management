@@ -46,7 +46,6 @@ const VacationRequestModal: FC<VacationRequestModalPropsType> = (props) => {
   const onClick = () => {
     onRequest(request);
     closeModal();
-    // console.log('request', request);
   };
 
   return (

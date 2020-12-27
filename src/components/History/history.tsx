@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
+import { EmployeeType } from '../../services/api/api.types';
 // import { VacationRequestsType } from '../../services/api/api.types';
-import { COLORS } from '../../utils/constants';
+import { COLORS, Month } from '../../utils/constants';
 import Box from '../Box/Box';
 import DText from '../Text/text';
 
@@ -21,26 +22,23 @@ const ContainerRequest = styled.div`
   margin-top: 7px;
 `;
 
+type VacationTypeDate = {
+  nationalHolidays: Array<string>;
+  status: string;
+  _id: string;
+  currentAccumulatedVacation: number;
+  currentUsedVacation: number;
+  numWorkDays: number;
+  beginVacationDate: Date;
+  endVacationDate: Date;
+  employee: EmployeeType;
+};
+
 interface HistoryProps {
-  vacationRequestsDate: any;
+  vacationRequestsDate: Array<VacationTypeDate>;
 }
 
 const History: FC<HistoryProps> = ({ vacationRequestsDate }) => {
-  const Month = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
   return (
     <Box height="170px" color={COLORS.Silver} b_r="20px" padding="20px">
       <DText
@@ -60,7 +58,7 @@ const History: FC<HistoryProps> = ({ vacationRequestsDate }) => {
               </DText>
               <DText size={15}>{item.numWorkDays} days</DText>
               <DText size={15}>
-                {item.beginVacationDate.toLocaleDateString()}-{' '}
+                {item.beginVacationDate.toLocaleDateString()}-
                 {item.endVacationDate.toLocaleDateString()}
               </DText>
               <DText size={15}>{item.status} </DText>
