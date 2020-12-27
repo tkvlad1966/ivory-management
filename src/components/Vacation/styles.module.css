@@ -34,6 +34,14 @@
   color: #757575;
 }
 
+.react_calendar__navigation {
+  color: green;
+}
+
+.next_prev {
+  background: #c4c4c4;
+}
+
 /* .react_calendar__tile__active {
   border-radius: 45%;
   background: #a9d4ff;

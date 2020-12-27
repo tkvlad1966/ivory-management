@@ -8,8 +8,9 @@ import Profile from '../../components/Profile/profile';
 import DText, { TEXT_CLASSES } from '../../components/Text/text';
 import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
-import { userActionCreators } from '../../redux/user';
+// import { userActionCreators } from '../../redux/user';
 import { vacationActionCreators } from '../../redux/vacation';
+// import jwt from 'jsonwebtoken';
 
 const SvgIcon = styled.span`
   display: block;
@@ -42,14 +43,16 @@ const ContainerTitle = styled.div`
 `;
 
 const Home: FC<CombinedProps> = (props) => {
-  const { getAuthToken, getVacationRequestsMe, vacationRequests } = props;
+  // const refreshTokenLS = localStorage.refreshToken;
+
+  const { getVacationRequestsMe, vacationRequests } = props;
+
   useEffect(() => {
     getVacationRequestsMe();
-    getAuthToken(refreshTokenLS);
-    // getEmployeeAccount();
+    // getAuthToken(refreshTokenLS);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const refreshTokenLS = localStorage.refreshToken;
 
   const handleClickExit = () => {
     localStorage.removeItem('refreshToken');
@@ -112,7 +115,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getAuthToken: (refreshToken: string) => dispatch(userActionCreators.getAuthToken(refreshToken)),
+  // getAuthToken: (refreshToken: string) => dispatch(userActionCreators.getAuthToken(refreshToken)),
   getVacationRequestsMe: () => dispatch(vacationActionCreators.getVacationRequestsMe()),
   // getEmployeeAccount: () => dispatch(profileActionCreators.getEmployeeAccount()),
 });

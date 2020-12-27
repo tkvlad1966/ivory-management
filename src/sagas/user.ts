@@ -13,8 +13,32 @@ import {
   profileActionCreators,
   profileActionTypes,
 } from '../redux/profile';
+import { withRefreshTokenHandler } from './refreshToken';
 
 // TODO error handling
+
+// function* apiSaga(saga, action) {
+//   const resp = yield call(saga, action);
+
+//   // if 401 error -> refresh tocken and repeat action
+//   if (resp && resp.status === 401) {
+//     // yield resresh token
+//     const refreshToken = localStorage.refreshToken;
+//     const refreshTokenObj = { refreshToken: refreshToken };
+//     const response = yield call(api.getAuthToken, refreshTokenObj);
+
+//     if (response.status === 401) {
+//       localStorage.removeItem('refreshToken');
+//       localStorage.removeItem('token');
+//       return window.location.replace('/login');
+//     } else {
+//       localStorage.setItem('token', response.data.token);
+//       localStorage.setItem('refreshToken', response.data.refreshToken);
+//       api.setAuthHeader(response.data.token);
+//       yield call(saga, action);
+//     }
+//   }
+// }
 
 function* getAuthToken(action: GetAuthTokenAction) {
   const refreshTokenObj = { refreshToken: action.refreshToken };
@@ -23,9 +47,10 @@ function* getAuthToken(action: GetAuthTokenAction) {
     const response: ApiResponse<AuthToken> = yield call(api.getAuthToken, refreshTokenObj);
 
     if (response.ok && response.data) {
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
-      api.setAuthHeader(response.data.token);
+      console.log('response', response.data);
+      yield localStorage.setItem('token', response.data.token);
+      yield localStorage.setItem('refreshToken', response.data.refreshToken);
+      yield api.setAuthHeader(response.data.token);
       yield put(
         userActionCreators.getAuthTokenSuccess(response.data.token, response.data.refreshToken),
       );
@@ -72,6 +97,7 @@ function* getEmployeeAccount() {
   } else if (!response.ok) {
     yield put(profileActionCreators.getEmployeeAccountFailure('getUserAccount error'));
   }
+  return response;
 }
 
 export function* userSaga() {
@@ -79,6 +105,6 @@ export function* userSaga() {
   yield takeLatest<GetAuthTokenAction>(userActionTypes.GET_AUTH_TOKEN, getAuthToken);
   yield takeLatest<GetEmployeeAccountAction>(
     profileActionTypes.GET_EMPLOYEE_ACCOUNT,
-    getEmployeeAccount,
+    withRefreshTokenHandler(getEmployeeAccount),
   );
 }

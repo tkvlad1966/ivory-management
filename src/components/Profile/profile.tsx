@@ -12,6 +12,7 @@ import DText, { TEXT_CLASSES } from '../Text/text';
 const ContainerRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;
+  width: 100%;
 `;
 
 const Container = styled.div`
@@ -58,6 +59,10 @@ const Profile: FC<ProfileProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const Click = () => {
+    getEmployeeAccount();
+  };
+
   return (
     <Box width="80%" height="290px" color={COLORS.Silver} b_r="20px" padding="20px">
       <ContainerRow>
@@ -89,6 +94,7 @@ const Profile: FC<ProfileProps> = (props) => {
         <DText className={TEXT_CLASSES.PRIMARY}>{hoursPerWeek + 'h/week'}</DText>
         <DText className={TEXT_CLASSES.SUB_TITLE}>skills</DText>
         <DText className={TEXT_CLASSES.PRIMARY}>{skills}</DText>
+        <button onClick={Click}>Account</button>
       </Container>
       {/* </ContainerRow> */}
     </Box>

@@ -23,10 +23,13 @@ const CalendarStylesArray = [
   styles.react_calendar,
   styles.react_calendar__month_view__weekdays,
   styles.react_calendar__tile__active,
+  styles.react_calendar__navigation,
   // styles.react_calendar__month_view__days__day__weekend,
   // styles.react_calendar__month_view__days__day__neighboringMonth,
   // styles.react_calendar__tile,
 ];
+
+// const CalendarNext = [ICON.NEXT, styles.next_prev];
 
 const SvgIcon = styled.span`
   display: block;
@@ -66,12 +69,9 @@ const Vacation: FC<CombinedProps> = (props) => {
   const onRequest = useCallback(
     (request: VacationRequest) => {
       vacationRequest(request);
-      // console.log('request', request);
     },
     [vacationRequest],
   );
-
-  console.log('vacation', props.vacation);
 
   return (
     <>
@@ -79,6 +79,9 @@ const Vacation: FC<CombinedProps> = (props) => {
         <Box height="72%" color={COLORS.Silver} b_r="20px">
           <Calendar
             className={CalendarStylesArray}
+            // minDate={new Date()}
+            nextLabel={<div className={ICON.NEXT} />}
+            prevLabel={<div className={ICON.PREV} />}
             next2Label={null}
             prev2Label={null}
             formatShortWeekday={formatShortWeekday}
