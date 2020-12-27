@@ -1,5 +1,5 @@
 import { ApiResponse } from 'apisauce';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, delay, put, takeLatest } from 'redux-saga/effects';
 import { VacationRequestsType, VacationType } from '../services/api/api.types';
 import api from '../services/api';
 import {
@@ -8,37 +8,45 @@ import {
   vacationActionCreators,
   vacationActionTypes,
 } from '../redux/vacation';
+import { withRefreshTokenHandler } from './refreshToken';
 
 // TODO error handling
 
 function* vacationRequest(action: PostVacationRequestAction) {
+  // const token = localStorage.getItem('token');
+  // api.setAuthHeader(token);
   const request = action.request;
-  console.log('request', request);
-  try {
-    const response: ApiResponse<VacationType> = yield call(api.postVacationRequest, request);
+  const response: ApiResponse<VacationType> = yield call(api.postVacationRequest, request);
 
-    if (response.ok && response.data) {
-      yield put(vacationActionCreators.postVacationRequestSuccess(response.data));
-      console.log('response', response.data);
-    } else if (!response.ok) {
-      yield put(vacationActionCreators.postVacationRequestFailure('request error'));
-    }
-  } catch (error) {
-    yield put(vacationActionCreators.postVacationRequestFailure(error));
+  yield delay(500);
+
+  if (response.ok && response.data) {
+    yield put(vacationActionCreators.postVacationRequestSuccess(response.data));
+    yield put(vacationActionCreators.getVacationRequestsMe());
+  } else if (!response.ok) {
+    console.log('responseVacationRequest:', response.status);
+    yield put(vacationActionCreators.postVacationRequestFailure('request error'));
   }
+  return response;
 }
 
 // type
 
 function* getVacationRequestsMe(action: GetVacationRequestsMeAction) {
   try {
+    yield delay(500);
     const response: ApiResponse<{ vacationRequests: VacationRequestsType }> = yield call(
       api.getVacationRequestsMe,
     );
 
     if (response.ok && response.data) {
       yield put(
-        vacationActionCreators.getVacationRequestsMeSuccess(response.data.vacationRequests),
+        vacationActionCreators.getVacationRequestsMeSuccess(
+          response.data.vacationRequests.sort(
+            (a, b) =>
+              new Date(b.beginVacationDate).getTime() - new Date(a.beginVacationDate).getTime(),
+          ),
+        ),
       );
       console.log('response', response.data);
     } else if (!response.ok) {
@@ -52,10 +60,10 @@ function* getVacationRequestsMe(action: GetVacationRequestsMeAction) {
 export function* vacationSaga() {
   yield takeLatest<PostVacationRequestAction>(
     vacationActionTypes.POST_VACATION_REQUEST,
-    vacationRequest,
+    withRefreshTokenHandler(vacationRequest),
   );
   yield takeLatest<GetVacationRequestsMeAction>(
     vacationActionTypes.GET_VACATION_REQUESTS_ME,
-    getVacationRequestsMe,
+    withRefreshTokenHandler(getVacationRequestsMe),
   );
 }
