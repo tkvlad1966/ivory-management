@@ -1,16 +1,15 @@
 import React, { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import styled from 'styled-components';
 import History from '../../components/History/history';
 import Portfolio from '../../components/Portfolio/portfolio';
 import Profile from '../../components/Profile/profile';
-import DText, { TEXT_CLASSES } from '../../components/Text/text';
+import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
-// import { userActionCreators } from '../../redux/user';
 import { vacationActionCreators } from '../../redux/vacation';
-// import jwt from 'jsonwebtoken';
 
 const SvgIcon = styled.span`
   display: block;
@@ -43,13 +42,11 @@ const ContainerTitle = styled.div`
 `;
 
 const Home: FC<CombinedProps> = (props) => {
-  // const refreshTokenLS = localStorage.refreshToken;
-
+  const { t } = useTranslation();
   const { getVacationRequestsMe, vacationRequests } = props;
 
   useEffect(() => {
     getVacationRequestsMe();
-    // getAuthToken(refreshTokenLS);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -74,29 +71,29 @@ const Home: FC<CombinedProps> = (props) => {
       <Container>
         <ContainerColumn>
           <ContainerTitle>
-            <DText className={TEXT_CLASSES.TITLE} size={30}>
-              vacation
-            </DText>
+            <Text className={TEXT_CLASSES.TITLE} size={30}>
+              {t('home:vacation')}
+            </Text>
           </ContainerTitle>
           <Vacation />
           <ContainerTitle>
-            <DText className={TEXT_CLASSES.TITLE} size={30}>
-              history
-            </DText>
+            <Text className={TEXT_CLASSES.TITLE} size={30}>
+              {t('home:history')}
+            </Text>
           </ContainerTitle>
           <History vacationRequestsDate={vacationRequestsDate} />
         </ContainerColumn>
         <ContainerColumn>
           <ContainerTitle>
-            <DText className={TEXT_CLASSES.TITLE} size={30}>
-              profile
-            </DText>
+            <Text className={TEXT_CLASSES.TITLE} size={30}>
+              {t('home:profile')}
+            </Text>
           </ContainerTitle>
           <Profile />
           <ContainerTitle>
-            <DText className={TEXT_CLASSES.TITLE} size={30}>
-              portfolio
-            </DText>
+            <Text className={TEXT_CLASSES.TITLE} size={30}>
+              {t('home:portfolio')}
+            </Text>
           </ContainerTitle>
           <Portfolio />
         </ContainerColumn>
@@ -115,9 +112,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  // getAuthToken: (refreshToken: string) => dispatch(userActionCreators.getAuthToken(refreshToken)),
   getVacationRequestsMe: () => dispatch(vacationActionCreators.getVacationRequestsMe()),
-  // getEmployeeAccount: () => dispatch(profileActionCreators.getEmployeeAccount()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

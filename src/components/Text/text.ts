@@ -13,7 +13,7 @@ export type fontFamilyType =
   | typeof font.normal
   | typeof font.bold;
 
-interface DTextStyle {
+interface TextStyle {
   font_family?: fontFamilyType;
   size?: number;
   letter_spacing?: string;
@@ -24,7 +24,7 @@ interface DTextStyle {
   margin?: string;
 }
 
-const DText = styled.div<DTextStyle>`
+const Text = styled.div<TextStyle>`
   font-family: ${(props) => props.font_family || font.normal};
   font-size: ${(props) => props.size + 'px' || '15px'};
   letter-spacing: ${(props) => props.letter_spacing};
@@ -56,8 +56,6 @@ const DText = styled.div<DTextStyle>`
     color: ${(props) => props.color || 'rgba(0, 0, 0, 0.5)'};
     letter-spacing: 0.2em;
   }
-
-  /* &.s */
 `;
 
-export default DText;
+export default Text;

@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import styled from 'styled-components';
@@ -7,7 +8,7 @@ import { RootState } from '../../redux';
 import { profileActionCreators } from '../../redux/profile';
 import { COLORS } from '../../utils/constants';
 import Box from '../Box/Box';
-import DText, { TEXT_CLASSES } from '../Text/text';
+import Text, { TEXT_CLASSES } from '../Text/text';
 
 const ContainerRow = styled.div`
   display: grid;
@@ -34,7 +35,6 @@ const ContainerTitle = styled.div`
 `;
 
 const Ava = styled.div`
-  // todo: fix size problem
   flex: 1;
   width: 80px;
   height: 75px;
@@ -53,50 +53,48 @@ type ProfileProps = {
 
 const Profile: FC<ProfileProps> = (props) => {
   const { name, status, rate, hoursPerWeek, skills } = props;
+  const { t } = useTranslation();
   const { getEmployeeAccount } = props;
   useEffect(() => {
     getEmployeeAccount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const Click = () => {
-    getEmployeeAccount();
-  };
-
   return (
     <Box width="80%" height="290px" color={COLORS.Silver} b_r="20px" padding="20px">
       <ContainerRow>
         <Ava />
         <ContainerStatus>
-          <DText font_family={font.bold} size={20}>
+          <Text font_family={font.bold} size={20}>
             {name}
-          </DText>
-          <DText className={TEXT_CLASSES.TITLE} color="rgba(0, 0, 0, 0.5)" line_height="22px">
+          </Text>
+          <Text className={TEXT_CLASSES.TITLE} color="rgba(0, 0, 0, 0.5)" line_height="22px">
             {status}
-          </DText>
+          </Text>
         </ContainerStatus>
         <ContainerTitle>
-          <DText
+          <Text
             className={TEXT_CLASSES.TITLE}
             font_family={font.light}
             color="rgba(0, 0, 0, 0.5)"
             line_height="22px"
           >
-            superadmin
-          </DText>
+            {t('home:superadmin')}
+          </Text>
         </ContainerTitle>
       </ContainerRow>
-      {/* <ContainerRow> */}
       <Container>
-        <DText className={TEXT_CLASSES.SUB_TITLE}>rate</DText>
-        <DText className={TEXT_CLASSES.PRIMARY}>{rate + '$/h'}</DText>
-        <DText className={TEXT_CLASSES.SUB_TITLE}>hours per week</DText>
-        <DText className={TEXT_CLASSES.PRIMARY}>{hoursPerWeek + 'h/week'}</DText>
-        <DText className={TEXT_CLASSES.SUB_TITLE}>skills</DText>
-        <DText className={TEXT_CLASSES.PRIMARY}>{skills}</DText>
-        <button onClick={Click}>Account</button>
+        <Text className={TEXT_CLASSES.SUB_TITLE}>{t('home:rate')}</Text>
+        <Text className={TEXT_CLASSES.PRIMARY}>
+          {rate} {t('home:$/h')}
+        </Text>
+        <Text className={TEXT_CLASSES.SUB_TITLE}>{t('home:hours')}</Text>
+        <Text className={TEXT_CLASSES.PRIMARY}>
+          {hoursPerWeek} {t('home:h_week')}
+        </Text>
+        <Text className={TEXT_CLASSES.SUB_TITLE}>{t('home:skills')}</Text>
+        <Text className={TEXT_CLASSES.PRIMARY}>{skills}</Text>
       </Container>
-      {/* </ContainerRow> */}
     </Box>
   );
 };

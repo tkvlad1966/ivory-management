@@ -23,7 +23,6 @@ const Box = styled.section<BoxStyle>`
   align-items: ${(props) => props.align};
   display: ${(props) => props.display};
   text-align: ${(props) => props.text_align};
-  /* overflow: hidden; */
 `;
 
 export default Box;

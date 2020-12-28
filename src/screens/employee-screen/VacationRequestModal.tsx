@@ -2,12 +2,11 @@ import React, { FC } from 'react';
 import Modal from 'react-modal';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Box from '../../components/Box/Box';
-import DText, { TEXT_CLASSES } from '../../components/Text/text';
+import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import { COLORS } from '../../utils/constants';
 import styled from 'styled-components';
 import Button from '../../components/Button/button';
 import { VacationRequest } from '../../services/api/api.types';
-// import styles from './styles.module.css';
 
 const Span = styled.span`
   margin: 40px 25px;
@@ -55,7 +54,6 @@ const VacationRequestModal: FC<VacationRequestModalPropsType> = (props) => {
       // onAfterOpen={afterOpenModal}
       // onRequestClose={closeModal}
       style={customStyles}
-      // contentLabel="Example Modal"
     >
       <Box
         display="block"
@@ -67,10 +65,10 @@ const VacationRequestModal: FC<VacationRequestModalPropsType> = (props) => {
         padding="40px"
         text_align="center"
       >
-        <DText className={TEXT_CLASSES.TITLE} size={30}>
+        <Text className={TEXT_CLASSES.TITLE} size={30}>
           vacation
-        </DText>
-        <DText
+        </Text>
+        <Text
           font_family={font.bold}
           size={13}
           line_height="30px"
@@ -82,11 +80,11 @@ const VacationRequestModal: FC<VacationRequestModalPropsType> = (props) => {
           <Span>{start.toLocaleDateString()}</Span>
           <Span>to</Span>
           <span>{end.toLocaleDateString()}</span>
-        </DText>
+        </Text>
         <Button onClick={closeModal} className={'secondary'}>
-          <DText className={TEXT_CLASSES.PRIMARY} font_family={font.bold} size={20}>
+          <Text className={TEXT_CLASSES.PRIMARY} font_family={font.bold} size={20}>
             Change
-          </DText>
+          </Text>
         </Button>
         <Button
           onClick={onClick}
@@ -94,9 +92,9 @@ const VacationRequestModal: FC<VacationRequestModalPropsType> = (props) => {
           margin_left="5%"
           background={COLORS.DOVE_GRAY}
         >
-          <DText className={TEXT_CLASSES.PRIMARY} font_family={font.bold} size={20} color="white">
+          <Text className={TEXT_CLASSES.PRIMARY} font_family={font.bold} size={20} color="white">
             Request
-          </DText>
+          </Text>
         </Button>
       </Box>
     </Modal>

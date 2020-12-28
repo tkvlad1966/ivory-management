@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import { COLORS, ICON } from '../../utils/constants';
 import Box from '../Box/Box';
+import Text from '../Text/text';
 
 interface ContainerStyle {
   column_start?: number;
@@ -36,18 +39,21 @@ const Container = styled.div<ContainerStyle>`
   grid-row-end: ${(props) => props.row_end};
 `;
 
-const Title = styled.div`
-  font-family: HelveticaNowDisplayLight;
-  color: rgba(0, 0, 0, 0.5);
-  letter-spacing: 0.3em;
-  margin: 2% 0% 3% 3%;
-`;
-
 const Portfolio: FC = () => {
+  const { t } = useTranslation();
   return (
     <Box width="82%" height="300px" color={COLORS.Silver} b_r="20px" padding="15px">
       <SvgIcon className={ICON.NEXT} />
-      <Title>MY WORKS</Title>
+      <Text
+        font_family={font.light}
+        letter_spacing="0.3em"
+        text_transform="uppercase"
+        color="rgba(0, 0, 0, 0.5)"
+        margin="2% 0% 3% 3%"
+      >
+        {t('home:my_works')}
+      </Text>
+
       <ContainerColumn>
         <Works />
         <Works />

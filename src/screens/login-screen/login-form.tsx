@@ -2,7 +2,7 @@ import React from 'react';
 // import * as Yup from 'yup';
 import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
 import styles from './login-form.presets';
-import DText from '../../components/Text/text';
+import Text from '../../components/Text/text';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Button from '../../components/Button/button';
 import { useTranslation } from 'react-i18next';
@@ -31,14 +31,14 @@ const InnerForm = (props: FormikProps<FormValues>) => {
         placeholder={t('login:password')}
       />
       {touched.password && errors.password && <div>{errors.password}</div>}
-      <DText font_family={font.light}>
+      <Text font_family={font.light}>
         <Field type="checkbox" name="toogle" as={styles.FieldCheckStyled} />
-        Remember this device
-      </DText>
+        {t('login:remember')}
+      </Text>
       <Button type="submit" disabled={isSubmitting} className={'primary'}>
-        <DText size={30} letter_spacing="0.3em">
-          Sign in
-        </DText>
+        <Text size={30} letter_spacing="0.3em">
+          {t('login:sign_in')}
+        </Text>
       </Button>
     </Form>
   );

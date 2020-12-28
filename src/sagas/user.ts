@@ -15,31 +15,6 @@ import {
 } from '../redux/profile';
 import { withRefreshTokenHandler } from './refreshToken';
 
-// TODO error handling
-
-// function* apiSaga(saga, action) {
-//   const resp = yield call(saga, action);
-
-//   // if 401 error -> refresh tocken and repeat action
-//   if (resp && resp.status === 401) {
-//     // yield resresh token
-//     const refreshToken = localStorage.refreshToken;
-//     const refreshTokenObj = { refreshToken: refreshToken };
-//     const response = yield call(api.getAuthToken, refreshTokenObj);
-
-//     if (response.status === 401) {
-//       localStorage.removeItem('refreshToken');
-//       localStorage.removeItem('token');
-//       return window.location.replace('/login');
-//     } else {
-//       localStorage.setItem('token', response.data.token);
-//       localStorage.setItem('refreshToken', response.data.refreshToken);
-//       api.setAuthHeader(response.data.token);
-//       yield call(saga, action);
-//     }
-//   }
-// }
-
 function* getAuthToken(action: GetAuthTokenAction) {
   const refreshTokenObj = { refreshToken: action.refreshToken };
   try {
@@ -73,13 +48,13 @@ function* loginUser(action: LoginUserAction) {
       userActionCreators.getAuthTokenSuccess(response.data.token, response.data.refreshToken),
     );
     if (response.ok && response.data) {
-      // api.setAuthHeader(response.data.token);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('refreshToken', response.data.refreshToken);
       window.location.replace('/employee');
     } else {
       if (!response.ok) {
         yield put(userActionCreators.loginUserFailure(response.data || 'error login or password'));
+        window.location.replace('/login');
       }
     }
   } catch (error) {

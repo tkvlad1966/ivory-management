@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import { EmployeeType } from '../../services/api/api.types';
-// import { VacationRequestsType } from '../../services/api/api.types';
 import { COLORS, Month } from '../../utils/constants';
 import Box from '../Box/Box';
-import DText from '../Text/text';
+import Text from '../Text/text';
 
 const Container = styled.div`
   display: grid;
@@ -39,29 +39,32 @@ interface HistoryProps {
 }
 
 const History: FC<HistoryProps> = ({ vacationRequestsDate }) => {
+  const { t } = useTranslation();
   return (
     <Box height="170px" color={COLORS.Silver} b_r="20px" padding="20px">
-      <DText
+      <Text
         font_family={font.light}
         letter_spacing="0.3em"
         text_transform="uppercase"
         color="rgba(0, 0, 0, 0.5)"
       >
-        last vacation
-      </DText>
+        {t('home:last vacation')}
+      </Text>
       <Container>
         {vacationRequestsDate.map((item, index) => {
           return (
             <ContainerRequest key={index}>
-              <DText size={15}>
+              <Text size={15}>
                 {Month[item.beginVacationDate.getMonth()]} {item.beginVacationDate.getFullYear()}
-              </DText>
-              <DText size={15}>{item.numWorkDays} days</DText>
-              <DText size={15}>
+              </Text>
+              <Text size={15}>
+                {item.numWorkDays} {t('home:days')}
+              </Text>
+              <Text size={15}>
                 {item.beginVacationDate.toLocaleDateString()}-
                 {item.endVacationDate.toLocaleDateString()}
-              </DText>
-              <DText size={15}>{item.status} </DText>
+              </Text>
+              <Text size={15}>{item.status} </Text>
             </ContainerRequest>
           );
         })}

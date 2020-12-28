@@ -2,10 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../utils/constants';
 
 interface ButtonStyle {
-  // width?: string;
-  // height?: string;
   background?: string;
-  // border?: string;
   margin_left?: string;
 }
 
