@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { COLORS } from '../../utils/constants';
 import LoginForm from './login-form';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
-import DText, { TEXT_CLASSES } from '../../components/Text/text';
+import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import { userActionCreators } from '../../redux/user';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -51,19 +51,19 @@ const Login: FC<CombinedProps> = (props) => {
     <Container>
       <Logotype name={ivoryLogo.standart} height="40px" />
       <Title>
-        <DText className={TEXT_CLASSES.TITLE} font_family={font.thin} size={30}>
+        <Text className={TEXT_CLASSES.TITLE} font_family={font.thin} size={30}>
           {t('login:welcome')}
-        </DText>
+        </Text>
       </Title>
       <RegisterLink>
-        <DText font_family={font.light}>
+        <Text font_family={font.light}>
           {t('login:new_here')}
           <NavLinkStyle>
             <Link to="/register" style={{ color: COLORS.Punch }}>
               {t('login:create')}
             </Link>
           </NavLinkStyle>
-        </DText>
+        </Text>
       </RegisterLink>
       <LoginForm onSignIn={onSignIn} />
     </Container>

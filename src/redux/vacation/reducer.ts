@@ -2,7 +2,6 @@ import { createReducer } from 'reduxsauce';
 import { VacationRequestsType, VacationType } from '../../services/api/api.types';
 import {
   vacationActionTypes,
-  // PostVacationRequestAction,
   PostVacationRequestSuccessAction,
   PostVacationRequestFailureAction,
   GetVacationRequestsMeSuccessAction,
@@ -24,11 +23,6 @@ const INITIAL_STATE: VacationState = {
 };
 
 type Handler<A> = (state: VacationState, action: A) => VacationState;
-
-// const postVacationRequest: Handler<PostVacationRequestAction> = (state) => ({
-//   ...state,
-//   isLoading: true,
-// });
 
 const postVacationRequestSuccess: Handler<PostVacationRequestSuccessAction> = (
   state,

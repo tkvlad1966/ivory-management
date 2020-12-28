@@ -10,11 +10,7 @@ import {
 } from '../redux/vacation';
 import { withRefreshTokenHandler } from './refreshToken';
 
-// TODO error handling
-
 function* vacationRequest(action: PostVacationRequestAction) {
-  // const token = localStorage.getItem('token');
-  // api.setAuthHeader(token);
   const request = action.request;
   const response: ApiResponse<VacationType> = yield call(api.postVacationRequest, request);
 
@@ -29,8 +25,6 @@ function* vacationRequest(action: PostVacationRequestAction) {
   }
   return response;
 }
-
-// type
 
 function* getVacationRequestsMe(action: GetVacationRequestsMeAction) {
   try {
@@ -52,6 +46,7 @@ function* getVacationRequestsMe(action: GetVacationRequestsMeAction) {
     } else if (!response.ok) {
       yield put(vacationActionCreators.getVacationRequestsMeFailure('request error'));
     }
+    return response;
   } catch (error) {
     yield put(vacationActionCreators.getVacationRequestsMeFailure(error));
   }

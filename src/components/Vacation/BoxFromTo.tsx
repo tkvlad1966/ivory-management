@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import { COLORS, ICON } from '../../utils/constants';
 import Box from '../Box/Box';
-import DText from '../Text/text';
+import Text from '../Text/text';
 
 const SvgIconCancel = styled.span`
   display: block;
@@ -21,7 +21,7 @@ interface BoxFromToType {
 const BoxFromTo: FC<BoxFromToType> = ({ label, date }) => {
   return (
     <Box width="150px" height="70px" color={COLORS.Silver} b_r="10px" margin="10px" padding="10px">
-      <DText
+      <Text
         font_family={font.bold}
         size={13}
         line_height="30px"
@@ -31,7 +31,7 @@ const BoxFromTo: FC<BoxFromToType> = ({ label, date }) => {
         <SvgIconCancel className={ICON.CANCEL} />
         {label}
         <p>{date.toLocaleDateString()}</p>
-      </DText>
+      </Text>
     </Box>
   );
 };

@@ -12,6 +12,7 @@ import { Dispatch } from 'redux';
 import { vacationActionCreators } from '../../redux/vacation';
 import BoxFromTo from './BoxFromTo';
 import { VacationRequest } from '../../services/api/api.types';
+import { useTranslation } from 'react-i18next';
 
 const Container = styled.div`
   display: flex;
@@ -38,19 +39,14 @@ const SvgIcon = styled.span`
 `;
 
 const Vacation: FC<CombinedProps> = (props) => {
+  const { t } = useTranslation();
   const [selectedValue, setSelectedValue] = useState(new Date());
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
-  // var subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
   }
-
-  // function afterOpenModal() {
-  //   // references are now sync'd and can be accessed.
-  //   subtitle.style.color = '#f00';
-  // }
 
   function closeModal() {
     setIsOpen(false);
@@ -92,8 +88,8 @@ const Vacation: FC<CombinedProps> = (props) => {
           />
         </Box>
         <Container>
-          <BoxFromTo label="from" date={start} />
-          <BoxFromTo label="to" date={end} />
+          <BoxFromTo label={t('home:from')} date={start} />
+          <BoxFromTo label={t('home:to')} date={end} />
           <div style={{ flex: '1' }}>
             <div style={{ float: 'right' }}>
               <Box
