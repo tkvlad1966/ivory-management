@@ -25,6 +25,11 @@ const en = {
     days: 'days',
     my_works: 'my works',
   },
+  profile: {
+    download: 'download',
+    work_: 'work experience',
+    education: 'education',
+  },
 };
 
 export default en;
