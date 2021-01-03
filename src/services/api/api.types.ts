@@ -13,16 +13,52 @@ export type Company = {
   name: string;
 };
 
-export type VacationRequest = {
-  beginDate: string;
-  endDate: string;
-  nationalHolidays: Array<string> | [];
+export type Skill = {
+  _id: string;
+  name: string;
 };
+
+export type SkillsType = Array<Skill>;
+
+export interface WorkExperience {
+  name: string;
+  status: string;
+  firstDay: string;
+  lastDay: string;
+  createdAt: string;
+  updateAt: string;
+}
+
+export type WorkExperienceType = Array<WorkExperience>;
+
+export interface Education {
+  name: string;
+  speciality: string;
+  degree: string;
+  firstDay: string;
+  lastDay: string;
+  createdAt: string;
+  updateAt: string;
+}
+
+export type EducationType = Array<Education>;
+
+export interface ProfileType {
+  skills: SkillsType;
+  _id: string;
+  workExperience: WorkExperienceType;
+  education: EducationType;
+  hoursPerWeek: number;
+  rate: number;
+  createdAt: string;
+  updateAt: string;
+  __v: number;
+}
 
 export type Role = 'superAdmin' | 'admin' | 'employee';
 
 export interface UserType {
-  skills: [];
+  // skills: [];
   _id: string;
   name: null | string;
   email: string;
@@ -35,17 +71,22 @@ export interface UserType {
   createdAt: string;
   updatedAt: string;
   __v: number;
-  hoursPerWeek: number;
-  rate: number;
   status: string;
+  profile: ProfileType;
 }
 
-export type UserTypeObj = { employee: UserType };
+export type UserTypeObj = { user: UserType };
 
-export type EmployeeType = {
+export type UserVacationType = {
   _id: string;
   name: string;
   role: string;
+};
+
+export type VacationRequest = {
+  beginDate: string;
+  endDate: string;
+  nationalHolidays: Array<string> | [];
 };
 
 export interface VacationType {
@@ -57,7 +98,7 @@ export interface VacationType {
   numWorkDays: number;
   beginVacationDate: string;
   endVacationDate: string;
-  employee: EmployeeType;
+  employee: UserVacationType;
 }
 
 export type VacationRequestsType = Array<VacationType>;

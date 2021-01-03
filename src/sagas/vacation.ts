@@ -14,8 +14,6 @@ function* vacationRequest(action: PostVacationRequestAction) {
   const request = action.request;
   const response: ApiResponse<VacationType> = yield call(api.postVacationRequest, request);
 
-  yield delay(500);
-
   if (response.ok && response.data) {
     yield put(vacationActionCreators.postVacationRequestSuccess(response.data));
     yield put(vacationActionCreators.getVacationRequestsMe());

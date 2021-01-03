@@ -10,6 +10,7 @@ interface BoxStyle {
   align?: string;
   display?: string;
   text_align?: string;
+  z_index?: number;
 }
 
 const Box = styled.section<BoxStyle>`
@@ -23,6 +24,7 @@ const Box = styled.section<BoxStyle>`
   align-items: ${(props) => props.align};
   display: ${(props) => props.display};
   text-align: ${(props) => props.text_align};
+  z-index: ${(props) => props.z_index};
 `;
 
 export default Box;

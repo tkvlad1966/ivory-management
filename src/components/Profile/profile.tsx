@@ -42,21 +42,12 @@ const Ava = styled.div`
   border-radius: 49%;
 `;
 
-type ProfileProps = {
-  name: string;
-  status: null | string;
-  rate: number | null;
-  hoursPerWeek: number | null;
-  skills: [];
-  getEmployeeAccount: () => void;
-};
-
-const Profile: FC<ProfileProps> = (props) => {
-  const { name, status, rate, hoursPerWeek, skills } = props;
+const Profile: FC<CombinedProps> = (props) => {
+  const { name, status, rate, hoursPerWeek, skills, role } = props;
   const { t } = useTranslation();
-  const { getEmployeeAccount } = props;
+  const { getUserAccount } = props;
   useEffect(() => {
-    getEmployeeAccount();
+    getUserAccount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -73,14 +64,7 @@ const Profile: FC<ProfileProps> = (props) => {
           </Text>
         </ContainerStatus>
         <ContainerTitle>
-          <Text
-            className={TEXT_CLASSES.TITLE}
-            font_family={font.light}
-            color="rgba(0, 0, 0, 0.5)"
-            line_height="22px"
-          >
-            {t('home:superadmin')}
-          </Text>
+          <Text className={TEXT_CLASSES.GRAY_TITLE}>{role}</Text>
         </ContainerTitle>
       </ContainerRow>
       <Container>
@@ -93,22 +77,29 @@ const Profile: FC<ProfileProps> = (props) => {
           {hoursPerWeek} {t('home:h_week')}
         </Text>
         <Text className={TEXT_CLASSES.SUB_TITLE}>{t('home:skills')}</Text>
-        <Text className={TEXT_CLASSES.PRIMARY}>{skills}</Text>
+        {skills.map((skill) => (
+          <Text className={TEXT_CLASSES.PRIMARY} key={skill._id}>
+            {skill.name}
+          </Text>
+        ))}
       </Container>
     </Box>
   );
 };
 
+type CombinedProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
 const mapStateToProps = (state: RootState) => ({
-  name: state.profile?.employeeAccount?.name ?? null,
-  status: state.profile?.employeeAccount?.status ?? null,
-  rate: state.profile?.employeeAccount?.rate ?? null,
-  hoursPerWeek: state.profile?.employeeAccount?.hoursPerWeek ?? null,
-  skills: state.profile?.employeeAccount?.skills || 'none',
+  name: state.profile?.userAccount?.name ?? null,
+  status: state.profile?.userAccount?.status ?? null,
+  rate: state.profile?.userAccount?.profile?.rate ?? null,
+  hoursPerWeek: state.profile?.userAccount?.profile?.hoursPerWeek ?? null,
+  skills: state.profile?.userAccount?.profile?.skills ?? [],
+  role: state.profile?.userAccount?.role ?? null,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getEmployeeAccount: () => dispatch(profileActionCreators.getEmployeeAccount()),
+  getUserAccount: () => dispatch(profileActionCreators.getUserAccount()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

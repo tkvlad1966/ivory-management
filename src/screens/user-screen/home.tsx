@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import styled from 'styled-components';
 import History from '../../components/History/history';
 import Portfolio from '../../components/Portfolio/portfolio';
-import Profile from '../../components/Profile/profile';
+import ProfileComponent from '../../components/Profile/profile';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
@@ -89,7 +89,7 @@ const Home: FC<CombinedProps> = (props) => {
               {t('home:profile')}
             </Text>
           </ContainerTitle>
-          <Profile />
+          <ProfileComponent />
           <ContainerTitle>
             <Text className={TEXT_CLASSES.TITLE} size={30}>
               {t('home:portfolio')}
@@ -107,8 +107,6 @@ type CombinedProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapD
 
 const mapStateToProps = (state: RootState) => ({
   vacationRequests: state.vacation.vacationRequests,
-  token: state.user.token,
-  refreshToken: state.user.refreshToken,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

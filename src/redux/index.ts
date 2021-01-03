@@ -1,6 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore, StoreEnhancer } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from '../sagas';
+import { navbarReducer } from './navbar-reducer';
 import { profileReducer } from './profile/reducer';
 import { userReducer } from './user';
 import { vacationReducer } from './vacation';
@@ -9,6 +10,7 @@ export const rootReducer = combineReducers({
   user: userReducer,
   profile: profileReducer,
   vacation: vacationReducer,
+  navbar: navbarReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

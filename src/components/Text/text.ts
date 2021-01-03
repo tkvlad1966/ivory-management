@@ -4,6 +4,7 @@ import { font } from '../../assets/fonts/HelveticaNowDisplay';
 export const TEXT_CLASSES = {
   TITLE: 'title',
   SUB_TITLE: 'subTitle',
+  GRAY_TITLE: 'grayTitle',
   PRIMARY: 'stylePrimary',
 };
 
@@ -47,6 +48,14 @@ const Text = styled.div<TextStyle>`
     padding: 4% 0% 4% 0%;
     letter-spacing: 0.2em;
     text-transform: uppercase;
+  }
+
+  &.grayTitle {
+    font-family: ${(props) => props.font_family || font.light};
+    text-transform: uppercase;
+    margin: ${(props) => props.margin};
+    color: ${(props) => props.color || 'rgba(0, 0, 0, 0.5)'};
+    letter-spacing: 0.3em;
   }
 
   &.stylePrimary {

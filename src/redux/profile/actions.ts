@@ -2,41 +2,41 @@ import { createActions } from 'reduxsauce';
 import { UserType } from '../../services/api/api.types';
 
 interface ProfileActionTypes {
-  GET_EMPLOYEE_ACCOUNT: 'GET_EMPLOYEE_ACCOUNT';
-  GET_EMPLOYEE_ACCOUNT_SUCCESS: 'GET_EMPLOYEE_ACCOUNT_SUCCESS';
-  GET_EMPLOYEE_ACCOUNT_FAILURE: 'GET_EMPLOYEE_ACCOUNT_FAILURE';
+  GET_USER_ACCOUNT: 'GET_USER_ACCOUNT';
+  GET_USER_ACCOUNT_SUCCESS: 'GET_USER_ACCOUNT_SUCCESS';
+  GET_USER_ACCOUNT_FAILURE: 'GET_USER_ACCOUNT_FAILURE';
 }
 
-export interface GetEmployeeAccountAction {
-  type: ProfileActionTypes['GET_EMPLOYEE_ACCOUNT'];
+export interface GetUserAccountAction {
+  type: ProfileActionTypes['GET_USER_ACCOUNT'];
 }
 
-export interface GetEmployeeAccountSuccessAction {
-  type: ProfileActionTypes['GET_EMPLOYEE_ACCOUNT_SUCCESS'];
-  employeeAccount: UserType;
+export interface GetUserAccountSuccessAction {
+  type: ProfileActionTypes['GET_USER_ACCOUNT_SUCCESS'];
+  userAccount: UserType;
 }
 
-export interface GetEmployeeAccountFailureAction {
-  type: ProfileActionTypes['GET_EMPLOYEE_ACCOUNT_FAILURE'];
+export interface GetUserAccountFailureAction {
+  type: ProfileActionTypes['GET_USER_ACCOUNT_FAILURE'];
   error: string;
 }
 
 interface ProfileActionCreators {
-  getEmployeeAccount(): GetEmployeeAccountAction;
-  getEmployeeAccountSuccess(employeeAccount: UserType): GetEmployeeAccountSuccessAction;
-  getEmployeeAccountFailure(error: string): GetEmployeeAccountFailureAction;
+  getUserAccount(): GetUserAccountAction;
+  getUserAccountSuccess(userAccount: UserType): GetUserAccountSuccessAction;
+  getUserAccountFailure(error: string): GetUserAccountFailureAction;
 }
 
 export type ProfileAction =
-  | GetEmployeeAccountAction
-  | GetEmployeeAccountSuccessAction
-  | GetEmployeeAccountFailureAction;
+  | GetUserAccountAction
+  | GetUserAccountSuccessAction
+  | GetUserAccountFailureAction;
 
 const { Types, Creators } = createActions<ProfileActionTypes, ProfileActionCreators>(
   {
-    getEmployeeAccount: null,
-    getEmployeeAccountSuccess: ['employeeAccount'],
-    getEmployeeAccountFailure: ['error'],
+    getUserAccount: null,
+    getUserAccountSuccess: ['userAccount'],
+    getUserAccountFailure: ['error'],
   },
   {
     prefix: 'PROFILE/',
