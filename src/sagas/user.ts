@@ -8,11 +8,7 @@ import {
   userActionCreators,
   userActionTypes,
 } from '../redux/user/actions';
-import {
-  GetEmployeeAccountAction,
-  profileActionCreators,
-  profileActionTypes,
-} from '../redux/profile';
+import { GetUserAccountAction, profileActionCreators, profileActionTypes } from '../redux/profile';
 import { withRefreshTokenHandler } from './refreshToken';
 
 function* getAuthToken(action: GetAuthTokenAction) {
@@ -23,9 +19,9 @@ function* getAuthToken(action: GetAuthTokenAction) {
 
     if (response.ok && response.data) {
       console.log('response', response.data);
-      yield localStorage.setItem('token', response.data.token);
-      yield localStorage.setItem('refreshToken', response.data.refreshToken);
-      yield api.setAuthHeader(response.data.token);
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+      api.setAuthHeader(response.data.token);
       yield put(
         userActionCreators.getAuthTokenSuccess(response.data.token, response.data.refreshToken),
       );
@@ -62,15 +58,16 @@ function* loginUser(action: LoginUserAction) {
   }
 }
 
-function* getEmployeeAccount() {
+function* getUserAccount() {
   const token = localStorage.getItem('token');
   api.setAuthHeader(token);
   const response: ApiResponse<UserTypeObj, string> = yield call(api.getAccount); // TODO: typing
 
   if (response.ok && response.data) {
-    yield put(profileActionCreators.getEmployeeAccountSuccess(response.data.employee));
+    console.log('response.data', response.data);
+    yield put(profileActionCreators.getUserAccountSuccess(response.data.user));
   } else if (!response.ok) {
-    yield put(profileActionCreators.getEmployeeAccountFailure('getUserAccount error'));
+    yield put(profileActionCreators.getUserAccountFailure('getUserAccount error'));
   }
   return response;
 }
@@ -78,8 +75,8 @@ function* getEmployeeAccount() {
 export function* userSaga() {
   yield takeLatest<LoginUserAction>(userActionTypes.LOGIN_USER, loginUser);
   yield takeLatest<GetAuthTokenAction>(userActionTypes.GET_AUTH_TOKEN, getAuthToken);
-  yield takeLatest<GetEmployeeAccountAction>(
-    profileActionTypes.GET_EMPLOYEE_ACCOUNT,
-    withRefreshTokenHandler(getEmployeeAccount),
+  yield takeLatest<GetUserAccountAction>(
+    profileActionTypes.GET_USER_ACCOUNT,
+    withRefreshTokenHandler(getUserAccount),
   );
 }

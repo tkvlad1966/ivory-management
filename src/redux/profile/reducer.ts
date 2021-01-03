@@ -2,47 +2,44 @@ import { createReducer } from 'reduxsauce';
 import { UserType } from '../../services/api/api.types';
 import {
   profileActionTypes,
-  GetEmployeeAccountAction,
-  GetEmployeeAccountSuccessAction,
-  GetEmployeeAccountFailureAction,
+  GetUserAccountAction,
+  GetUserAccountSuccessAction,
+  GetUserAccountFailureAction,
 } from './actions';
 
 export interface ProfileState {
   isLoading: boolean;
-  employeeAccount: UserType | null;
+  userAccount: UserType | null;
   error: string | null;
 }
 
 const INITIAL_STATE: ProfileState = {
   isLoading: false,
   error: null,
-  employeeAccount: null,
+  userAccount: null,
 };
 
 type Handler<A> = (state: ProfileState, action: A) => ProfileState;
 
-const getEmployeeAccount: Handler<GetEmployeeAccountAction> = (state) => ({
+const getUserAccount: Handler<GetUserAccountAction> = (state) => ({
   ...state,
   isLoading: true,
 });
 
-const getEmployeeAccountSuccess: Handler<GetEmployeeAccountSuccessAction> = (
-  state,
-  { employeeAccount },
-) => ({
+const getUserAccountSuccess: Handler<GetUserAccountSuccessAction> = (state, { userAccount }) => ({
   ...state,
   isLoading: false,
-  employeeAccount,
+  userAccount,
 });
 
-const getEmployeeAccountFailure: Handler<GetEmployeeAccountFailureAction> = (state, { error }) => ({
+const getUserAccountFailure: Handler<GetUserAccountFailureAction> = (state, { error }) => ({
   ...state,
   isLoading: false,
   error,
 });
 
 export const profileReducer = createReducer<ProfileState>(INITIAL_STATE, {
-  [profileActionTypes.GET_EMPLOYEE_ACCOUNT]: getEmployeeAccount,
-  [profileActionTypes.GET_EMPLOYEE_ACCOUNT_SUCCESS]: getEmployeeAccountSuccess,
-  [profileActionTypes.GET_EMPLOYEE_ACCOUNT_FAILURE]: getEmployeeAccountFailure,
+  [profileActionTypes.GET_USER_ACCOUNT]: getUserAccount,
+  [profileActionTypes.GET_USER_ACCOUNT_SUCCESS]: getUserAccountSuccess,
+  [profileActionTypes.GET_USER_ACCOUNT_FAILURE]: getUserAccountFailure,
 });
