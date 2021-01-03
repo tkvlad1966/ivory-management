@@ -86,9 +86,31 @@ code {
 .icon-time:before {
   content: '\e909';
 }
+/* .icon-home:after {
+  content: '\e90a';
+  color: red;
+} */
 .icon-home:before {
   content: '\e90a';
 }
 .icon-plus:before {
   content: '\e90b';
+}
+.icon-notificat:before {
+  content: '\e90c';
+}
+.icon-search:before {
+  content: '\e90d';
+}
+.icon-download:before {
+  content: '\e90e';
+}
+.icon-phone:before {
+  content: '\e90f';
+}
+.icon-email:before {
+  content: '\e910';
+}
+.icon-edit:before {
+  content: '\e911';
 }

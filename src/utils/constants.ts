@@ -32,6 +32,12 @@ export const ICON: IconsType = {
   TIME: 'icon-time',
   HOME: 'icon-home',
   PLUS: 'icon-plus',
+  NOTIFICATION2: 'icon-notificat',
+  SEARCH: 'icon-search',
+  DOWNLOAD: 'icon-download',
+  PHONE: 'icon-phone',
+  EDIT: 'icon-edit',
+  EMAIL: 'icon-email',
 };
 
 export const Month = [

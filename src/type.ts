@@ -10,7 +10,13 @@ export type IconType =
   | 'icon-user'
   | 'icon-time'
   | 'icon-home'
-  | 'icon-plus';
+  | 'icon-plus'
+  | 'icon-notificat'
+  | 'icon-search'
+  | 'icon-download'
+  | 'icon-phone'
+  | 'icon-email'
+  | 'icon-edit';
 
 export type IconsType = {
   MENU: IconType;
@@ -25,4 +31,10 @@ export type IconsType = {
   TIME: IconType;
   HOME: IconType;
   PLUS: IconType;
+  NOTIFICATION2: IconType;
+  SEARCH: IconType;
+  DOWNLOAD: IconType;
+  PHONE: IconType;
+  EMAIL: IconType;
+  EDIT: IconType;
 };
