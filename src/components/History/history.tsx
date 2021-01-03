@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { font } from '../../assets/fonts/HelveticaNowDisplay';
-import { EmployeeType } from '../../services/api/api.types';
+import { UserVacationType } from '../../services/api/api.types';
 import { COLORS, Month } from '../../utils/constants';
 import Box from '../Box/Box';
-import Text from '../Text/text';
+import Text, { TEXT_CLASSES } from '../Text/text';
 
 const Container = styled.div`
   display: grid;
@@ -31,7 +30,7 @@ type VacationTypeDate = {
   numWorkDays: number;
   beginVacationDate: Date;
   endVacationDate: Date;
-  employee: EmployeeType;
+  employee: UserVacationType;
 };
 
 interface HistoryProps {
@@ -42,14 +41,7 @@ const History: FC<HistoryProps> = ({ vacationRequestsDate }) => {
   const { t } = useTranslation();
   return (
     <Box height="170px" color={COLORS.Silver} b_r="20px" padding="20px">
-      <Text
-        font_family={font.light}
-        letter_spacing="0.3em"
-        text_transform="uppercase"
-        color="rgba(0, 0, 0, 0.5)"
-      >
-        {t('home:last vacation')}
-      </Text>
+      <Text className={TEXT_CLASSES.GRAY_TITLE}>{t('home:last vacation')}</Text>
       <Container>
         {vacationRequestsDate.map((item, index) => {
           return (
