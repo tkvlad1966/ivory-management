@@ -16,12 +16,11 @@ const Container = styled.div`
 
 const NavBarStyle = styled.div`
   width: 140px;
-  height: 1080px;
-  border-right: 2px solid ${COLORS.Silver};
 `;
 
 const ComponentStyle = styled.div`
   width: 100%;
+  border-left: 2px solid ${COLORS.Silver};
 `;
 
 const Employee = () => {
