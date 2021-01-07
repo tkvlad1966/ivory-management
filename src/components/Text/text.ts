@@ -23,6 +23,7 @@ interface TextStyle {
   color?: string;
   padding?: string;
   margin?: string;
+  border_bottom?: string;
 }
 
 const Text = styled.div<TextStyle>`
@@ -34,6 +35,7 @@ const Text = styled.div<TextStyle>`
   color: ${(props) => props.color};
   padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};
+  border-bottom: ${(props) => props.border_bottom};
 
   &.title {
     font-family: ${(props) => props.font_family || font.bold};
@@ -48,6 +50,7 @@ const Text = styled.div<TextStyle>`
     padding: 4% 0% 4% 0%;
     letter-spacing: 0.2em;
     text-transform: uppercase;
+    line-height: 35px;
   }
 
   &.grayTitle {
@@ -61,7 +64,8 @@ const Text = styled.div<TextStyle>`
   &.stylePrimary {
     font-family: ${(props) => props.font_family || font.light};
     margin-left: 10%;
-    padding: 4% 0em;
+    /* margin-top: 4%auto; */
+    padding: 10px 0em;
     color: ${(props) => props.color || 'rgba(0, 0, 0, 0.5)'};
     letter-spacing: 0.2em;
   }

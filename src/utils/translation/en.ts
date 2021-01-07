@@ -27,8 +27,9 @@ const en = {
   },
   profile: {
     download: 'download',
-    work_: 'work experience',
+    work_: 'work experiences',
     education: 'education',
+    present: 'Present',
   },
 };
 
