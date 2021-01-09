@@ -1,40 +1,47 @@
 import React, { FC } from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
-import { WorkExperienceType } from '../../services/api/api.types';
+import { EducationType } from '../../services/api/api.types';
 import { Month } from '../../utils/constants';
+// import styled from 'styled-components';
 
-interface WorksFormProps {
-  workExperience: WorkExperienceType;
+// const Work = styled.div`
+//   display: grid;
+//   grid-template-columns: 3fr 7fr;
+//   margin-left: 80px;
+// `;
+
+interface EducationFormProps {
+  education: EducationType;
 }
 
-type WorkType = {
+type EducationFormType = {
   name: string;
-  status: string;
+  speciality: string;
+  degree: string;
   firstDay: string;
   lastDay: string;
 };
 
-export const WorksForm: FC<WorksFormProps> = (props) => {
-  const { workExperience } = props;
-  const works: WorkType[] = workExperience.map((item, index) => {
+export const EducationForm: FC<EducationFormProps> = ({ education }) => {
+  const educations: EducationFormType[] = education.map((item, index) => {
     const firstDayDate = new Date(Date.parse(item.firstDay));
     const lastDayDate = new Date(Date.parse(item.lastDay));
 
     return {
       name: item.name,
-      status: item.status,
+      speciality: item.speciality,
+      degree: item.degree,
       firstDay: `${Month[firstDayDate.getMonth()].slice(0, 3)} ${firstDayDate.getFullYear()}`,
       lastDay: `${Month[lastDayDate.getMonth()].slice(0, 3)} ${lastDayDate.getFullYear()}`,
     };
   });
 
-  const initialValues = { works };
+  const initialValues = { educations };
 
   return (
     <div>
       <Formik
         initialValues={initialValues}
-        // validate={() => ({ foo: true })}
         onSubmit={(values) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
@@ -43,52 +50,56 @@ export const WorksForm: FC<WorksFormProps> = (props) => {
         render={({ values, errors, touched, handleReset }) => (
           <Form>
             <FieldArray
-              name="works"
+              name="educations"
               render={({ remove, push }) => (
                 <div>
-                  {values.works.length > 0 &&
-                    values.works.map((work, index) => (
+                  {values.educations.length > 0 &&
+                    values.educations.map((work, index) => (
                       <div className="row" key={index}>
                         <div className="col">
                           <Field
-                            name={`works.${index}.firstDay`}
+                            name={`educations.${index}.firstDay`}
                             placeholder="first Day"
                             type="text"
                           />
-                          {/* {errors.works &&
-                            errors.works[index] &&
-                            errors.works[index] &&
-                            touched.works &&
-                            touched.works[index].name && (
-                              <div className="field-error">{errors.works[index]}</div>
-                            )} */}
                           <Field
-                            name={`works.${index}.name`}
-                            placeholder="name company"
+                            name={`educations.${index}.name`}
+                            placeholder="name "
                             type="text"
                           />
                         </div>
                         <div className="col">
                           <Field
-                            name={`works.${index}.lastDay`}
+                            name={`educations.${index}.lastDay`}
                             placeholder="last Day"
                             type="text"
                           />
-                          <Field name={`works.${index}.status`} placeholder="status" type="text" />
+                          <Field
+                            name={`educations.${index}.speciality`}
+                            placeholder="speciality"
+                            type="text"
+                          />
                         </div>
                         <div className="col">
                           <button type="button" className="secondary" onClick={() => remove(index)}>
                             X
                           </button>
+                          <Field
+                            name={`educations.${index}.degree`}
+                            placeholder="degree"
+                            type="text"
+                          />
                         </div>
                       </div>
                     ))}
                   <button
                     type="button"
                     className="secondary"
-                    onClick={() => push({ name: '', status: '', firstDay: '', lastDay: '' })}
+                    onClick={() =>
+                      push({ name: '', speciality: '', degree: '', firstDay: '', lastDay: '' })
+                    }
                   >
-                    Add Work
+                    +
                   </button>
                 </div>
               )}

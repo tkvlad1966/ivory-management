@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import { EducationType } from '../../services/api/api.types';
 import { COLORS, ICON } from '../../utils/constants';
+import { EducationForm } from './EducationForm';
 
 const Container = styled.div`
   display: grid;
@@ -16,7 +17,7 @@ const Container = styled.div`
 const Work = styled.div`
   display: grid;
   grid-template-columns: 3fr 7fr;
-  margin-left: 80px;
+  margin-left: 100px;
 `;
 
 interface EducationProps {
@@ -25,6 +26,8 @@ interface EducationProps {
 
 const Education: FC<EducationProps> = ({ education }) => {
   const { t } = useTranslation();
+  const [editMode, setEditMode] = useState(false);
+  const onClick = (editMode) => setEditMode(!editMode);
 
   return (
     <Container>
@@ -34,42 +37,44 @@ const Education: FC<EducationProps> = ({ education }) => {
         </Text>
       </div>
       <>
-        {education.map((item, index) => (
-          <Work key={index}>
-            <Text className={TEXT_CLASSES.PRIMARY} size={18} margin="0 0 30px 0">
-              {new Date(Date.parse(item.firstDay)).getFullYear()} -{' '}
-              {new Date(Date.parse(item.lastDay)).getFullYear()}
-            </Text>
-            <div>
-              <Text
-                size={18}
-                font_family={font.bold}
-                text_transform="capitalize"
-                margin="0 0 20px 30px"
-              >
-                {item.name}
+        {!editMode &&
+          education.map((item, index) => (
+            <Work key={index}>
+              <Text className={TEXT_CLASSES.PRIMARY} size={18} margin="0 0 30px 0">
+                {new Date(Date.parse(item.firstDay)).getFullYear()} -{' '}
+                {new Date(Date.parse(item.lastDay)).getFullYear()}
               </Text>
-              <Text
-                size={18}
-                font_family={font.thin}
-                text_transform="capitalize"
-                margin="0 0 0 30px"
-              >
-                {item.degree}
-              </Text>
-              <Text
-                size={18}
-                font_family={font.thin}
-                text_transform="capitalize"
-                margin="0 0 0 30px"
-              >
-                {item.speciality}
-              </Text>
-            </div>
-          </Work>
-        ))}
+              <div>
+                <Text
+                  size={18}
+                  font_family={font.bold}
+                  text_transform="capitalize"
+                  margin="0 0 20px 30px"
+                >
+                  {item.name}
+                </Text>
+                <Text
+                  size={18}
+                  font_family={font.thin}
+                  text_transform="capitalize"
+                  margin="0 0 0 30px"
+                >
+                  {item.degree}
+                </Text>
+                <Text
+                  size={18}
+                  font_family={font.thin}
+                  text_transform="capitalize"
+                  margin="0 0 0 30px"
+                >
+                  {item.speciality}
+                </Text>
+              </div>
+            </Work>
+          ))}
+        {editMode && <EducationForm education={education} />}
       </>
-      <Text className={ICON.EDIT} color={COLORS.GRAY} size={30} />
+      <Text className={ICON.EDIT} onClick={() => onClick(editMode)} color={COLORS.GRAY} size={30} />
     </Container>
   );
 };

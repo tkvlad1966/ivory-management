@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import { SkillsType } from '../../services/api/api.types';
 import { COLORS, ICON } from '../../utils/constants';
+import SkillsForm from './SkillsForm';
 
 const Container = styled.div`
   display: grid;
@@ -16,7 +17,7 @@ const Container = styled.div`
 const Work = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  margin-left: 390px;
+  margin-left: 350px;
 `;
 
 interface SkillsProps {
@@ -25,6 +26,8 @@ interface SkillsProps {
 
 const Skills: FC<SkillsProps> = ({ skills }) => {
   const { t } = useTranslation();
+  const [editMode, setEditMode] = useState(false);
+  const onClick = (editMode) => setEditMode(!editMode);
 
   return (
     <Container>
@@ -34,19 +37,21 @@ const Skills: FC<SkillsProps> = ({ skills }) => {
         </Text>
       </div>
       <Work>
-        {skills.map((item, index) => (
-          <Text
-            size={18}
-            font_family={font.bold}
-            text_transform="capitalize"
-            margin="0 0 0 30px"
-            key={index}
-          >
-            {item.name}
-          </Text>
-        ))}
+        {!editMode &&
+          skills.map((item, index) => (
+            <Text
+              size={18}
+              font_family={font.bold}
+              text_transform="capitalize"
+              margin="0 0 0 30px"
+              key={index}
+            >
+              {item.name}
+            </Text>
+          ))}
+        {editMode && <SkillsForm skills={skills} />}
       </Work>
-      <Text className={ICON.EDIT} color={COLORS.GRAY} size={30} />
+      <Text className={ICON.EDIT} onClick={() => onClick(editMode)} color={COLORS.GRAY} size={30} />
     </Container>
   );
 };

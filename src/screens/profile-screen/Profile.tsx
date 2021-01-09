@@ -28,7 +28,7 @@ const ProfileComponent: FC<CombinedProps> = (props) => {
     getUserAccount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  let [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const onClick = useCallback(() => {
     setEditMode(!editMode);
   }, [setEditMode, editMode]);
