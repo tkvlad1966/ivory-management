@@ -14,7 +14,7 @@ const Container = styled.div`
 const ContainerOther = styled.div`
   display: grid;
   /* grid-template-columns: repeat(7, 1fr); */
-  margin-left: 390px;
+  margin-left: 350px;
 `;
 
 interface OthersProps {

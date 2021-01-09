@@ -18,7 +18,7 @@ export type Skill = {
   name: string;
 };
 
-export type SkillsType = Array<Skill>;
+export type SkillsType = Skill[];
 
 export interface WorkExperience {
   name: string;
@@ -29,7 +29,7 @@ export interface WorkExperience {
   updateAt: string;
 }
 
-export type WorkExperienceType = Array<WorkExperience>;
+export type WorkExperienceType = WorkExperience[];
 
 export interface Education {
   name: string;
@@ -41,7 +41,7 @@ export interface Education {
   updateAt: string;
 }
 
-export type EducationType = Array<Education>;
+export type EducationType = Education[];
 
 export interface ProfileType {
   skills: SkillsType;
