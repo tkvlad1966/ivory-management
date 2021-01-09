@@ -24,6 +24,11 @@ interface HeaderProfileProps {
 }
 
 const HeaderProfile: FC<HeaderProfileProps> = ({ nameInitial }) => {
+  const handleClickExit = () => {
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('token');
+    return window.location.replace('/login');
+  };
   return (
     <Container>
       <SvgIcon className={ICON.SEARCH} />
@@ -33,7 +38,7 @@ const HeaderProfile: FC<HeaderProfileProps> = ({ nameInitial }) => {
           {nameInitial}
         </Text>
       </Box>
-      <SvgIcon className={ICON.LOGOUT} />
+      <SvgIcon className={ICON.LOGOUT} onClick={handleClickExit} />
     </Container>
   );
 };
