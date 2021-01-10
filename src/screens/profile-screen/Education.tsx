@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
-import { EducationType } from '../../services/api/api.types';
+import { Education, EducationType } from '../../services/api/api.types';
 import { COLORS, ICON } from '../../utils/constants';
+import moment from 'moment';
 import { EducationForm } from './EducationForm';
 
 const Container = styled.div`
@@ -24,10 +25,33 @@ interface EducationProps {
   education: EducationType;
 }
 
-const Education: FC<EducationProps> = ({ education }) => {
+const Educations: FC<EducationProps> = ({ education }) => {
   const { t } = useTranslation();
   const [editMode, setEditMode] = useState(false);
-  const onClick = (editMode) => setEditMode(!editMode);
+  const onClick = useCallback(() => {
+    setEditMode(!editMode);
+  }, [setEditMode, editMode]);
+
+  const renderEducationInfo = (item: Education, index: number) => {
+    return (
+      <Work key={index}>
+        <Text font_family={font.thin} size={18} margin="0 0 30px 20px">
+          {moment(item.firstDay).format('MMM YYYY')} - {moment(item.lastDay).format('MMM YYYY')}
+        </Text>
+        <div>
+          <Text size={18} font_family={font.bold} text_transform="capitalize" margin="0 0 0px 30px">
+            {item.name}
+          </Text>
+          <Text size={18} font_family={font.thin} text_transform="capitalize" margin="0 0 0 30px">
+            {item.degree}
+          </Text>
+          <Text size={18} font_family={font.thin} text_transform="capitalize" margin="0 0 0 30px">
+            {item.speciality}
+          </Text>
+        </div>
+      </Work>
+    );
+  };
 
   return (
     <Container>
@@ -36,47 +60,13 @@ const Education: FC<EducationProps> = ({ education }) => {
           {t('profile:education')}{' '}
         </Text>
       </div>
-      <>
-        {!editMode &&
-          education.map((item, index) => (
-            <Work key={index}>
-              <Text className={TEXT_CLASSES.PRIMARY} size={18} margin="0 0 30px 0">
-                {new Date(Date.parse(item.firstDay)).getFullYear()} -{' '}
-                {new Date(Date.parse(item.lastDay)).getFullYear()}
-              </Text>
-              <div>
-                <Text
-                  size={18}
-                  font_family={font.bold}
-                  text_transform="capitalize"
-                  margin="0 0 20px 30px"
-                >
-                  {item.name}
-                </Text>
-                <Text
-                  size={18}
-                  font_family={font.thin}
-                  text_transform="capitalize"
-                  margin="0 0 0 30px"
-                >
-                  {item.degree}
-                </Text>
-                <Text
-                  size={18}
-                  font_family={font.thin}
-                  text_transform="capitalize"
-                  margin="0 0 0 30px"
-                >
-                  {item.speciality}
-                </Text>
-              </div>
-            </Work>
-          ))}
+      <div>
+        {!editMode && education.map(renderEducationInfo)}
         {editMode && <EducationForm education={education} />}
-      </>
-      <Text className={ICON.EDIT} onClick={() => onClick(editMode)} color={COLORS.GRAY} size={30} />
+      </div>
+      <Text className={ICON.EDIT} onClick={onClick} color={COLORS.GRAY} size={30} />
     </Container>
   );
 };
 
-export default Education;
+export default Educations;
