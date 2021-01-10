@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
@@ -27,7 +27,9 @@ interface SkillsProps {
 const Skills: FC<SkillsProps> = ({ skills }) => {
   const { t } = useTranslation();
   const [editMode, setEditMode] = useState(false);
-  const onClick = (editMode) => setEditMode(!editMode);
+  const onClick = useCallback(() => {
+    setEditMode(!editMode);
+  }, [setEditMode, editMode]);
 
   return (
     <Container>
@@ -51,7 +53,7 @@ const Skills: FC<SkillsProps> = ({ skills }) => {
           ))}
         {editMode && <SkillsForm skills={skills} />}
       </Work>
-      <Text className={ICON.EDIT} onClick={() => onClick(editMode)} color={COLORS.GRAY} size={30} />
+      <Text className={ICON.EDIT} onClick={onClick} color={COLORS.GRAY} size={30} />
     </Container>
   );
 };

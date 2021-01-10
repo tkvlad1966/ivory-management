@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { RootState } from '../../redux';
 import { profileActionCreators } from '../../redux/profile';
 import Others from './OthersProfile';
-import Education from './Education';
+import Educations from './Education';
 import HeaderProfile from './HeaderProfile';
 import Skills from './Skills';
 import TitleProfile from './TitleProfile';
@@ -26,26 +26,28 @@ const ProfileComponent: FC<CombinedProps> = (props) => {
   const { getUserAccount } = props;
   useEffect(() => {
     getUserAccount();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getUserAccount]);
   const [editMode, setEditMode] = useState(false);
   const onClick = useCallback(() => {
     setEditMode(!editMode);
   }, [setEditMode, editMode]);
+  const renderWorkExperience = () => (
+    <WorkExperience
+      status={status}
+      workExperience={workExperience}
+      firstDayMyCompany={firstDayMyCompany}
+      company={company}
+      editMode={editMode}
+      onClick={onClick}
+    />
+  );
   return (
     <Container>
       <HeaderProfile nameInitial={nameInitial} />
       <TitleProfile name={name} role={role} status={status} />
-      <WorkExperience
-        status={status}
-        workExperience={workExperience}
-        firstDayMyCompany={firstDayMyCompany}
-        company={company}
-        editMode={editMode}
-        onClick={onClick}
-      />
+      {renderWorkExperience()}
       {editMode && <WorksForm workExperience={workExperience} />}
-      <Education education={educations} />
+      <Educations education={educations} />
       <Skills skills={skills} />
       <Others rate={rate} hoursPerWeek={hoursPerWeek} />
     </Container>

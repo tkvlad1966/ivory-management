@@ -4,6 +4,7 @@ import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Box from '../../components/Box/Box';
 import Text from '../../components/Text/text';
 import { COLORS, ICON } from '../../utils/constants';
+import { handleClickExit } from '../../utils/util';
 
 const Container = styled.div`
   display: grid;
@@ -24,11 +25,6 @@ interface HeaderProfileProps {
 }
 
 const HeaderProfile: FC<HeaderProfileProps> = ({ nameInitial }) => {
-  const handleClickExit = () => {
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('token');
-    return window.location.replace('/login');
-  };
   return (
     <Container>
       <SvgIcon className={ICON.SEARCH} />

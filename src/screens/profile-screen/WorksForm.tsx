@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import { WorkExperienceType } from '../../services/api/api.types';
-import { Month } from '../../utils/constants';
+import moment from 'moment';
 
 interface WorksFormProps {
   workExperience: WorkExperienceType;
@@ -17,14 +17,11 @@ type WorkType = {
 export const WorksForm: FC<WorksFormProps> = (props) => {
   const { workExperience } = props;
   const works: WorkType[] = workExperience.map((item, index) => {
-    const firstDayDate = new Date(Date.parse(item.firstDay));
-    const lastDayDate = new Date(Date.parse(item.lastDay));
-
     return {
       name: item.name,
       status: item.status,
-      firstDay: `${Month[firstDayDate.getMonth()].slice(0, 3)} ${firstDayDate.getFullYear()}`,
-      lastDay: `${Month[lastDayDate.getMonth()].slice(0, 3)} ${lastDayDate.getFullYear()}`,
+      firstDay: moment(item.firstDay).format('MMM YYYY'),
+      lastDay: moment(item.lastDay).format('MMM YYYY'),
     };
   });
 

@@ -10,6 +10,7 @@ import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
 import { vacationActionCreators } from '../../redux/vacation';
+import { handleClickExit } from '../../utils/util';
 
 const SvgIcon = styled.span`
   display: block;
@@ -47,15 +48,7 @@ const Home: FC<CombinedProps> = (props) => {
 
   useEffect(() => {
     getVacationRequestsMe();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleClickExit = () => {
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('token');
-    return window.location.replace('/login');
-  };
+  }, [getVacationRequestsMe]);
 
   const vacationRequestsDate = vacationRequests.map((item) => ({
     ...item,

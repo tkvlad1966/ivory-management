@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import { EducationType } from '../../services/api/api.types';
-import { Month } from '../../utils/constants';
+import moment from 'moment';
 // import styled from 'styled-components';
 
 // const Work = styled.div`
@@ -24,15 +24,12 @@ type EducationFormType = {
 
 export const EducationForm: FC<EducationFormProps> = ({ education }) => {
   const educations: EducationFormType[] = education.map((item, index) => {
-    const firstDayDate = new Date(Date.parse(item.firstDay));
-    const lastDayDate = new Date(Date.parse(item.lastDay));
-
     return {
       name: item.name,
       speciality: item.speciality,
       degree: item.degree,
-      firstDay: `${Month[firstDayDate.getMonth()].slice(0, 3)} ${firstDayDate.getFullYear()}`,
-      lastDay: `${Month[lastDayDate.getMonth()].slice(0, 3)} ${lastDayDate.getFullYear()}`,
+      firstDay: moment(item.firstDay).format('MMM YYYY'),
+      lastDay: moment(item.lastDay).format('MMM YYYY'),
     };
   });
 

@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import { Company, WorkExperienceType } from '../../services/api/api.types';
-import { COLORS, ICON, Month } from '../../utils/constants';
+import { COLORS, ICON } from '../../utils/constants';
+import { getYear } from '../../utils/util';
+import moment from 'moment';
 
 const Container = styled.div`
   display: grid;
@@ -49,8 +51,8 @@ const WorkExperience: FC<WorkExperienceProps> = (props) => {
           </Text>
         </div>
         <WorkReal>
-          <Text className={TEXT_CLASSES.PRIMARY} size={18} margin="50px">
-            {new Date(Date.parse(firstDayMyCompany)).getFullYear()} - {t('profile:present')}
+          <Text font_family={font.thin} size={18} margin="50px 0 50px 10px">
+            {moment(firstDayMyCompany).format('MMM YYYY')} - {t('profile:present')}
           </Text>
           <div>
             <Text size={18} text_transform="capitalize" margin="50px 0 0 30px">
@@ -65,16 +67,13 @@ const WorkExperience: FC<WorkExperienceProps> = (props) => {
       </Container>
       {!editMode &&
         workExperience.map((item, index) => {
-          const firstDay = new Date(Date.parse(item.firstDay));
-          const lastDay = new Date(Date.parse(item.lastDay));
           return (
             <Work key={index}>
               <Text font_family={font.thin} size={18} margin="0 0 30px 30px">
-                {firstDay.getFullYear !== lastDay.getFullYear
-                  ? `${firstDay.getFullYear()} - ${lastDay.getFullYear()}`
-                  : `${Month[firstDay.getMonth()].slice(0, 3)} ${firstDay.getFullYear()} - ${Month[
-                      lastDay.getMonth()
-                    ].slice(0, 3)} ${lastDay.getFullYear()}`}
+                {getYear(item.firstDay) !== getYear(item.lastDay)
+                  ? `${getYear(item.firstDay)} - ${getYear(item.lastDay)}`
+                  : moment(item.firstDay).format('MMM YYYY')}{' '}
+                - {moment(item.lastDay).format('MMM YYYY')}
               </Text>
               <div>
                 <Text size={18} text_transform="capitalize" margin="0 0 0 30px">
