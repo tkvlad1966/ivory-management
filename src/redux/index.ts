@@ -5,9 +5,6 @@ import { navbarReducer } from './navbar-reducer';
 import { profileReducer } from './profile/reducer';
 import { userReducer } from './user';
 import { vacationReducer } from './vacation';
-import logger from 'redux-logger';
-import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 export const rootReducer = combineReducers({
   user: userReducer,
@@ -16,22 +13,13 @@ export const rootReducer = combineReducers({
   navbar: navbarReducer,
 });
 
-const persistConfig: PersistConfig<ReturnType<typeof rootReducer>> = {
-  key: 'root',
-  storage,
-  whitelist: ['user'],
-};
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-export type RootState = ReturnType<typeof persistedReducer>;
+export type RootState = ReturnType<typeof rootReducer>;
 
 const sagaMiddleware = createSagaMiddleware();
 
-const enhancers: StoreEnhancer[] = [applyMiddleware(sagaMiddleware, logger)];
+const enhancers: StoreEnhancer[] = [applyMiddleware(sagaMiddleware)];
 
-export const store = createStore(persistedReducer, compose(...enhancers));
-
-export const persistor = persistStore(store);
+export const store = createStore(rootReducer, compose(...enhancers));
 
 export type AppDispatch = typeof store.dispatch;
 
