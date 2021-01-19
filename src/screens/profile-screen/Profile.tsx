@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import styled from 'styled-components';
 import { RootState } from '../../redux';
-import { profileActionCreators } from '../../redux/profile';
 import Others from './OthersProfile';
 import Educations from './Education';
 import HeaderProfile from './HeaderProfile';
@@ -11,22 +10,26 @@ import Skills from './Skills';
 import TitleProfile from './TitleProfile';
 import WorkExperience from './WorkExperience';
 import { WorksForm } from './WorksForm';
+import { profileActionCreators } from '../../redux/profile';
+import { useUserProfile } from '../../redux/profile/hooks';
+import { useUserId, useUserAccount } from '../../redux/user/hooks';
+
 const Container = styled.div`
   margin: 40px;
 `;
 
 const ProfileComponent: FC<CombinedProps> = (props) => {
-  const { name, role, status } = props;
-  const { workExperience, firstDayMyCompany, company } = props;
-  const { educations } = props;
-  const { skills } = props;
-  const { rate, hoursPerWeek } = props;
+  const userId = useUserId();
+  const userAccount = useUserAccount();
+  const userProfiles = useUserProfile(userId);
+  const { name, role, status, firstDay, company } = userAccount;
+  const userProfileId = userAccount.profile._id;
 
   const nameInitial = `${name?.split(' ')[0][0]} ${name?.split(' ')[1][0]}`;
-  const { getUserAccount } = props;
+  const { getUserProfile } = props;
   useEffect(() => {
-    getUserAccount();
-  }, [getUserAccount]);
+    getUserProfile(userProfileId);
+  }, [getUserProfile, userProfileId]);
   const [editMode, setEditMode] = useState(false);
   const onClick = useCallback(() => {
     setEditMode(!editMode);
@@ -34,8 +37,8 @@ const ProfileComponent: FC<CombinedProps> = (props) => {
   const renderWorkExperience = () => (
     <WorkExperience
       status={status}
-      workExperience={workExperience}
-      firstDayMyCompany={firstDayMyCompany}
+      profile={userProfiles}
+      firstDayMyCompany={firstDay}
       company={company}
       editMode={editMode}
       onClick={onClick}
@@ -46,31 +49,21 @@ const ProfileComponent: FC<CombinedProps> = (props) => {
       <HeaderProfile nameInitial={nameInitial} />
       <TitleProfile name={name} role={role} status={status} />
       {renderWorkExperience()}
-      {editMode && <WorksForm workExperience={workExperience} />}
-      <Educations education={educations} />
-      <Skills skills={skills} />
-      <Others rate={rate} hoursPerWeek={hoursPerWeek} />
+      {editMode && <WorksForm profile={userProfiles} />}
+      <Educations profile={userProfiles} />
+      <Skills profile={userProfiles} />
+      <Others profile={userProfiles} />
     </Container>
   );
 };
 
 type CombinedProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const mapStateToProps = (state: RootState) => ({
-  name: state.profile?.userAccount?.name,
-  status: state.profile?.userAccount?.status ?? null,
-  rate: state.profile?.userAccount?.profile?.rate ?? null,
-  hoursPerWeek: state.profile?.userAccount?.profile?.hoursPerWeek ?? null,
-  skills: state.profile?.userAccount?.profile?.skills ?? [],
-  workExperience: state.profile?.userAccount?.profile?.workExperience ?? [],
-  educations: state.profile?.userAccount?.profile?.education ?? [],
-  role: state.profile?.userAccount?.role ?? null,
-  firstDayMyCompany: state.profile?.userAccount?.firstDay ?? null,
-  company: state.profile?.userAccount?.company ?? null,
-});
-
+const mapStateToProps = (state: RootState, ownProps) => {
+  return {};
+};
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getUserAccount: () => dispatch(profileActionCreators.getUserAccount()),
+  getUserProfile: (profileId) => dispatch(profileActionCreators.getUserProfile(profileId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileComponent);

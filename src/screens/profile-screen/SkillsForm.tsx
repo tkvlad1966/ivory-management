@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
-import { SkillsType } from '../../services/api/api.types';
+import { ProfileType } from '../../services/api/api.types';
+import * as Yup from 'yup';
 // import styled from 'styled-components';
 
 // const Work = styled.div`
@@ -10,20 +11,26 @@ import { SkillsType } from '../../services/api/api.types';
 // `;
 
 interface SkillFormProps {
-  skills: SkillsType;
+  profile: ProfileType;
 }
 
 type SkillsFormType = {
   name: string;
 };
 
-const SkillsForm: FC<SkillFormProps> = ({ skills }) => {
-  const skill: SkillsFormType[] = skills.map((item, index) => {
-    return { name: item.name };
+const SkillsForm: FC<SkillFormProps> = ({ profile }) => {
+  const skill: SkillsFormType[] = profile?.skills.map((item, index) => {
+    return { name: item.name, edit: true };
   });
-
   const initialValues = { skill };
-
+  const educationValidation = Yup.object().shape({
+    skill: Yup.array().of(
+      Yup.object().shape({
+        name: Yup.string().required('Please enter a skill'),
+      }),
+    ),
+    // .min(1, 'Need at least a skill'),
+  });
   return (
     <div>
       <Formik
@@ -33,45 +40,62 @@ const SkillsForm: FC<SkillFormProps> = ({ skills }) => {
             alert(JSON.stringify(values, null, 2));
           }, 500);
         }}
-        render={({ values, errors, touched, handleReset }) => (
-          <Form>
-            <FieldArray
-              name="skill"
-              render={({ remove, push }) => (
-                <div>
-                  {values.skill.length > 0 &&
-                    values.skill.map((work, index) => (
-                      <div className="row" key={index}>
-                        <div className="col">
-                          <Field name={`skill.${index}.name`} placeholder="name " type="text" />
-                        </div>
+        validationSchema={educationValidation}
+      >
+        {({ values, errors, touched, handleReset }) => {
+          return (
+            <Form>
+              <FieldArray
+                name="skill"
+                render={({ remove, push }) => (
+                  <div>
+                    {values.skill.length > 0 &&
+                      values.skill.map((skill, index) => (
+                        <div className="row" key={index}>
+                          <div className="col">
+                            <Field name={`skill.${index}.name`} placeholder="name " type="text" />
+                          </div>
 
-                        <div className="col">
-                          <button type="button" className="secondary" onClick={() => remove(index)}>
-                            X
-                          </button>
+                          {errors &&
+                          errors.skill &&
+                          errors.skill[index] &&
+                          // @ts-ignore
+                          errors.skill[index].name ? (
+                            // @ts-ignore
+                            <div> {errors.skill[index].name} </div>
+                          ) : null}
+                          <div className="col"></div>
+                          <div className="col">
+                            <button
+                              type="button"
+                              className="secondary"
+                              onClick={() => remove(index)}
+                            >
+                              X
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  <button type="button" className="secondary" onClick={() => push({ name: '' })}>
-                    +
-                  </button>
-                </div>
-              )}
-            />
-            <br />
-            <button
-              onClick={(event) => {
-                event.preventDefault();
-                handleReset();
-              }}
-            >
-              Reset
-            </button>
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      />
+                      ))}
+                    <button type="button" className="secondary" onClick={() => push({ name: '' })}>
+                      +
+                    </button>
+                  </div>
+                )}
+              />
+              <br />
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleReset();
+                }}
+              >
+                Reset
+              </button>
+              <button type="submit">Submit</button>
+            </Form>
+          );
+        }}
+      </Formik>
     </div>
   );
 };

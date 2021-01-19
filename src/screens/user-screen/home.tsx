@@ -10,7 +10,7 @@ import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
 import { vacationActionCreators } from '../../redux/vacation';
-import { handleClickExit } from '../../utils/util';
+import { handleClickExit } from '../../utils/functions';
 
 const SvgIcon = styled.span`
   display: block;

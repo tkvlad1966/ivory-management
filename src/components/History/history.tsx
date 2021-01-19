@@ -15,7 +15,7 @@ const Container = styled.div`
 const ContainerRequest = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr 2fr 1fr;
-  grid-auto-rows: 1fr;
+  /* grid-auto-rows: 1fr; */
   border-bottom: 1px solid rgba(99, 99, 99, 0.3);
   padding: 4px 0%;
   margin-top: 7px;

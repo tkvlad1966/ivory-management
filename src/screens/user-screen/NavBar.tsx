@@ -39,7 +39,6 @@ const NavBar: FC<RouteComponentProps<{}> & CombinedProps> = (props) => {
   } = props;
   const navItems = props.navItems;
 
-  console.log('pathname', pathname);
   return (
     <Container>
       <Logotype name={ivoryLogo.black} preset={LOGO_CLASSES.BLACK} height="60px" />

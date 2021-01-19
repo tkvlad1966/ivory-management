@@ -10,33 +10,43 @@ import Home from './home';
 import NavBar from './NavBar';
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-areas: 'n c';
+  grid-template-columns: 140px 10fr;
 `;
 
 const NavBarStyle = styled.div`
-  width: 140px;
+  grid-area: n;
+  overflow: none;
 `;
 
-const ComponentStyle = styled.div`
+const Component = styled.div`
+  grid-area: c;
   width: 100%;
   border-left: 2px solid ${COLORS.Silver};
+  overflow: scroll;
 `;
 
 const Employee = () => {
   return (
     <BrowserRouter>
       <Container>
-        <NavBarStyle>
-          <NavBar />
-        </NavBarStyle>
-        <ComponentStyle>
+        <Route
+          render={() => {
+            return (
+              <NavBarStyle>
+                <NavBar />
+              </NavBarStyle>
+            );
+          }}
+        />
+        <Component>
           <Route path="/employee/home" render={() => <Home />} />
-          <Route path="/employee/profile" render={() => <Profile />} />
+          <Route path="/employee/profile/:userName?" render={() => <Profile />} />
           <Route path="/employee/history" render={() => <History />} />
           <Route path="/employee/portfolio" render={() => <Portfolio />} />
           <Route path="/employee/settings" render={() => <Settings />} />
-        </ComponentStyle>
+        </Component>
       </Container>
     </BrowserRouter>
   );
