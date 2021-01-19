@@ -25,8 +25,6 @@ export interface WorkExperience {
   status: string;
   firstDay: string;
   lastDay: string;
-  createdAt: string;
-  updateAt: string;
 }
 
 export type WorkExperienceType = WorkExperience[];
@@ -37,22 +35,23 @@ export interface Education {
   degree: string;
   firstDay: string;
   lastDay: string;
-  createdAt: string;
-  updateAt: string;
 }
 
-export type EducationType = Education[];
+export type EducationsType = Education[];
 
 export interface ProfileType {
   skills: SkillsType;
   _id: string;
-  workExperience: WorkExperienceType;
-  education: EducationType;
+  workExperience: WorkExperienceType | null;
+  education: EducationsType | null;
   hoursPerWeek: number;
   rate: number;
-  createdAt: string;
-  updateAt: string;
-  __v: number;
+}
+
+export type ProfileTypeObj = { profile: ProfileType };
+
+export interface UserIdProfileType {
+  [key: string]: ProfileType;
 }
 
 export type Role = 'superAdmin' | 'admin' | 'employee';
@@ -68,9 +67,7 @@ export interface UserType {
   role: Role;
   accumulatedVacation: number;
   usedVacation: number;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+
   status: string;
   profile: ProfileType;
 }
@@ -107,8 +104,6 @@ export interface CompaniesType {
   _id: string;
   name: string;
   annualLeave: number;
-  createdAt: Date;
-  updateAt: Date;
 }
 
 export interface ServerError {

@@ -9,6 +9,7 @@ import {
   VacationRequest,
   VacationType,
   VacationRequestsType,
+  ProfileType,
 } from './api.types';
 
 class Api {
@@ -39,9 +40,9 @@ class Api {
     }
   };
 
-  getAccount = () => {
+  getAccount = (userId: string) => {
     try {
-      const responseData = this.client.get<UserType, string>('employees/me');
+      const responseData = this.client.get<UserType, string>(`Users/${userId}`);
       return responseData;
     } catch (error) {
       return error;
@@ -60,6 +61,33 @@ class Api {
   getVacationRequestsMe = () => {
     try {
       const responseData = this.client.get<VacationRequestsType>('employees/vacationRequests/me');
+      return responseData;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  // postProfile = (profile: ProfileType) => {
+  //   try {
+  //     const responseData = this.client.post<ProfileType>('profiles');
+  //     return responseData;
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // };
+
+  getProfile = (userId: string) => {
+    try {
+      const responseData = this.client.get<ProfileType>(`profiles/${userId}`);
+      return responseData;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  updateProfile = (profile: ProfileType) => {
+    try {
+      const responseData = this.client.put<ProfileType>('profiles');
       return responseData;
     } catch (error) {
       return error;
