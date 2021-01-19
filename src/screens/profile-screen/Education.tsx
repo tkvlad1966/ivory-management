@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
-import { Education, EducationType } from '../../services/api/api.types';
+import { Education, ProfileType } from '../../services/api/api.types';
 import { COLORS, ICON } from '../../utils/constants';
 import moment from 'moment';
 import { EducationForm } from './EducationForm';
@@ -22,10 +22,11 @@ const Work = styled.div`
 `;
 
 interface EducationProps {
-  education: EducationType;
+  profile: ProfileType;
 }
 
-const Educations: FC<EducationProps> = ({ education }) => {
+const Educations: FC<EducationProps> = (props) => {
+  const { profile } = props;
   const { t } = useTranslation();
   const [editMode, setEditMode] = useState(false);
   const onClick = useCallback(() => {
@@ -61,8 +62,8 @@ const Educations: FC<EducationProps> = ({ education }) => {
         </Text>
       </div>
       <div>
-        {!editMode && education.map(renderEducationInfo)}
-        {editMode && <EducationForm education={education} />}
+        {!editMode && profile?.education.map(renderEducationInfo)}
+        {editMode && <EducationForm profile={profile} />}
       </div>
       <Text className={ICON.EDIT} onClick={onClick} color={COLORS.GRAY} size={30} />
     </Container>

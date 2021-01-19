@@ -73,7 +73,7 @@ const Login: FC<CombinedProps> = (props) => {
 type CombinedProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const mapStateToProps = (state: RootState) => ({
-  employeeAccount: state.user.employeeAccount,
+  userAccount: state.user.userAccount,
   isLoading: state.user.isLoading,
   token: state.user.token,
 });

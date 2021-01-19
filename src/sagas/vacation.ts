@@ -18,7 +18,6 @@ function* vacationRequest(action: PostVacationRequestAction) {
     yield put(vacationActionCreators.postVacationRequestSuccess(response.data));
     yield put(vacationActionCreators.getVacationRequestsMe());
   } else if (!response.ok) {
-    console.log('responseVacationRequest:', response.status);
     yield put(vacationActionCreators.postVacationRequestFailure('request error'));
   }
   return response;
@@ -40,7 +39,6 @@ function* getVacationRequestsMe(action: GetVacationRequestsMeAction) {
           ),
         ),
       );
-      console.log('response', response.data);
     } else if (!response.ok) {
       yield put(vacationActionCreators.getVacationRequestsMeFailure('request error'));
     }

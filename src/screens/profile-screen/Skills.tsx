@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
-import { SkillsType } from '../../services/api/api.types';
+import { ProfileType } from '../../services/api/api.types';
 import { COLORS, ICON } from '../../utils/constants';
 import SkillsForm from './SkillsForm';
 
@@ -21,10 +21,10 @@ const Work = styled.div`
 `;
 
 interface SkillsProps {
-  skills: SkillsType;
+  profile: ProfileType;
 }
 
-const Skills: FC<SkillsProps> = ({ skills }) => {
+const Skills: FC<SkillsProps> = ({ profile }) => {
   const { t } = useTranslation();
   const [editMode, setEditMode] = useState(false);
   const onClick = useCallback(() => {
@@ -40,7 +40,7 @@ const Skills: FC<SkillsProps> = ({ skills }) => {
       </div>
       <Work>
         {!editMode &&
-          skills.map((item, index) => (
+          profile?.skills.map((item, index) => (
             <Text
               size={18}
               font_family={font.bold}
@@ -51,7 +51,7 @@ const Skills: FC<SkillsProps> = ({ skills }) => {
               {item.name}
             </Text>
           ))}
-        {editMode && <SkillsForm skills={skills} />}
+        {editMode && <SkillsForm profile={profile} />}
       </Work>
       <Text className={ICON.EDIT} onClick={onClick} color={COLORS.GRAY} size={30} />
     </Container>

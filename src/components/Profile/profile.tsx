@@ -5,7 +5,8 @@ import { Dispatch } from 'redux';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import { RootState } from '../../redux';
-import { profileActionCreators } from '../../redux/profile';
+import { userActionCreators } from '../../redux/user';
+import { useUserId } from '../../redux/user/hooks';
 import { COLORS } from '../../utils/constants';
 import Box from '../Box/Box';
 import Text, { TEXT_CLASSES } from '../Text/text';
@@ -45,11 +46,11 @@ const Ava = styled.div`
 const Profile: FC<CombinedProps> = (props) => {
   const { name, status, rate, hoursPerWeek, skills, role } = props;
   const { t } = useTranslation();
+  const userId = useUserId();
   const { getUserAccount } = props;
   useEffect(() => {
-    getUserAccount();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getUserAccount(userId);
+  }, [getUserAccount, userId]);
 
   return (
     <Box width="80%" height="290px" color={COLORS.Silver} b_r="20px" padding="20px">
@@ -90,16 +91,16 @@ const Profile: FC<CombinedProps> = (props) => {
 type CombinedProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const mapStateToProps = (state: RootState) => ({
-  name: state.profile?.userAccount?.name ?? null,
-  status: state.profile?.userAccount?.status ?? null,
-  rate: state.profile?.userAccount?.profile?.rate ?? null,
-  hoursPerWeek: state.profile?.userAccount?.profile?.hoursPerWeek ?? null,
-  skills: state.profile?.userAccount?.profile?.skills ?? [],
-  role: state.profile?.userAccount?.role ?? null,
+  name: state.user?.userAccount?.name ?? null,
+  status: state.user?.userAccount?.status ?? null,
+  rate: state.user?.userAccount?.profile?.rate ?? null,
+  hoursPerWeek: state.user?.userAccount?.profile?.hoursPerWeek ?? null,
+  skills: state.user?.userAccount?.profile?.skills ?? [],
+  role: state.user?.userAccount?.role ?? null,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getUserAccount: () => dispatch(profileActionCreators.getUserAccount()),
+  getUserAccount: (userId) => dispatch(userActionCreators.getUserAccount(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
-import { Company, WorkExperienceType } from '../../services/api/api.types';
+import { Company, ProfileType } from '../../services/api/api.types';
 import { COLORS, ICON } from '../../utils/constants';
-import { getYear } from '../../utils/util';
+import { getYear } from '../../utils/functions';
 import moment from 'moment';
 
 const Container = styled.div`
@@ -30,7 +30,7 @@ const Work = styled.div`
 
 export interface WorkExperienceProps {
   status: string;
-  workExperience: WorkExperienceType;
+  profile: ProfileType;
   firstDayMyCompany: string;
   company: Company;
   editMode: boolean;
@@ -38,10 +38,9 @@ export interface WorkExperienceProps {
 }
 
 const WorkExperience: FC<WorkExperienceProps> = (props) => {
-  const { status, workExperience, firstDayMyCompany, company, editMode } = props;
+  const { status, profile, firstDayMyCompany, company, editMode } = props;
   const { onClick } = props;
   const { t } = useTranslation();
-
   return (
     <>
       <Container>
@@ -66,7 +65,7 @@ const WorkExperience: FC<WorkExperienceProps> = (props) => {
         <Text className={ICON.EDIT} onClick={onClick} color={COLORS.GRAY} size={30} />
       </Container>
       {!editMode &&
-        workExperience.map((item, index) => {
+        profile?.workExperience.map((item, index) => {
           return (
             <Work key={index}>
               <Text font_family={font.thin} size={18} margin="0 0 30px 30px">

@@ -26,7 +26,6 @@ export function* handleRefreshToken(saga: Saga, action: Action) {
       localStorage.setItem('token', tokensResponse.data.token);
       localStorage.setItem('refreshToken', tokensResponse.data.refreshToken);
       api.setAuthHeader(tokensResponse.data.token);
-      console.log('tokensResponse', tokensResponse);
       yield delay(500);
       yield call(saga, action);
     }

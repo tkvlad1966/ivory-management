@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
+import { ProfileType } from '../../services/api/api.types';
 
 const Container = styled.div`
   display: grid;
@@ -18,11 +19,10 @@ const ContainerOther = styled.div`
 `;
 
 interface OthersProps {
-  rate: number;
-  hoursPerWeek: number;
+  profile: ProfileType;
 }
 
-const Others: FC<OthersProps> = ({ rate, hoursPerWeek }) => {
+const Others: FC<OthersProps> = ({ profile }) => {
   const { t } = useTranslation();
 
   return (
@@ -35,7 +35,7 @@ const Others: FC<OthersProps> = ({ rate, hoursPerWeek }) => {
         </div>
         <ContainerOther>
           <Text size={18} font_family={font.thin} margin="0 0 0 30px">
-            {rate}
+            {profile?.rate}
           </Text>
         </ContainerOther>
       </Container>
@@ -47,7 +47,7 @@ const Others: FC<OthersProps> = ({ rate, hoursPerWeek }) => {
         </div>
         <ContainerOther>
           <Text size={18} font_family={font.thin} margin="0 0 0 30px">
-            {hoursPerWeek}
+            {profile?.hoursPerWeek}
           </Text>
         </ContainerOther>
       </Container>
