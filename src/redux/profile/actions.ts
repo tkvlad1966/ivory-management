@@ -1,5 +1,5 @@
 import { createActions } from 'reduxsauce';
-import { EducationsType, ProfileType, WorkExperienceType } from '../../services/api/api.types';
+import { ProfileType, UpdateProfile } from '../../services/api/api.types';
 
 interface ProfileActionTypes {
   GET_USER_PROFILE: 'GET_USER_PROFILE';
@@ -12,7 +12,7 @@ interface ProfileActionTypes {
 
 export interface GetUserProfileAction {
   type: ProfileActionTypes['GET_USER_PROFILE'];
-  profileId: string;
+  userId: string;
 }
 
 export interface GetUserProfileSuccessAction {
@@ -28,11 +28,7 @@ export interface GetUserProfileFailureAction {
 
 export interface UpdateUserProfileAction {
   type: ProfileActionTypes['UPDATE_USER_PROFILE'];
-  workExperience: WorkExperienceType;
-  educations: EducationsType;
-  rate: number;
-  hoursPerWeek: number;
-  skills: string[];
+  profileUpdate: UpdateProfile;
 }
 
 export interface UpdateUserProfileSuccessAction {
@@ -46,16 +42,10 @@ export interface UpdateUserProfileFailureAction {
 }
 
 interface ProfileActionCreators {
-  getUserProfile(profileId: string): GetUserProfileAction;
+  getUserProfile(userId: string): GetUserProfileAction;
   getUserProfileSuccess(profile: ProfileType, userId: string): GetUserProfileSuccessAction;
   getUserProfileFailure(error: string): GetUserProfileFailureAction;
-  updateUserProfile(
-    workExperience: WorkExperienceType,
-    educations: EducationsType,
-    rate: number,
-    hoursPerWeek: number,
-    skills: string[],
-  ): UpdateUserProfileAction;
+  updateUserProfile(profileUpdate: UpdateProfile): UpdateUserProfileAction;
   updateUserProfileSuccess(userProfile: ProfileType): UpdateUserProfileSuccessAction;
   updateUserProfileFailure(error: string): UpdateUserProfileFailureAction;
 }
@@ -70,10 +60,10 @@ export type ProfileAction =
 
 const { Types, Creators } = createActions<ProfileActionTypes, ProfileActionCreators>(
   {
-    getUserProfile: ['profileId'],
+    getUserProfile: ['userId'],
     getUserProfileSuccess: ['profile', 'userId'],
     getUserProfileFailure: ['error'],
-    updateUserProfile: ['workExperience', 'educations', 'rate', 'hoursPerWeek', 'skills'],
+    updateUserProfile: ['profileUpdate'],
     updateUserProfileSuccess: ['userProfile'],
     updateUserProfileFailure: ['error'],
   },

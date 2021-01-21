@@ -1,5 +1,5 @@
 import { createReducer } from 'reduxsauce';
-import { UserIdProfileType } from '../../services/api/api.types';
+import { ProfileType, UserIdProfileType } from '../../services/api/api.types';
 import {
   GetUserProfileAction,
   GetUserProfileFailureAction,
@@ -13,7 +13,7 @@ import {
 export interface ProfileState {
   isLoading: boolean;
   error: string | null;
-  // userProfile: ProfileType;
+  userProfile: ProfileType;
   userProfiles: UserIdProfileType | null;
 }
 
@@ -22,6 +22,7 @@ export interface ProfileState {
 const INITIAL_STATE: ProfileState = {
   isLoading: false,
   error: null,
+  userProfile: null,
   userProfiles: null,
 };
 

@@ -10,6 +10,7 @@ import {
   VacationType,
   VacationRequestsType,
   ProfileType,
+  UpdateProfile,
 } from './api.types';
 
 class Api {
@@ -19,7 +20,6 @@ class Api {
     this.client = apisauce.create({
       baseURL,
       timeout: 10000,
-      // headers: { 'Cache-Control': 'no-cache' },
     });
   }
 
@@ -67,27 +67,19 @@ class Api {
     }
   };
 
-  // postProfile = (profile: ProfileType) => {
-  //   try {
-  //     const responseData = this.client.post<ProfileType>('profiles');
-  //     return responseData;
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // };
-
   getProfile = (userId: string) => {
     try {
-      const responseData = this.client.get<ProfileType>(`profiles/${userId}`);
+      const responseData = this.client.get<ProfileType>(`users/${userId}/profile`);
       return responseData;
     } catch (error) {
       return error;
     }
   };
 
-  updateProfile = (profile: ProfileType) => {
+  updateProfile = (data: UpdateProfile) => {
+    const { profile, profileId } = data;
     try {
-      const responseData = this.client.put<ProfileType>('profiles');
+      const responseData = this.client.put<ProfileType>(`profiles/${profileId}`, profile);
       return responseData;
     } catch (error) {
       return error;
