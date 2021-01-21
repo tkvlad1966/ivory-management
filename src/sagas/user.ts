@@ -8,6 +8,7 @@ import {
   LoginUserAction,
   userActionCreators,
   userActionTypes,
+  UserLogoutAction,
 } from '../redux/user/actions';
 import { withRefreshTokenHandler } from './refreshToken';
 
@@ -37,11 +38,13 @@ function* loginUser(action: LoginUserAction) {
 
   try {
     const response = yield call(api.loginUser, { email, password });
-    yield put(userActionCreators.loginUserSuccess(response.data.user._id));
-    yield put(
-      userActionCreators.getAuthTokenSuccess(response.data.token, response.data.refreshToken),
-    );
+    console.log('response:', response);
+
+    // yield put(
+    //   userActionCreators.getAuthTokenSuccess(response.data.token, response.data.refreshToken),
+    // );
     if (response.ok && response.data) {
+      yield put(userActionCreators.loginUserSuccess(response.data.user._id));
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('refreshToken', response.data.refreshToken);
       window.location.replace('/employee/home');
@@ -53,6 +56,14 @@ function* loginUser(action: LoginUserAction) {
     }
   } catch (error) {
     yield put(userActionCreators.loginUserFailure(error));
+  }
+}
+
+function* userLogout() {
+  try {
+    yield put(userActionCreators.userLogoutSuccess());
+  } catch (error) {
+    console.log('error:', error);
   }
 }
 
@@ -78,4 +89,5 @@ export function* userSaga() {
     userActionTypes.GET_USER_ACCOUNT,
     withRefreshTokenHandler(getUserAccount),
   );
+  yield takeLatest<UserLogoutAction>(userActionTypes.USER_LOGOUT, userLogout);
 }

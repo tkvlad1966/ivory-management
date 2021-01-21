@@ -7,14 +7,23 @@ import { userReducer } from './user';
 import { vacationReducer } from './vacation';
 import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 
-export const rootReducer = combineReducers({
+export const appReducer = combineReducers({
   user: userReducer,
   profile: profileReducer,
   vacation: vacationReducer,
   navbar: navbarReducer,
 });
+
+export const rootReducer = (state, action) => {
+  console.log('action:', action);
+  if (action.type === 'USER/USER_LOGOUT_SUCCESS') {
+    localStorage.removeItem('persist: root');
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
 
 const persistConfig: PersistConfig<ReturnType<typeof rootReducer>> = {
   key: 'root',
@@ -24,11 +33,11 @@ const persistConfig: PersistConfig<ReturnType<typeof rootReducer>> = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export type RootState = ReturnType<typeof persistedReducer>;
+export type RootState = ReturnType<typeof rootReducer>;
 
 const sagaMiddleware = createSagaMiddleware();
 
-const enhancers: StoreEnhancer[] = [applyMiddleware(sagaMiddleware, logger)];
+const enhancers: StoreEnhancer[] = [applyMiddleware(sagaMiddleware)];
 
 export const store = createStore(persistedReducer, compose(...enhancers));
 

@@ -6,6 +6,9 @@ interface UserActionTypes {
   LOGIN_USER_SUCCESS: 'LOGIN_USER_SUCCESS';
   LOGIN_USER_FAILURE: 'LOGIN_USER_FAILURE';
 
+  USER_LOGOUT: 'USER_LOGOUT';
+  USER_LOGOUT_SUCCESS: 'USER_LOGOUT_SUCCESS';
+
   GET_AUTH_TOKEN: 'GET_AUTH_TOKEN';
   GET_AUTH_TOKEN_SUCCESS: 'GET_AUTH_TOKEN_SUCCESS';
   GET_AUTH_TOKEN_FAILURE: 'GET_AUTH_TOKEN_FAILURE';
@@ -13,6 +16,14 @@ interface UserActionTypes {
   GET_USER_ACCOUNT: 'GET_USER_ACCOUNT';
   GET_USER_ACCOUNT_SUCCESS: 'GET_USER_ACCOUNT_SUCCESS';
   GET_USER_ACCOUNT_FAILURE: 'GET_USER_ACCOUNT_FAILURE';
+}
+
+export interface UserLogoutAction {
+  type: UserActionTypes['USER_LOGOUT'];
+}
+
+export interface UserLogoutSuccessAction {
+  type: UserActionTypes['USER_LOGOUT'];
 }
 
 export interface LoginUserAction {
@@ -64,8 +75,11 @@ export interface GetAuthTokenFailureAction {
 
 interface UserActionCreators {
   loginUser(email: string, password: string): LoginUserAction;
-  loginUserSuccess(employeeAccount: UserType): LoginUserSuccessAction;
+  loginUserSuccess(userId: string): LoginUserSuccessAction;
   loginUserFailure(error: string): LoginUserFailureAction;
+
+  userLogout(): UserLogoutAction;
+  userLogoutSuccess(): UserLogoutSuccessAction;
 
   getUserAccount(userId: string): GetUserAccountAction;
   getUserAccountSuccess(userAccount: UserType): GetUserAccountSuccessAction;
@@ -80,6 +94,8 @@ export type UserAction =
   | LoginUserAction
   | LoginUserSuccessAction
   | LoginUserFailureAction
+  | UserLogoutAction
+  | UserLogoutSuccessAction
   | GetAuthTokenAction
   | GetAuthTokenSuccessAction
   | GetAuthTokenFailureAction
@@ -90,8 +106,11 @@ export type UserAction =
 const { Types, Creators } = createActions<UserActionTypes, UserActionCreators>(
   {
     loginUser: ['email', 'password'],
-    loginUserSuccess: ['employeeAccount'],
+    loginUserSuccess: ['userId'],
     loginUserFailure: ['error'],
+
+    userLogout: null,
+    userLogoutSuccess: null,
 
     getUserAccount: ['userId'],
     getUserAccountSuccess: ['userAccount'],
