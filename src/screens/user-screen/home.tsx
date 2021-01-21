@@ -9,8 +9,8 @@ import ProfileComponent from '../../components/Profile/profile';
 import Text, { TEXT_CLASSES } from '../../components/Text/text';
 import Vacation from '../../components/Vacation/vacation';
 import { RootState } from '../../redux';
+import { userActionCreators } from '../../redux/user';
 import { vacationActionCreators } from '../../redux/vacation';
-import { handleClickExit } from '../../utils/functions';
 
 const SvgIcon = styled.span`
   display: block;
@@ -44,11 +44,17 @@ const ContainerTitle = styled.div`
 
 const Home: FC<CombinedProps> = (props) => {
   const { t } = useTranslation();
-  const { getVacationRequestsMe, vacationRequests } = props;
+  const { getVacationRequestsMe, userLogout, vacationRequests } = props;
 
   useEffect(() => {
     getVacationRequestsMe();
   }, [getVacationRequestsMe]);
+
+  const handleClickExit = () => {
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('token');
+    userLogout();
+  };
 
   const vacationRequestsDate = vacationRequests.map((item) => ({
     ...item,
@@ -104,6 +110,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getVacationRequestsMe: () => dispatch(vacationActionCreators.getVacationRequestsMe()),
+  userLogout: () => dispatch(userActionCreators.userLogout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

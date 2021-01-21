@@ -47,6 +47,7 @@ const Profile: FC<CombinedProps> = (props) => {
   const { name, status, rate, hoursPerWeek, skills, role } = props;
   const { t } = useTranslation();
   const userId = useUserId();
+  console.log('userId:', userId);
   const { getUserAccount } = props;
   useEffect(() => {
     getUserAccount(userId);
