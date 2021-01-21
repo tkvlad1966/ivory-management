@@ -4,7 +4,6 @@ import { font } from '../../assets/fonts/HelveticaNowDisplay';
 import Box from '../../components/Box/Box';
 import Text from '../../components/Text/text';
 import { COLORS, ICON } from '../../utils/constants';
-import { handleClickExit } from '../../utils/functions';
 
 const Container = styled.div`
   display: grid;
@@ -22,9 +21,10 @@ const SvgIcon = styled.span`
 
 interface HeaderProfileProps {
   nameInitial: string;
+  handleClickExit: () => void;
 }
 
-const HeaderProfile: FC<HeaderProfileProps> = ({ nameInitial }) => {
+const HeaderProfile: FC<HeaderProfileProps> = ({ nameInitial, handleClickExit }) => {
   return (
     <Container>
       <SvgIcon className={ICON.SEARCH} />

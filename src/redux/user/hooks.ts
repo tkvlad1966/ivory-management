@@ -9,4 +9,6 @@ export const useUserId = () =>
     return userId;
   });
 
+export const useInitialized = () => useSelector((state: RootState) => state.user.initialized);
+
 export const useUserAccount = () => useSelector((state: RootState) => state.user.userAccount);

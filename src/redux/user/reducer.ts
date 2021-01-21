@@ -53,14 +53,12 @@ const getUserAccountSuccess: Handler<GetUserAccountSuccessAction> = (state, { us
   ...state,
   isLoading: false,
   userAccount: userAccount,
-  initialized: true,
 });
 
 const getUserAccountFailure: Handler<GetUserAccountFailureAction> = (state, { error }) => ({
   ...state,
   isLoading: false,
   error,
-  initialized: false,
 });
 
 const getAuthTokenSuccess: Handler<GetAuthTokenSuccessAction> = (

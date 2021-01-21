@@ -41,12 +41,17 @@ export type EducationsType = Education[];
 
 export interface ProfileType {
   skills: SkillsType;
-  _id: string;
+  // _id: string;
   workExperience: WorkExperienceType | null;
   education: EducationsType | null;
   hoursPerWeek: number;
   rate: number;
 }
+
+export type UpdateProfile = {
+  profile: ProfileType;
+  profileId: string;
+};
 
 export type ProfileTypeObj = { profile: ProfileType };
 
