@@ -22,9 +22,10 @@ const Work = styled.div`
 
 interface SkillsProps {
   profile: ProfileType;
+  handleSubmit: (values) => void;
 }
 
-const Skills: FC<SkillsProps> = ({ profile }) => {
+const Skills: FC<SkillsProps> = ({ profile, handleSubmit }) => {
   const { t } = useTranslation();
   const [editMode, setEditMode] = useState(false);
   const onClick = useCallback(() => {
@@ -51,7 +52,7 @@ const Skills: FC<SkillsProps> = ({ profile }) => {
               {item.name}
             </Text>
           ))}
-        {editMode && <SkillsForm profile={profile} />}
+        {editMode && <SkillsForm profile={profile} handleSubmit={handleSubmit} />}
       </Work>
       <Text className={ICON.EDIT} onClick={onClick} color={COLORS.GRAY} size={30} />
     </Container>

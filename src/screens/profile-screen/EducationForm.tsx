@@ -29,6 +29,7 @@ const Work = styled.div`
 
 interface EducationFormProps {
   profile: ProfileType;
+  handleSubmit: (values) => void;
 }
 
 type EducationFormType = {
@@ -40,8 +41,8 @@ type EducationFormType = {
   edit: boolean;
 };
 
-export const EducationForm: FC<EducationFormProps> = ({ profile }) => {
-  const educationsForm: EducationFormType[] = profile?.education.map((item, index) => {
+export const EducationForm: FC<EducationFormProps> = ({ profile, handleSubmit }) => {
+  const education: EducationFormType[] = profile?.education.map((item, index) => {
     return {
       name: item.name,
       speciality: item.speciality,
@@ -52,10 +53,10 @@ export const EducationForm: FC<EducationFormProps> = ({ profile }) => {
     };
   });
 
-  const initialValues = { educationsForm };
+  const initialValues = { education };
 
   const validateSchema = Yup.object().shape({
-    educations: Yup.array().of(
+    education: Yup.array().of(
       Yup.object().shape({
         name: Yup.string().required('Name is required'),
         speciality: Yup.string().required('Status is required'),
@@ -72,6 +73,7 @@ export const EducationForm: FC<EducationFormProps> = ({ profile }) => {
         initialValues={initialValues}
         validationSchema={validateSchema}
         onSubmit={(values) => {
+          handleSubmit(values);
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
           }, 500);
@@ -80,96 +82,96 @@ export const EducationForm: FC<EducationFormProps> = ({ profile }) => {
         {({ values, errors, touched, handleReset, setFieldValue }) => (
           <Form>
             <FieldArray
-              name="educations"
+              name="education"
               render={({ remove, push }) => (
                 <Data>
-                  {values.educationsForm.length > 0 &&
-                    values.educationsForm.map((work, index) => (
+                  {values.education.length > 0 &&
+                    values.education.map((work, index) => (
                       <Work className="row" key={index}>
                         <div>
                           <Field
-                            name={`educationsForm.${index}.firstDay`}
+                            name={`education.${index}.firstDay`}
                             placeholder="first Day"
-                            readOnly={values.educationsForm[index].edit}
+                            readOnly={values.education[index].edit}
                             type="date"
-                            value={null || educationsForm[index]?.firstDay}
+                            value={null || education[index]?.firstDay}
                           />
                           {IsErrorField({
                             errors,
                             touched,
                             index,
-                            nameForm: 'educationsForm',
+                            nameForm: 'education',
                             nameField: 'firstDay',
                           })}
                           <Field
-                            name={`educationsForm.${index}.lastDay`}
+                            name={`education.${index}.lastDay`}
                             placeholder="last Day"
-                            readOnly={values.educationsForm[index].edit}
+                            readOnly={values.education[index].edit}
                             type="date"
-                            value={null || educationsForm[index]?.lastDay}
+                            value={null || education[index]?.lastDay}
                           />
                           {IsErrorField({
                             errors,
                             touched,
                             index,
-                            nameForm: 'educationsForm',
+                            nameForm: 'education',
                             nameField: 'lastDay',
                           })}
                         </div>
                         <div>
                           <div>
                             <Field
-                              name={`educationsForm.${index}.name`}
+                              name={`education.${index}.name`}
                               placeholder="name "
-                              readOnly={values.educationsForm[index].edit}
+                              readOnly={values.education[index].edit}
                               type="text"
                             />
                             {IsErrorField({
                               errors,
                               touched,
                               index,
-                              nameForm: 'educationsForm',
+                              nameForm: 'education',
                               nameField: 'name',
                             })}
                           </div>
                           <div>
                             <Field
-                              name={`educationsForm.${index}.speciality`}
+                              name={`education.${index}.speciality`}
                               placeholder="speciality"
-                              readOnly={values.educationsForm[index].edit}
+                              readOnly={values.education[index].edit}
                               type="text"
                             />
                             {IsErrorField({
                               errors,
                               touched,
                               index,
-                              nameForm: 'educationsForm',
+                              nameForm: 'education',
                               nameField: 'speciality',
                             })}
                           </div>
                           <Field
-                            name={`educationsForm.${index}.degree`}
+                            name={`education.${index}.degree`}
                             placeholder="degree"
-                            readOnly={values.educationsForm[index].edit}
+                            readOnly={values.education[index].edit}
                             type="text"
                           />
                           {IsErrorField({
                             errors,
                             touched,
                             index,
-                            nameForm: 'educationsForm',
+                            nameForm: 'education',
                             nameField: 'degree',
                           })}
                         </div>
                         <div className="col">
                           <Field
                             type="checkbox"
-                            name={`educationsForm.${index}.edit`}
-                            checked={!values.educationsForm[index].edit}
+                            name={`education.${index}.edit`}
+                            checked={!values.education[index].edit}
                             onChange={() => {
                               setFieldValue(
-                                `educationsForm.${index}.edit`,
-                                !values.educationsForm[index].edit,
+                                `education.${index}.edit`,
+                                !values.education[index].edit,
                               );
                             }}
                           />

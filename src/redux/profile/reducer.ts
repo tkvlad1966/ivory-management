@@ -58,11 +58,13 @@ const updateUserProfile: Handler<UpdateUserProfileAction> = (state) => ({
 const updateUserProfileSuccess: Handler<UpdateUserProfileSuccessAction> = (
   state,
   { userProfile },
-) => ({
-  ...state,
-  isLoading: false,
-  userProfile: userProfile,
-});
+) => {
+  return {
+    ...state,
+    isLoading: false,
+    userProfile: userProfile,
+  };
+};
 
 const updateUserProfileFailure: Handler<UpdateUserProfileFailureAction> = (state, { error }) => ({
   ...state,

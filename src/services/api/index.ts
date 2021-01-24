@@ -28,7 +28,7 @@ class Api {
   };
 
   getAuthToken = (refreshToken: RefreshToken) => {
-    return this.client.post<AuthToken, string>('auth/refresh', refreshToken);
+    return this.client.post<AuthToken>('auth/refresh', refreshToken);
   };
 
   loginUser = (data: AuthRequestBody) => {
@@ -77,9 +77,9 @@ class Api {
   };
 
   updateProfile = (data: UpdateProfile) => {
-    const { profile, profileId } = data;
+    const { updateProfile, profileId } = data;
     try {
-      const responseData = this.client.put<ProfileType>(`profiles/${profileId}`, profile);
+      const responseData = this.client.put<ProfileType>(`profiles/${profileId}`, updateProfile);
       return responseData;
     } catch (error) {
       return error;

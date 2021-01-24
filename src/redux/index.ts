@@ -17,7 +17,6 @@ export const appReducer = combineReducers({
 });
 
 export const rootReducer = (state, action) => {
-  console.log('action:', action);
   if (action.type === 'USER/USER_LOGOUT_SUCCESS') {
     localStorage.removeItem('persist: root');
     state = undefined;
