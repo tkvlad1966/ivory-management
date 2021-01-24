@@ -12,19 +12,20 @@ import * as Yup from 'yup';
 
 interface SkillFormProps {
   profile: ProfileType;
+  handleSubmit: (values) => void;
 }
 
 type SkillsFormType = {
   name: string;
 };
 
-const SkillsForm: FC<SkillFormProps> = ({ profile }) => {
-  const skill: SkillsFormType[] = profile?.skills.map((item, index) => {
+const SkillsForm: FC<SkillFormProps> = ({ profile, handleSubmit }) => {
+  const skills: SkillsFormType[] = profile?.skills.map((item, index) => {
     return { name: item.name, edit: true };
   });
-  const initialValues = { skill };
-  const educationValidation = Yup.object().shape({
-    skill: Yup.array().of(
+  const initialValues = { skills };
+  const skillValidation = Yup.object().shape({
+    skills: Yup.array().of(
       Yup.object().shape({
         name: Yup.string().required('Please enter a skill'),
       }),
@@ -36,33 +37,34 @@ const SkillsForm: FC<SkillFormProps> = ({ profile }) => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => {
+          handleSubmit(values);
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
           }, 500);
         }}
-        validationSchema={educationValidation}
+        validationSchema={skillValidation}
       >
         {({ values, errors, touched, handleReset }) => {
           return (
             <Form>
               <FieldArray
-                name="skill"
+                name="skills"
                 render={({ remove, push }) => (
                   <div>
-                    {values.skill.length > 0 &&
-                      values.skill.map((skill, index) => (
+                    {values.skills.length > 0 &&
+                      values.skills.map((skills, index) => (
                         <div className="row" key={index}>
                           <div className="col">
-                            <Field name={`skill.${index}.name`} placeholder="name " type="text" />
+                            <Field name={`skills.${index}.name`} placeholder="name " type="text" />
                           </div>
 
                           {errors &&
-                          errors.skill &&
-                          errors.skill[index] &&
+                          errors.skills &&
+                          errors.skills[index] &&
                           // @ts-ignore
-                          errors.skill[index].name ? (
+                          errors.skills[index].name ? (
                             // @ts-ignore
-                            <div> {errors.skill[index].name} </div>
+                            <div> {errors.skills[index].name} </div>
                           ) : null}
                           <div className="col"></div>
                           <div className="col">

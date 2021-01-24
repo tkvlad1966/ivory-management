@@ -14,6 +14,7 @@ const Work = styled.div`
 
 interface WorksFormProps {
   profile: ProfileType;
+  handleSubmit: (values) => void;
 }
 
 type WorkEditType = {
@@ -25,8 +26,9 @@ type WorkEditType = {
 };
 
 export const WorksForm: FC<WorksFormProps> = (props) => {
-  const { profile } = props;
-  const works: WorkEditType[] = profile?.workExperience.map((item, index) => {
+  const { profile, handleSubmit } = props;
+
+  const workExperience: WorkEditType[] = profile?.workExperience.map((item, index) => {
     return {
       name: item.name,
       status: item.status,
@@ -36,10 +38,10 @@ export const WorksForm: FC<WorksFormProps> = (props) => {
     };
   });
 
-  const initialValues = { works };
+  const initialValues = { workExperience };
 
   const validateSchema = Yup.object().shape({
-    works: Yup.array().of(
+    workExperience: Yup.array().of(
       Yup.object().shape({
         name: Yup.string().required('Name is required'),
         status: Yup.string().required('Status is required'),
@@ -56,6 +58,7 @@ export const WorksForm: FC<WorksFormProps> = (props) => {
         validationSchema={validateSchema}
         onSubmit={(values) => {
           setTimeout(() => {
+            handleSubmit(values);
             alert(JSON.stringify(values, null, 2));
           }, 500);
         }}
@@ -63,42 +66,43 @@ export const WorksForm: FC<WorksFormProps> = (props) => {
         {({ values, errors, touched, handleReset, setFieldValue }) => (
           <Form>
             <FieldArray
-              name="works"
+              name="workExperience"
               render={({ remove, push }) => (
                 <div>
-                  {values.works.length > 0 &&
-                    values.works.map((work, index) => (
+                  {values.workExperience.length > 0 &&
+                    values.workExperience.map((work, index) => (
                       <Work key={index}>
                         <div>
                           <div>
                             <Field
-                              name={`works.${index}.firstDay`}
+                              name={`workExperience.${index}.firstDay`}
                               placeholder="first Day"
-                              readOnly={values.works[index].edit}
+                              readOnly={values.workExperience[index].edit}
                               type="date"
-                              value={null || works[index]?.firstDay}
+                              value={null || workExperience[index]?.firstDay}
                             />
                             {IsErrorField({
                               errors,
                               touched,
                               index,
-                              nameForm: 'works',
+                              nameForm: 'workExperience',
                               nameField: 'firstDay',
                             })}
                           </div>
                           <div>
                             <Field
-                              name={`works.${index}.lastDay`}
+                              name={`workExperience.${index}.lastDay`}
                               placeholder="last Day"
-                              readOnly={values.works[index].edit}
+                              readOnly={values.workExperience[index].edit}
                               type="date"
-                              value={null || works[index]?.lastDay}
+                              value={null || workExperience[index]?.lastDay}
+                              max={new Date()}
                             />
                             {IsErrorField({
                               errors,
                               touched,
                               index,
-                              nameForm: 'works',
+                              nameForm: 'workExperience',
                               nameField: 'lastDay',
                             })}
                           </div>
@@ -106,24 +110,24 @@ export const WorksForm: FC<WorksFormProps> = (props) => {
                         <div>
                           <div>
                             <Field
-                              name={`works.${index}.name`}
+                              name={`workExperience.${index}.name`}
                               placeholder="name company"
-                              readOnly={values.works[index].edit}
+                              readOnly={values.workExperience[index].edit}
                               type="text"
                             />
                             {IsErrorField({
                               errors,
                               touched,
                               index,
-                              nameForm: 'works',
+                              nameForm: 'workExperience',
                               nameField: 'name',
                             })}
                           </div>
                           <div>
                             <Field
-                              name={`works.${index}.status`}
+                              name={`workExperience.${index}.status`}
                               placeholder="status"
-                              readOnly={values.works[index].edit}
+                              readOnly={values.workExperience[index].edit}
                               type="text"
                             />
                           </div>
@@ -131,17 +135,20 @@ export const WorksForm: FC<WorksFormProps> = (props) => {
                             errors,
                             touched,
                             index,
-                            nameForm: 'works',
+                            nameForm: 'workExperience',
                             nameField: 'status',
                           })}
                         </div>
                         <div>
                           <Field
                             type="checkbox"
-                            name={`works.${index}.edit`}
-                            checked={!values.works[index].edit}
+                            name={`workExperience.${index}.edit`}
+                            checked={!values.workExperience[index].edit}
                             onChange={() => {
-                              setFieldValue(`works.${index}.edit`, !values.works[index].edit);
+                              setFieldValue(
+                                `workExperience.${index}.edit`,
+                                !values.workExperience[index].edit,
+                              );
                             }}
                           />
                         </div>

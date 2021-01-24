@@ -23,10 +23,12 @@ const Work = styled.div`
 
 interface EducationProps {
   profile: ProfileType;
+  handleSubmit: (values) => void;
+  onClick: () => void;
 }
 
 const Educations: FC<EducationProps> = (props) => {
-  const { profile } = props;
+  const { profile, handleSubmit } = props;
   const { t } = useTranslation();
   const [editMode, setEditMode] = useState(false);
   const onClick = useCallback(() => {
@@ -63,7 +65,7 @@ const Educations: FC<EducationProps> = (props) => {
       </div>
       <div>
         {!editMode && profile?.education.map(renderEducationInfo)}
-        {editMode && <EducationForm profile={profile} />}
+        {editMode && <EducationForm profile={profile} handleSubmit={handleSubmit} />}
       </div>
       <Text className={ICON.EDIT} onClick={onClick} color={COLORS.GRAY} size={30} />
     </Container>
