@@ -38,11 +38,7 @@ function* loginUser(action: LoginUserAction) {
 
   try {
     const response = yield call(api.loginUser, { email, password });
-    console.log('response:', response);
 
-    // yield put(
-    //   userActionCreators.getAuthTokenSuccess(response.data.token, response.data.refreshToken),
-    // );
     if (response.ok && response.data) {
       yield put(userActionCreators.loginUserSuccess(response.data.user._id));
       localStorage.setItem('token', response.data.token);
