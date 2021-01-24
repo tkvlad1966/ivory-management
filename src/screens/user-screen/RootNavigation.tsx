@@ -27,7 +27,7 @@ const Component = styled.div`
   overflow: scroll;
 `;
 
-const Employee = () => {
+const User = () => {
   return (
     <BrowserRouter>
       <Container>
@@ -52,4 +52,4 @@ const Employee = () => {
   );
 };
 
-export default Employee;
+export default User;
