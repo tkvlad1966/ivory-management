@@ -31,6 +31,12 @@ const en = {
     education: 'education',
     present: 'Present',
   },
+  signUp: {
+    registration: 'registration',
+    full_name: 'full name',
+    first_day: 'first day',
+    sign_up: 'Sign up',
+  },
 };
 
 export default en;

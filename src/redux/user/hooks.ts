@@ -11,4 +11,8 @@ export const useUserId = () =>
 
 export const useInitialized = () => useSelector((state: RootState) => state.user.initialized);
 
-export const useUserAccount = () => useSelector((state: RootState) => state.user.userAccount);
+export const useUserAccount = () =>
+  useSelector((state: RootState) => {
+    const userAccount = state.user?.userAccount ?? null;
+    return userAccount;
+  });

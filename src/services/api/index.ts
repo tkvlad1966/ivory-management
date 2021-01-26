@@ -11,6 +11,8 @@ import {
   VacationRequestsType,
   ProfileType,
   UpdateProfile,
+  SignUpRequestBody,
+  SignUpResponse,
 } from './api.types';
 
 class Api {
@@ -34,6 +36,15 @@ class Api {
   loginUser = (data: AuthRequestBody) => {
     try {
       const responseData = this.client.post<UserType, AuthToken>('auth/login', data);
+      return responseData;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  signUpSuperAdmin = (data: SignUpRequestBody) => {
+    try {
+      const responseData = this.client.post<UserType, SignUpResponse>('admins/signup', data);
       return responseData;
     } catch (error) {
       return error;

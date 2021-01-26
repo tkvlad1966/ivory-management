@@ -6,6 +6,10 @@ interface UserActionTypes {
   LOGIN_USER_SUCCESS: 'LOGIN_USER_SUCCESS';
   LOGIN_USER_FAILURE: 'LOGIN_USER_FAILURE';
 
+  SIGN_UP_SUPER_ADMIN: 'SIGN_UP_SUPER_ADMIN';
+  SIGN_UP_SUPER_ADMIN_SUCCESS: 'SIGN_UP_SUPER_ADMIN_SUCCESS';
+  SIGN_UP_SUPER_ADMIN_FAILURE: 'SIGN_UP_SUPER_ADMIN_FAILURE';
+
   USER_LOGOUT: 'USER_LOGOUT';
   USER_LOGOUT_SUCCESS: 'USER_LOGOUT_SUCCESS';
 
@@ -39,6 +43,24 @@ export interface LoginUserSuccessAction {
 
 export interface LoginUserFailureAction {
   type: UserActionTypes['LOGIN_USER_FAILURE'];
+  error: string;
+}
+
+export interface SignUpSuperAdminAction {
+  type: UserActionTypes['SIGN_UP_SUPER_ADMIN'];
+  name: string;
+  email: string;
+  company: string;
+  firstDay: string;
+}
+
+export interface SignUpSuperAdminSuccessAction {
+  type: UserActionTypes['SIGN_UP_SUPER_ADMIN_SUCCESS'];
+  userAccount: UserType;
+}
+
+export interface SignUpSuperAdminFailureAction {
+  type: UserActionTypes['SIGN_UP_SUPER_ADMIN_FAILURE'];
   error: string;
 }
 
@@ -81,6 +103,15 @@ interface UserActionCreators {
   userLogout(): UserLogoutAction;
   userLogoutSuccess(): UserLogoutSuccessAction;
 
+  signUpSuperAdmin(
+    name: string,
+    email: string,
+    company: string,
+    firstDay: string,
+  ): SignUpSuperAdminAction;
+  signUpSuperAdminSuccess(userAccount: UserType): SignUpSuperAdminSuccessAction;
+  signUpSuperAdminFailure(error: string): SignUpSuperAdminFailureAction;
+
   getUserAccount(userId: string): GetUserAccountAction;
   getUserAccountSuccess(userAccount: UserType): GetUserAccountSuccessAction;
   getUserAccountFailure(error: string): GetUserAccountFailureAction;
@@ -96,6 +127,9 @@ export type UserAction =
   | LoginUserFailureAction
   | UserLogoutAction
   | UserLogoutSuccessAction
+  | SignUpSuperAdminAction
+  | SignUpSuperAdminSuccessAction
+  | SignUpSuperAdminFailureAction
   | GetAuthTokenAction
   | GetAuthTokenSuccessAction
   | GetAuthTokenFailureAction
@@ -111,6 +145,10 @@ const { Types, Creators } = createActions<UserActionTypes, UserActionCreators>(
 
     userLogout: null,
     userLogoutSuccess: null,
+
+    signUpSuperAdmin: ['name', 'email', 'company', 'firstDay'],
+    signUpSuperAdminSuccess: ['userAccount'],
+    signUpSuperAdminFailure: ['error'],
 
     getUserAccount: ['userId'],
     getUserAccountSuccess: ['userAccount'],
