@@ -9,6 +9,8 @@ import {
   GetAuthTokenFailureAction,
   GetUserAccountSuccessAction,
   GetUserAccountFailureAction,
+  SignUpSuperAdminSuccessAction,
+  SignUpSuperAdminFailureAction,
 } from './actions';
 
 export interface UserState {
@@ -49,6 +51,25 @@ const loginUserFailure: Handler<LoginUserFailureAction> = (state, { error }) => 
   initialized: false,
 });
 
+const signUpSuperAdminSuccess: Handler<SignUpSuperAdminSuccessAction> = (
+  state,
+  { userAccount },
+) => {
+  return {
+    ...state,
+    isLoading: false,
+    userAccount: userAccount,
+    initialized: true,
+  };
+};
+
+const signUpSuperAdminFailure: Handler<SignUpSuperAdminFailureAction> = (state, { error }) => ({
+  ...state,
+  isLoading: false,
+  error,
+  initialized: false,
+});
+
 const getUserAccountSuccess: Handler<GetUserAccountSuccessAction> = (state, { userAccount }) => ({
   ...state,
   isLoading: false,
@@ -81,6 +102,9 @@ const getAuthTokenFailure: Handler<GetAuthTokenFailureAction> = (state, { error 
 export const userReducer = createReducer<UserState, UserAction>(INITIAL_STATE, {
   [userActionTypes.LOGIN_USER_SUCCESS]: loginUserSuccess,
   [userActionTypes.LOGIN_USER_FAILURE]: loginUserFailure,
+
+  [userActionTypes.SIGN_UP_SUPER_ADMIN_SUCCESS]: signUpSuperAdminSuccess,
+  [userActionTypes.SIGN_UP_SUPER_ADMIN_FAILURE]: signUpSuperAdminFailure,
 
   [userActionTypes.GET_USER_ACCOUNT_SUCCESS]: getUserAccountSuccess,
   [userActionTypes.GET_USER_ACCOUNT_FAILURE]: getUserAccountFailure,
