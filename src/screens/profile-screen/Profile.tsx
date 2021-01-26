@@ -14,6 +14,7 @@ import { useUserAccount } from '../../redux/user/hooks';
 import { userActionCreators } from '../../redux/user';
 import { profileActionCreators } from '../../redux/profile';
 import { UpdateProfile } from '../../services/api/api.types';
+// import { initialProfile } from '../../utils/constants';
 
 const Container = styled.div`
   margin: 40px;
@@ -21,19 +22,22 @@ const Container = styled.div`
 
 const ProfileComponent: FC<CombinedProps> = (props) => {
   const userAccount = useUserAccount();
-  const { name, role, status, firstDay, company, profile } = userAccount;
-  const nameInitial = `${name?.split(' ')[0][0]} ${name?.split(' ')[1][0]}`;
+  console.log('userAccount:', userAccount);
+
   const { userLogout, updateUserProfile } = props;
   const [editMode, setEditMode] = useState(false);
   const [updateProfile, setUpdateProfile] = useState({});
 
-  const updateProfileData: UpdateProfile = { updateProfile, profileId: profile._id };
   const handleClickExit = () => {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('token');
     window.location.replace('/login');
     userLogout();
   };
+
+  const onClick = useCallback(() => {
+    setEditMode(!editMode);
+  }, [setEditMode, editMode]);
 
   const handleSubmit = useCallback(
     (values) => {
@@ -42,18 +46,18 @@ const ProfileComponent: FC<CombinedProps> = (props) => {
     [setUpdateProfile, updateProfile],
   );
 
-  // const sendTo = useCallback(() => {
-  //   updateUserProfile(updateProfileData);
-  // }, [updateUserProfile, updateProfileData]);
+  if (userAccount === null) {
+    return null;
+  }
+
+  const { name, role, status, firstDay, company, profile } = userAccount;
+  const nameInitial = `${name?.split(' ')[0][0]} ${name?.split(' ')[1][0]}`;
+  const updateProfileData: UpdateProfile = { updateProfile, profileId: profile._id };
 
   const sendTo = () => {
     updateUserProfile(updateProfileData);
     setEditMode(false);
   };
-
-  const onClick = useCallback(() => {
-    setEditMode(!editMode);
-  }, [setEditMode, editMode]);
 
   const renderWorkExperience = () => (
     <WorkExperience

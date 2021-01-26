@@ -9,12 +9,13 @@ const RootAuthorization = (props) => {
   } = props;
   const link: string = pathname;
   const linking: boolean = 'signUp' === link.split('/')[1];
+  const role = 'superAdmin';
 
   return (
     <>
       {linking ? <Redirect to={'/signUp'} /> : <Redirect to={'/login'} />}
       <Route path="/login" render={() => <Login />} />
-      <Route path="/signUp" render={() => <SignUp />} />
+      <Route path="/signUp" render={() => <SignUp role={role} />} />
     </>
   );
 };

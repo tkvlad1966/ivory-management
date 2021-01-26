@@ -42,7 +42,7 @@ const User = () => {
         />
         <Component>
           <Route path="/employee/home" render={() => <Home />} />
-          <Route path="/employee/profile/:userName?" render={() => <Profile />} />
+          <Route path="/employee/profile" render={() => <Profile />} />
           <Route path="/employee/history" render={() => <History />} />
           <Route path="/employee/portfolio" render={() => <Portfolio />} />
           <Route path="/employee/settings" render={() => <Settings />} />
