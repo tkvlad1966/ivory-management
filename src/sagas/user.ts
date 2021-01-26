@@ -1,11 +1,17 @@
 import { ApiResponse } from 'apisauce';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { AuthToken, UserTypeObj } from '../services/api/api.types';
+import {
+  AuthToken,
+  SignUpRequestBody,
+  SignUpResponse,
+  UserTypeObj,
+} from '../services/api/api.types';
 import api from '../services/api';
 import {
   GetAuthTokenAction,
   GetUserAccountAction,
   LoginUserAction,
+  SignUpSuperAdminAction,
   userActionCreators,
   userActionTypes,
   UserLogoutAction,
@@ -63,6 +69,33 @@ function* userLogout() {
   }
 }
 
+function* signUpSuperAdmin(action: SignUpRequestBody) {
+  const { name, email, company, firstDay } = action;
+  console.log('action:', action);
+
+  try {
+    const response: ApiResponse<SignUpResponse> = yield call(api.signUpSuperAdmin, {
+      name,
+      email,
+      company,
+      firstDay,
+    });
+
+    if (response.ok && response.data) {
+      console.log('response:', response);
+      yield put(userActionCreators.signUpSuperAdminSuccess(response.data.user));
+    } else {
+      if (!response.ok) {
+        console.log('response:', response);
+
+        yield put(userActionCreators.signUpSuperAdminFailure('error login or password'));
+      }
+    }
+  } catch (error) {
+    yield put(userActionCreators.signUpSuperAdminFailure(error));
+  }
+}
+
 function* getUserAccount(action: GetUserAccountAction) {
   const { userId } = action;
 
@@ -80,6 +113,7 @@ function* getUserAccount(action: GetUserAccountAction) {
 
 export function* userSaga() {
   yield takeLatest<LoginUserAction>(userActionTypes.LOGIN_USER, loginUser);
+  yield takeLatest<SignUpSuperAdminAction>(userActionTypes.SIGN_UP_SUPER_ADMIN, signUpSuperAdmin);
   yield takeLatest<GetAuthTokenAction>(userActionTypes.GET_AUTH_TOKEN, getAuthToken);
   yield takeLatest<GetUserAccountAction>(
     userActionTypes.GET_USER_ACCOUNT,
