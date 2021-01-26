@@ -8,6 +8,20 @@ export type AuthRequestBody = {
   password: string;
 };
 
+export type SignUpRequestBody = {
+  name: string;
+  email: string;
+  company: string;
+  firstDay: string;
+};
+
+export type SignUpResponse = {
+  user: UserType;
+  token: string;
+  refreshToken: string;
+  password: string;
+};
+
 export type Company = {
   _id: string;
   name: string;
@@ -72,9 +86,9 @@ export interface UserType {
   role: Role;
   accumulatedVacation: number;
   usedVacation: number;
-
   status: string;
   profile: ProfileType;
+  // portfolio: string;
 }
 
 export type UserTypeObj = { user: UserType };
