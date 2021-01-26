@@ -5,11 +5,11 @@ import { COLORS } from '../../utils/constants';
 interface LoginFormStyles {
   FieldStyle: any;
   FieldCheckStyled: any;
+  ButtonStyle: any;
 }
 
 const styles: LoginFormStyles = {
   FieldStyle: styled.input`
-    background-color: #faf9f9;
     width: 98%;
     border: none;
     border-bottom: 1px solid #c4c4c4;
@@ -29,6 +29,11 @@ const styles: LoginFormStyles = {
     border-radius: 25%;
     margin: 2em 1em 2em 1em;
   `,
+
+  ButtonStyle: {
+    marginTop: '50px',
+    textAlign: 'center',
+  },
 };
 
 export default styles;
