@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLORS } from '../../utils/constants';
 import History from '../history-screen/History';
@@ -27,7 +27,7 @@ const Component = styled.div`
   overflow: scroll;
 `;
 
-const User = () => {
+const RootNavigation = () => {
   return (
     <BrowserRouter>
       <Container>
@@ -41,15 +41,17 @@ const User = () => {
           }}
         />
         <Component>
-          <Route path="/employee/home" render={() => <Home />} />
-          <Route path="/employee/profile" render={() => <Profile />} />
-          <Route path="/employee/history" render={() => <History />} />
-          <Route path="/employee/portfolio" render={() => <Portfolio />} />
-          <Route path="/employee/settings" render={() => <Settings />} />
+          <Switch>
+            <Route path="/employee/home" render={() => <Home />} />
+            <Route path="/employee/profile" render={() => <Profile />} />
+            <Route path="/employee/history" render={() => <History />} />
+            <Route path="/employee/portfolio" render={() => <Portfolio />} />
+            <Route path="/employee/settings" render={() => <Settings />} />
+          </Switch>
         </Component>
       </Container>
     </BrowserRouter>
   );
 };
 
-export default User;
+export default RootNavigation;
