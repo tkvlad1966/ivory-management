@@ -8,7 +8,7 @@ interface ButtonStyle {
 
 const Button = styled.button<ButtonStyle>`
   &.primary {
-    width: 100%;
+    width: 50%;
     height: 66px;
     margin-top: 1em;
     background: ${COLORS.Silver};

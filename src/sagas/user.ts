@@ -72,9 +72,8 @@ function* userLogout() {
 function* signUpSuperAdmin(action: SignUpRequestBody) {
   const { name, email, company, firstDay } = action;
   console.log('action:', action);
-
   try {
-    const response: ApiResponse<SignUpResponse> = yield call(api.signUpSuperAdmin, {
+    const response: ApiResponse<SignUpResponse, string> = yield call(api.signUpSuperAdmin, {
       name,
       email,
       company,

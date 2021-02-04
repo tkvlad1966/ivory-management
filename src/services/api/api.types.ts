@@ -119,10 +119,12 @@ export interface VacationType {
 
 export type VacationRequestsType = Array<VacationType>;
 
-export interface CompaniesType {
+export interface CompanyType {
   _id: string;
-  name: string;
+  name: string | null;
   annualLeave: number;
+  createdAt: string;
+  updateAt: string;
 }
 
 export interface ServerError {
@@ -134,12 +136,12 @@ export type Token = string;
 export type RefreshToken = { refreshToken: string };
 export type Password = string;
 
-export type RegisterRequestBody = {
-  email: string;
-  username: string;
-  lastName: string;
-  phone: string;
-  govId: string;
-  password: string;
-  buyerType: 'PUBLIC' | 'PRIVATE' | string; // TODO check it and remove 'or string'
-};
+// export type RegisterRequestBody = {
+//   email: string;
+//   username: string;
+//   lastName: string;
+//   phone: string;
+//   govId: string;
+//   password: string;
+//   buyerType: 'PUBLIC' | 'PRIVATE' | string; // TODO check it and remove 'or string'
+// };
