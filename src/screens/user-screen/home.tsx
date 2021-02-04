@@ -53,6 +53,7 @@ const Home: FC<CombinedProps> = (props) => {
   const handleClickExit = () => {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('token');
+    window.location.replace('/login');
     userLogout();
   };
 

@@ -32,20 +32,21 @@ const Title = styled.div`
 
 interface SignUpProps {
   role: string;
+  companyId: string;
 }
 
 const SignUp: FC<SignUpProps & CombinedProps> = (props) => {
-  const { role } = props;
+  const { role, companyId } = props;
   const { t } = useTranslation();
   const { signUpSuperAdmin } = props;
 
   const onSignIn = useCallback(
     (name, email, firstDay) => {
-      const company = '600a9e8f5d0e25001924c4f8';
+      const company = companyId;
       signUpSuperAdmin(name, email, company, firstDay);
       // i18next.changeLanguage('ua');
     },
-    [signUpSuperAdmin],
+    [companyId, signUpSuperAdmin],
   );
   return (
     <Container>

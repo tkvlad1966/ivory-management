@@ -71,10 +71,10 @@ const MyForm = withFormik<MyFormProps, FormValues>({
   // Transform outer props into form values
   mapPropsToValues: (props) => {
     return {
-      fullName: props.initialFullName,
-      email: props.initialEmail,
+      fullName: '',
+      email: '',
       // password: props.password,
-      firstDay: props.firstDay,
+      firstDay: '',
     };
   },
 
