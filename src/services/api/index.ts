@@ -13,6 +13,7 @@ import {
   UpdateProfile,
   SignUpRequestBody,
   SignUpResponse,
+  CompanyType,
 } from './api.types';
 
 class Api {
@@ -21,7 +22,7 @@ class Api {
   constructor(baseURL = 'https://api-management.ivorysoft.co/') {
     this.client = apisauce.create({
       baseURL,
-      timeout: 10000,
+      timeout: 1000,
     });
   }
 
@@ -91,6 +92,15 @@ class Api {
     const { updateProfile, profileId } = data;
     try {
       const responseData = this.client.put<ProfileType>(`profiles/${profileId}`, updateProfile);
+      return responseData;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  getCompany = (companyId: string) => {
+    try {
+      const responseData = this.client.get<CompanyType>(`companies/${companyId}`);
       return responseData;
     } catch (error) {
       return error;
