@@ -7,12 +7,14 @@ import { userReducer } from './user';
 import { vacationReducer } from './vacation';
 import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { companyReducer } from './company/reducer';
 // import logger from 'redux-logger';
 
 export const appReducer = combineReducers({
   user: userReducer,
   profile: profileReducer,
   vacation: vacationReducer,
+  company: companyReducer,
   navbar: navbarReducer,
 });
 
