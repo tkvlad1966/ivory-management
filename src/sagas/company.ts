@@ -6,6 +6,7 @@ import {
   companyActionTypes,
   GetCompanyAction,
 } from '../redux/company/actions';
+import { errorActionCreators } from '../redux/error';
 import api from '../services/api';
 import { CompanyType } from '../services/api/api.types';
 
@@ -23,8 +24,12 @@ function* getCompany(action: GetCompanyAction) {
       yield put(companyActionCreators.getCompanySuccess(response.data.company));
     } else if (!response.ok) {
       yield put(companyActionCreators.getCompanyFailure('company Error'));
+      yield put(
+        errorActionCreators.handleError('getCompanyError', response.data || 'company Error'),
+      );
     }
   } catch (error) {
+    yield put(errorActionCreators.handleError('getCompanyError', error));
     yield put(companyActionCreators.getCompanyFailure(error));
   }
 }

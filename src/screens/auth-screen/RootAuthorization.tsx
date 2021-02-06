@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, useLocation } from 'react-router-dom';
 import { companyActionCreators } from '../../redux/company/actions';
 import { useCompany } from '../../redux/company/hooks';
+import { useError } from '../../redux/error';
 import Login from './login';
 import SignUp from './signUp';
 
@@ -16,16 +17,17 @@ const RootAuthorization = () => {
   useEffect(() => {
     dispatch(companyActionCreators.getCompany(companyId));
   }, [companyId, dispatch]);
-
+  const error1 = useError()?.getCompanyError;
+  const error2 = useError()?.signUpSuperAdminError;
+  const error = error1 || error2;
   const nameCompany = useCompany()?.company?.name;
-  const errorCompany = useCompany()?.error;
-  // const errorUser = useUserError();
-  // errorCompany ? (error = errorCompany) : (error = errorUser);
+
   nameCompany ? (role = 'superAdmin') : (role = 'admin');
+
   return (
     <BrowserRouter>
       {pathname === '/signUp' ? (
-        !errorCompany ? (
+        !error ? (
           <Redirect to={`/signUp/${nameCompany}`} />
         ) : (
           <Redirect to={'/error'} />
@@ -38,7 +40,7 @@ const RootAuthorization = () => {
       <Route path={`/signUp/${nameCompany}`}>
         <SignUp role={role} companyId={companyId} />
       </Route>
-      <Route path="/error" render={() => <ErrorCompany error={errorCompany} />} />
+      <Route path="/error" render={() => <ErrorCompany error={error} />} />
     </BrowserRouter>
   );
 };

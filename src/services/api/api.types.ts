@@ -93,6 +93,12 @@ export interface UserType {
 
 export type UserTypeObj = { user: UserType };
 
+export type LoginUserResponse = {
+  user: UserType;
+  token: string;
+  refreshToken: string;
+};
+
 export type UserVacationType = {
   _id: string;
   name: string;
