@@ -98,7 +98,7 @@ export interface GetAuthTokenFailureAction {
 interface UserActionCreators {
   loginUser(email: string, password: string): LoginUserAction;
   loginUserSuccess(userId: string): LoginUserSuccessAction;
-  loginUserFailure(error: string): LoginUserFailureAction;
+  loginUserFailure(error: Object): LoginUserFailureAction;
 
   userLogout(): UserLogoutAction;
   userLogoutSuccess(): UserLogoutSuccessAction;

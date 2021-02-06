@@ -1,5 +1,6 @@
 import { ApiResponse } from 'apisauce';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { errorActionCreators } from '../redux/error';
 import {
   GetUserProfileAction,
   profileActionCreators,
@@ -16,11 +17,20 @@ import { withRefreshTokenHandler } from './refreshToken';
 function* getUserProfile(action: GetUserProfileAction) {
   const userId = yield select(selectUserId);
   const response: ApiResponse<ProfileTypeObj> = yield call(api.getProfile, userId);
-
-  if (response.ok && response.data) {
-    yield put(profileActionCreators.getUserProfileSuccess(response.data.profile, userId));
-  } else if (!response.ok) {
-    yield put(profileActionCreators.getUserProfileFailure('getUserProfile error'));
+  try {
+    if (response.ok && response.data) {
+      yield put(profileActionCreators.getUserProfileSuccess(response.data.profile, userId));
+    } else if (!response.ok) {
+      yield put(profileActionCreators.getUserProfileFailure('getUserProfile error'));
+      yield put(
+        errorActionCreators.handleError(
+          'getUserProfileError',
+          response.data || 'getUserProfile error',
+        ),
+      );
+    }
+  } catch (error) {
+    yield put(errorActionCreators.handleError('getUserProfileError', error));
   }
   return response;
 }
@@ -34,14 +44,24 @@ function* updateUserProfile(action: UpdateUserProfileAction) {
     updateProfile,
     profileId,
   });
-  if (response.ok && response.data) {
-    yield put(profileActionCreators.updateUserProfileSuccess(response.data));
-    const userId = yield select(selectUserId);
-    yield put(userActionCreators.getUserAccount(userId));
-  } else {
-    if (!response.ok) {
-      yield put(profileActionCreators.updateUserProfileFailure('error update profile'));
+  try {
+    if (response.ok && response.data) {
+      yield put(profileActionCreators.updateUserProfileSuccess(response.data));
+      const userId = yield select(selectUserId);
+      yield put(userActionCreators.getUserAccount(userId));
+    } else {
+      if (!response.ok) {
+        yield put(profileActionCreators.updateUserProfileFailure('error update profile'));
+        yield put(
+          errorActionCreators.handleError(
+            'updateUserProfileError',
+            response.data || 'error update profile',
+          ),
+        );
+      }
     }
+  } catch (error) {
+    yield put(errorActionCreators.handleError('updateUserProfileError', error));
   }
   return response;
 }
